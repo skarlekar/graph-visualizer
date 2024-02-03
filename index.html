@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Force-Directed Graph from JSON</title>
+    <!-- <script src="https://d3js.org/d3.v5.min.js"></script> -->
+    <script src="../javascript/d3.v5.min.js"></script>
+
+    <style>
+        /* Add any additional styles you need */
+        .links line {
+            stroke: #999;
+            stroke-opacity: 0.6;
+        }
+
+        .nodes circle {
+            stroke: #fff;
+            stroke-width: 1.5px;
+        }
+
+        .text {
+            font: 12px sans-serif;
+            pointer-events: none;
+            text-anchor: middle;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        #container {
+            text-align: center;
+        }
+
+        #jsonInput {
+            width: 300px;
+            height: 100px;
+        }
+
+        #submit {
+            margin-top: 10px;
+        }
+
+        .error {
+            color: red;
+        }
+
+        .my-svg {
+            width: 1400px;
+            height: 800px;
+            border: 1px dashed red;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <h1>Knowledge Visualizer</h1>
+        <!-- Slider for Repulsion Strength -->
+        <label for="repulsionRange">Node Distance (Choose -1000 for maximum distance):</label>
+        <input type="range" id="repulsionRange" min="-1000" max="0" value="-400" step="10">
+        <span id="repulsionValue">-400</span>
+        <!-- Regenerate Button -->
+        <br>
+        <button id="regenerate">Regenerate Graph</button>
+        <br>
+        <!--<button id="submit">Visualize</button>-->
+        <p id="errorMessage" class="error"></p>
+        <div id="svgContainer" class="my-svg">
+            <svg width="1400" height="800"></svg>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript code goes here
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var base64EncodedJson = getBase64EncodedJsonFromUrl(); // Retrieve the Base64 encoded JSON from the URL
+            graph = decodeAndParseJson(base64EncodedJson); // Decode and parse the JSON
+            if (graph) {
+                // If the JSON is not well-formed, throw an error
+                if (!graph.nodes || !graph.links || !graph.groups) {
+                    document.getElementById('errorMessage').textContent = 'Invalid or missing JSON data in the URL.';
+                    throw new Error('Invalid JSON structure');
+                }
+
+            } else {
+                document.getElementById('errorMessage').textContent = 'Invalid or missing JSON data in the URL. Using Sample JSON';
+                graph = sampleJson();
+            }
+            document.getElementById('repulsionRange').addEventListener('input', function () {
+                document.getElementById('repulsionValue').textContent = this.value;
+            });
+
+            document.getElementById('regenerate').addEventListener('click', function () {
+                var repulsionStrength = parseInt(document.getElementById('repulsionRange').value, 10);
+                generateGraph(graph, repulsionStrength); // Use the decoded JSON to regenerate the graph
+            });
+
+            // Initially generate the graph with the default repulsion strength
+            generateGraph(graph, parseInt(document.getElementById('repulsionRange').value, 10));
+        });
+
+        function getBase64EncodedJsonFromUrl() {
+            var params = new URLSearchParams(window.location.search);
+            return params.get('data'); // Assuming 'data' is the parameter name
+        }
+
+        function decodeAndParseJson(base64EncodedJson) {
+            if (!base64EncodedJson) {
+                console.error('Base64 encoded JSON not found in the URL');
+                return null; // Handle error or set a default JSON
+            }
+            var decodedJson = atob(base64EncodedJson);
+            try {
+                return JSON.parse(decodedJson);
+            } catch (e) {
+                console.error('Error parsing JSON: ', e);
+                return null; // Handle parsing error
+            }
+        }
+
+        var graph; // Holds the JSON
+        //var svg; 
+
+        function sampleJson() {
+            var input =
+            {
+                "nodes": [
+                    { "id": "human_eye", "type": "object", "group": 1 },
+                    { "id": "cornea", "type": "object", "group": 2 },
+                    { "id": "iris", "type": "object", "group": 2 },
+                    { "id": "pupil", "type": "object", "group": 2 },
+                    { "id": "lens", "type": "object", "group": 3 },
+                    { "id": "retina", "type": "object", "group": 4 },
+                    { "id": "rods", "type": "object", "group": 4 },
+                    { "id": "cones", "type": "object", "group": 4 },
+                    { "id": "optic_nerve", "type": "object", "group": 5 },
+                    { "id": "vitreous_humor", "type": "object", "group": 3 },
+                    { "id": "macula", "type": "object", "group": 4 },
+                    { "id": "fovea", "type": "object", "group": 4 },
+                    { "id": "light", "type": "object", "group": 6 },
+                    { "id": "brain", "type": "object", "group": 7 },
+                    { "id": "vision", "type": "concept", "group": 8 },
+                    { "id": "image_formation", "type": "concept", "group": 8 },
+                    { "id": "signal_processing", "type": "concept", "group": 8 },
+                    { "id": "phototransduction", "type": "concept", "group": 8 },
+                    { "id": "focus_adjustment", "type": "concept", "group": 8 }
+                ],
+                "links": [
+                    { "source": "cornea", "target": "human_eye", "label": "focuses entry of light", "strength": 1.0, "rationale": "Cornea focuses and controls light entering the eye" },
+                    { "source": "iris", "target": "human_eye", "label": "controls pupil size", "strength": 1.0, "rationale": "Iris adjusts pupil size to control light intensity" },
+                    { "source": "pupil", "target": "human_eye", "label": "regulates light entry", "strength": 1.0, "rationale": "Pupil changes size to regulate light entering the eye" },
+                    { "source": "lens", "target": "human_eye", "label": "focuses light onto retina", "strength": 1.0, "rationale": "Lens focuses light onto the retina" },
+                    { "source": "retina", "target": "human_eye", "label": "converts light to signals", "strength": 1.0, "rationale": "Retina converts light into electrical signals" },
+                    { "source": "rods", "target": "retina", "label": "detects low light", "strength": 1.0, "rationale": "Rods are responsible for vision at low light levels" },
+                    { "source": "cones", "target": "retina", "label": "detects color and high light", "strength": 1.0, "rationale": "Cones are responsible for color vision and function at higher light levels" },
+                    { "source": "optic_nerve", "target": "human_eye", "label": "transmits signals to brain", "strength": 1.0, "rationale": "Optic nerve carries visual information to the brain" },
+                    { "source": "vitreous_humor", "target": "human_eye", "label": "maintains eye shape", "strength": 1.0, "rationale": "Vitreous humor fills the space and maintains eye shape" },
+                    { "source": "macula", "target": "retina", "label": "provides high-resolution vision", "strength": 1.0, "rationale": "Macula has a high concentration of cones for detailed vision" },
+                    { "source": "fovea", "target": "macula", "label": "enables sharp central vision", "strength": 1.0, "rationale": "Fovea is responsible for sharp central vision" },
+                    { "source": "light", "target": "cornea", "label": "enters through cornea", "strength": 0.8, "rationale": "Light enters the eye through the cornea" },
+                    { "source": "pupil", "target": "iris", "label": "size controlled by iris", "strength": 0.9, "rationale": "Pupil size is controlled by the iris" },
+                    { "source": "light", "target": "lens", "label": "passes through lens", "strength": 0.8, "rationale": "Light passes through the lens" },
+                    { "source": "light", "target": "retina", "label": "focused onto retina", "strength": 1.0, "rationale": "Light is focused onto the retina" },
+                    { "source": "optic_nerve", "target": "retina", "label": "transmits from retina", "strength": 1.0, "rationale": "Optic nerve transmits signals from the retina" },
+                    { "source": "optic_nerve", "target": "brain", "label": "transmits to brain", "strength": 1.0, "rationale": "Optic nerve transmits signals to the brain" },
+                    { "source": "vision", "target": "brain", "label": "interpreted by brain", "strength": 1.0, "rationale": "Vision is interpreted by the brain" },
+                    { "source": "image_formation", "target": "retina", "label": "occurs at retina", "strength": 1.0, "rationale": "Image formation occurs at the retina" },
+                    { "source": "signal_processing", "target": "optic_nerve", "label": "travels via optic nerve", "strength": 1.0, "rationale": "Signal processing travels via the optic nerve" },
+                    { "source": "phototransduction", "target": "retina", "label": "occurs in retina", "strength": 1.0, "rationale": "Phototransduction occurs in the retina" },
+                    { "source": "focus_adjustment", "target": "lens", "label": "performed by lens", "strength": 1.0, "rationale": "Focus adjustment is performed by the lens" }
+                ],
+                "groups": [
+                    { "group_id": 1, "rationale": "The human eye as a whole" },
+                    { "group_id": 2, "rationale": "Parts involved in controlling light entry: cornea, iris, pupil" },
+                    { "group_id": 3, "rationale": "Parts involved in focusing light: lens, vitreous humor" },
+                    { "group_id": 4, "rationale": "Retinal components and their functionalities" },
+                    { "group_id": 5, "rationale": "Optic nerve as a conduit for visual signals" },
+                    { "group_id": 6, "rationale": "Light as the primary initiator of the vision process" },
+                    { "group_id": 7, "rationale": "The brain's role in processing and interpreting visual information" },
+                    { "group_id": 8, "rationale": "Concepts central to vision and image processing" }
+                ]
+            }
+            return input;
+        }
+
+        document.getElementById('repulsionRange').addEventListener('input', function () {
+            document.getElementById('repulsionValue').textContent = this.value;
+        });
+
+        document.getElementById('regenerate').addEventListener('click', function () {
+            var input = document.getElementById('jsonInput').value;
+            var repulsionStrength = parseInt(document.getElementById('repulsionRange').value, 10);
+            try {
+
+                if (!graph.nodes || !graph.links) {
+                    throw new Error('Invalid JSON structure');
+                }
+                // Clear the existing SVG content
+                d3.select('svg').selectAll('*').remove();
+
+                // Generate the graph with the new repulsion strength
+                generateGraph(graph, repulsionStrength);
+            } catch (e) {
+                alert('Error: ' + e.message);
+            }
+        });
+
+        //
+        // Object to hold group id to color mapping
+        const groupColors = {};
+
+        // Initialize an array to keep track of used colors
+        const usedColors = [];
+
+        function getRandomWebSafeColor() {
+            // Create a set of web safe colors. To avoid potential duplicates, convert the array to a Set and back to an Array to remove duplicates.
+            const webSafeColors = Array.from(new Set([
+                '#8e0808', '#731508', '#b03711', '#933c0b', '#a0530c',
+                '#b06d09', '#7e5d09', '#967f08', '#6e6a07', '#768009',
+                '#637b03', '#69940d', '#4f8904', '#4ca406', '#3db206',
+                '#209a02', '#106f08', '#04a00a', '#01b01d', '#04a130',
+                '#099240', '#0c9252', '#029c65', '#10ae88', '#037164',
+                '#027171', '#0f8596', '#0581a9', '#046ba5', '#064178',
+                '#0146ac', '#092f8f', '#07186f', '#0f15a7', '#0f0392',
+                '#1d028a', '#32088a', '#4e0ca2', '#590998', '#7e10b2',
+                '#7f0d9b', '#90069c', '#83027e', '#b00f96', '#7e075d',
+                '#690a43', '#9d0950', '#8d0d3b', '#ad002a', '#820716'
+            ]));
+
+
+            // Filter out colors that have already been used
+            const availableColors = webSafeColors.filter(color => !usedColors.includes(color));
+
+            // If all colors have been used, you might want to handle this scenario separately
+            if (availableColors.length === 0) {
+                console.warn('All available colors have been used.');
+                // You can choose to start over or handle this scenario differently
+                return '#000000'; // Default color or handle differently
+            }
+
+            // Select a random color from the available (unused) colors
+            const randomIndex = Math.floor(Math.random() * availableColors.length);
+            const selectedColor = availableColors[randomIndex];
+
+            // Mark the selected color as used
+            usedColors.push(selectedColor);
+
+            return selectedColor;
+        }
+        // Function to get or generate a color for a node based on its group
+        function getNodeColor(node) {
+            if (!groupColors[node.group]) {
+                // If no color is associated with the group id, generate a new one
+                groupColors[node.group] = getRandomWebSafeColor();
+            }
+            return groupColors[node.group];
+        }
+
+        // Function to generate the legend
+        function generateLegend(svg, groups) {
+            const legend = svg.append("g")
+                .attr("class", "legend")
+                .selectAll("g")
+                .data(groups)
+                .enter().append("g")
+                .attr("transform", (d, i) => `translate(0, ${i * 20})`);
+
+            legend.append("rect")
+                .attr("width", 18)
+                .attr("height", 18)
+                .attr("fill", d => groupColors[d.group_id]);
+
+            legend.append("text")
+                .attr("x", 24)
+                .attr("y", 9)
+                .attr("dy", "0.35em")
+                .text(d => `${d.group_id}: ${d.rationale}`);
+
+            // Position the legend on the SVG
+            svg.select(".legend").attr("transform", "translate(20,20)");
+        }
+
+        function generateGraph(graph, repulsionStrength) {
+            // Clear the existing SVG content
+            d3.select('svg').selectAll('*').remove();
+
+            var radius = 10
+            //var repulsion = -400
+            var linkDistance = 75
+            var cornerOffset = 150
+            var nodeLabelFontSize = 22
+            var nodeLabelX = 15
+            var nodeLabelY = 8
+            var nodeLabelColor = 'black'
+            var linkLabelFontSize = 15
+            var linkLabelColor = 'gray'
+
+            var nodes = graph.nodes;
+            var links = graph.links;
+
+            var repulsion = repulsionStrength;
+
+            var svg = d3.select('svg'),
+                width = +svg.attr('width'),
+                height = +svg.attr('height');
+
+            var simulation = d3.forceSimulation()
+                //.force('link', linkForce)
+                .force('link', d3.forceLink().id(function (d) { return d.id; }).strength(1.0).distance(linkDistance))
+                .force('charge', d3.forceManyBody().strength(repulsion))
+                .force('center', d3.forceCenter(width / 2, height / 2));
+
+            var link = svg.append('g')
+                .attr('class', 'links')
+                .selectAll('line')
+                .data(graph.links)
+                .enter().append('line')
+                // Modify the stroke-width to scale with the 'strength' attribute
+                .attr('stroke-width', function (d) { return 1 + (d.strength - 0.1) * 9; });
+            //.attr('stroke-width', function (d) { return Math.sqrt(d.strength); });
+
+            var node = svg.append('g')
+                .attr('class', 'nodes')
+                .selectAll('circle')
+                .data(graph.nodes)
+                .enter().append('circle')
+                .attr('r', radius)
+                .attr("fill", getNodeColor)
+                .call(d3.drag()
+                    .on('start', dragstarted)
+                    .on('drag', dragged)
+                    .on('end', dragended));
+
+            var label = svg.append('g')
+                .attr('class', 'labels')
+                .selectAll('text')
+                .data(graph.nodes)
+                .enter().append('text')
+                .attr('class', 'text')
+                .attr('font-size', nodeLabelFontSize)
+                .attr('dx', nodeLabelX)
+                .attr('dy', nodeLabelY)
+                .attr('fill', nodeLabelColor)
+                .text(function (d) { return d.id; });
+
+            var linkLabel = svg.append('g')
+                .attr('class', 'linkLabels')
+                .selectAll('text')
+                .data(graph.links)
+                .enter().append('text')
+                .attr('class', 'text')
+                .attr('font-size', linkLabelFontSize)
+                .attr('fill', linkLabelColor)
+                .text(function (d) { return d.label; });
+
+            simulation
+                .nodes(graph.nodes)
+                .on('tick', ticked);
+
+            simulation.force('link')
+                .links(graph.links);
+
+            // Generate the legend after the graph elements
+            generateLegend(svg, graph.groups);
+
+            function ticked() {
+                link
+                    .attr('x1', function (d) { return d.source.x; })
+                    .attr('y1', function (d) { return d.source.y; })
+                    .attr('x2', function (d) { return d.target.x; })
+                    .attr('y2', function (d) { return d.target.y; });
+
+                node
+                    .attr('cx', function (d) { return d.x; })
+                    .attr('cy', function (d) { return d.y; });
+
+                label
+                    .attr('x', function (d) { return d.x; })
+                    .attr('y', function (d) { return d.y; });
+
+                linkLabel
+                    .attr('x', function (d) { return (d.source.x + d.target.x) / 2; })
+                    .attr('y', function (d) { return (d.source.y + d.target.y) / 2; });
+            }
+
+            function dragstarted(d) {
+                if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+                d.fx = d.x;
+                d.fy = d.y;
+            }
+
+            function dragged(d) {
+                d.fx = d3.event.x;
+                d.fy = d3.event.y;
+            }
+
+            function dragended(d) {
+                if (!d3.event.active) simulation.alphaTarget(0);
+                d.fx = null;
+                d.fy = null;
+            }
+        }
+
+    </script>
+</body>
+
+</html>

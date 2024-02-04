@@ -3,7 +3,8 @@
 
 <head>
     <title>Force-Directed Graph from JSON</title>
-    <script src="https://d3js.org/d3.v5.min.js"></script> 
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <!--<script src="../javascript/d3.v5.min.js"></script> -->
 
     <style>
         /* Add any additional styles you need */
@@ -23,21 +24,6 @@
             text-anchor: middle;
         }
 
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
-        }
-
-        #container {
-            text-align: center;
-        }
-
         #jsonInput {
             width: 300px;
             height: 100px;
@@ -51,27 +37,168 @@
             color: red;
         }
 
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            background-color: #c6c6c6;
+        }
+
+        #container {
+            width: 90%;
+            max-width: 1200px;
+            margin-top: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: #ffffff;
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        
+        input[type="range"],
+        button {
+            font-family: inherit;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-top: 10px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        
+        input[type="range"]:focus,
+        button:focus {
+            border-color: #88a;
+            outline: none;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
         .my-svg {
-            width: 1400px;
-            height: 800px;
-            border: 1px dashed red;
-            border-radius: 3px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        label {
+            display: block;
+            color: #333;
+            font-size: 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        legend {
+            font-size: 18px;
+            font-weight: bold;
+            color: #444;
+            padding-bottom: 10px;
+            width: auto;
+        }
+
+        /* Repulsion Strength Range Input Enhancement */
+        input[type="range"] {
+            width: 75%;
+            margin: 10px 0;
+        }
+
+        #repulsionValue {
+            display: inline-block;
+            padding: 2px 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            background-color: #c6c6c6;
+        }
+
+        #container {
+            width: 90%;
+            max-width: 1200px;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f6f6;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        textarea {
+            width: calc(100% - 24px);
+            /* Adjusted to account for padding and ensure it doesn't overflow its container */
+            padding: 12px;
+            /* Comfortable padding inside the textarea */
+            border: 1px solid #ccc;
+            /* Subtle border */
+            border-radius: 4px;
+            /* Rounded corners */
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            /* Inner shadow for depth */
+            font-size: 14px;
+            /* Larger font size for readability */
+            line-height: 1.5;
+            /* Spacing between lines */
+            resize: vertical;
+            /* Allows resizing only vertically */
+            box-sizing: border-box;
+            /* Includes padding and border in the element's total width and height */
+            margin-bottom: 20px;
+            /* Space below the textarea */
         }
     </style>
 </head>
 
 <body>
+
     <div id="container">
         <h1>Knowledge Visualizer</h1>
-        <!-- Slider for Repulsion Strength -->
-        <label for="repulsionRange">Node Distance (Choose -1000 for maximum distance):</label>
-        <input type="range" id="repulsionRange" min="-1000" max="0" value="-400" step="10">
-        <span id="repulsionValue">-400</span>
-        <!-- Regenerate Button -->
-        <br>
-        <button id="regenerate">Regenerate Graph</button>
-        <br>
-        <!--<button id="submit">Visualize</button>-->
+        <fieldset>
+            <legend>Paste JSON Here</legend>
+            <textarea id="jsonInput" rows='10' aria-label="JSON Input" placeholder="Paste JSON here"></textarea>
+        </fieldset>
+        <fieldset>
+            <legend>Graph Controls</legend>
+            <!-- Slider for Repulsion Strength -->
+            <label for="repulsionRange">Node Repulsion:</label>
+            <input type="range" id="repulsionRange" min="-1500" max="0" value="-800" step="10"
+                aria-label="Node Repulsion:">
+            <span id="repulsionValue">-400</span>
+            <br>
+            <button id="regenerate">Regenerate Graph</button>
+            <button id="submit">Visualize</button>
+        </fieldset>
         <p id="errorMessage" class="error"></p>
         <div id="svgContainer" class="my-svg">
             <svg width="1400" height="800"></svg>
@@ -81,114 +208,11 @@
     <script>
         // JavaScript code goes here
 
-        document.addEventListener('DOMContentLoaded', function () {
-            var base64EncodedJson = getBase64EncodedJsonFromUrl(); // Retrieve the Base64 encoded JSON from the URL
-            graph = decodeAndParseJson(base64EncodedJson); // Decode and parse the JSON
-            if (graph) {
-                // If the JSON is not well-formed, throw an error
-                if (!graph.nodes || !graph.links || !graph.groups) {
-                    document.getElementById('errorMessage').textContent = 'Invalid or missing JSON data in the URL.';
-                    throw new Error('Invalid JSON structure');
-                }
-
-            } else {
-                document.getElementById('errorMessage').textContent = 'Invalid or missing JSON data in the URL. Using Sample JSON';
-                graph = sampleJson();
-            }
-            document.getElementById('repulsionRange').addEventListener('input', function () {
-                document.getElementById('repulsionValue').textContent = this.value;
-            });
-
-            document.getElementById('regenerate').addEventListener('click', function () {
-                var repulsionStrength = parseInt(document.getElementById('repulsionRange').value, 10);
-                generateGraph(graph, repulsionStrength); // Use the decoded JSON to regenerate the graph
-            });
-
-            // Initially generate the graph with the default repulsion strength
-            generateGraph(graph, parseInt(document.getElementById('repulsionRange').value, 10));
-        });
-
-        function getBase64EncodedJsonFromUrl() {
-            var params = new URLSearchParams(window.location.search);
-            return params.get('data'); // Assuming 'data' is the parameter name
-        }
-
-        function decodeAndParseJson(base64EncodedJson) {
-            if (!base64EncodedJson) {
-                console.error('Base64 encoded JSON not found in the URL');
-                return null; // Handle error or set a default JSON
-            }
-            var decodedJson = atob(base64EncodedJson);
-            try {
-                return JSON.parse(decodedJson);
-            } catch (e) {
-                console.error('Error parsing JSON: ', e);
-                return null; // Handle parsing error
-            }
-        }
-
-        var graph; // Holds the JSON
-        //var svg; 
+        var graph;
 
         function sampleJson() {
             var input =
-            {
-                "nodes": [
-                    { "id": "human_eye", "type": "object", "group": 1 },
-                    { "id": "cornea", "type": "object", "group": 2 },
-                    { "id": "iris", "type": "object", "group": 2 },
-                    { "id": "pupil", "type": "object", "group": 2 },
-                    { "id": "lens", "type": "object", "group": 3 },
-                    { "id": "retina", "type": "object", "group": 4 },
-                    { "id": "rods", "type": "object", "group": 4 },
-                    { "id": "cones", "type": "object", "group": 4 },
-                    { "id": "optic_nerve", "type": "object", "group": 5 },
-                    { "id": "vitreous_humor", "type": "object", "group": 3 },
-                    { "id": "macula", "type": "object", "group": 4 },
-                    { "id": "fovea", "type": "object", "group": 4 },
-                    { "id": "light", "type": "object", "group": 6 },
-                    { "id": "brain", "type": "object", "group": 7 },
-                    { "id": "vision", "type": "concept", "group": 8 },
-                    { "id": "image_formation", "type": "concept", "group": 8 },
-                    { "id": "signal_processing", "type": "concept", "group": 8 },
-                    { "id": "phototransduction", "type": "concept", "group": 8 },
-                    { "id": "focus_adjustment", "type": "concept", "group": 8 }
-                ],
-                "links": [
-                    { "source": "cornea", "target": "human_eye", "label": "focuses entry of light", "strength": 1.0, "rationale": "Cornea focuses and controls light entering the eye" },
-                    { "source": "iris", "target": "human_eye", "label": "controls pupil size", "strength": 1.0, "rationale": "Iris adjusts pupil size to control light intensity" },
-                    { "source": "pupil", "target": "human_eye", "label": "regulates light entry", "strength": 1.0, "rationale": "Pupil changes size to regulate light entering the eye" },
-                    { "source": "lens", "target": "human_eye", "label": "focuses light onto retina", "strength": 1.0, "rationale": "Lens focuses light onto the retina" },
-                    { "source": "retina", "target": "human_eye", "label": "converts light to signals", "strength": 1.0, "rationale": "Retina converts light into electrical signals" },
-                    { "source": "rods", "target": "retina", "label": "detects low light", "strength": 1.0, "rationale": "Rods are responsible for vision at low light levels" },
-                    { "source": "cones", "target": "retina", "label": "detects color and high light", "strength": 1.0, "rationale": "Cones are responsible for color vision and function at higher light levels" },
-                    { "source": "optic_nerve", "target": "human_eye", "label": "transmits signals to brain", "strength": 1.0, "rationale": "Optic nerve carries visual information to the brain" },
-                    { "source": "vitreous_humor", "target": "human_eye", "label": "maintains eye shape", "strength": 1.0, "rationale": "Vitreous humor fills the space and maintains eye shape" },
-                    { "source": "macula", "target": "retina", "label": "provides high-resolution vision", "strength": 1.0, "rationale": "Macula has a high concentration of cones for detailed vision" },
-                    { "source": "fovea", "target": "macula", "label": "enables sharp central vision", "strength": 1.0, "rationale": "Fovea is responsible for sharp central vision" },
-                    { "source": "light", "target": "cornea", "label": "enters through cornea", "strength": 0.8, "rationale": "Light enters the eye through the cornea" },
-                    { "source": "pupil", "target": "iris", "label": "size controlled by iris", "strength": 0.9, "rationale": "Pupil size is controlled by the iris" },
-                    { "source": "light", "target": "lens", "label": "passes through lens", "strength": 0.8, "rationale": "Light passes through the lens" },
-                    { "source": "light", "target": "retina", "label": "focused onto retina", "strength": 1.0, "rationale": "Light is focused onto the retina" },
-                    { "source": "optic_nerve", "target": "retina", "label": "transmits from retina", "strength": 1.0, "rationale": "Optic nerve transmits signals from the retina" },
-                    { "source": "optic_nerve", "target": "brain", "label": "transmits to brain", "strength": 1.0, "rationale": "Optic nerve transmits signals to the brain" },
-                    { "source": "vision", "target": "brain", "label": "interpreted by brain", "strength": 1.0, "rationale": "Vision is interpreted by the brain" },
-                    { "source": "image_formation", "target": "retina", "label": "occurs at retina", "strength": 1.0, "rationale": "Image formation occurs at the retina" },
-                    { "source": "signal_processing", "target": "optic_nerve", "label": "travels via optic nerve", "strength": 1.0, "rationale": "Signal processing travels via the optic nerve" },
-                    { "source": "phototransduction", "target": "retina", "label": "occurs in retina", "strength": 1.0, "rationale": "Phototransduction occurs in the retina" },
-                    { "source": "focus_adjustment", "target": "lens", "label": "performed by lens", "strength": 1.0, "rationale": "Focus adjustment is performed by the lens" }
-                ],
-                "groups": [
-                    { "group_id": 1, "rationale": "The human eye as a whole" },
-                    { "group_id": 2, "rationale": "Parts involved in controlling light entry: cornea, iris, pupil" },
-                    { "group_id": 3, "rationale": "Parts involved in focusing light: lens, vitreous humor" },
-                    { "group_id": 4, "rationale": "Retinal components and their functionalities" },
-                    { "group_id": 5, "rationale": "Optic nerve as a conduit for visual signals" },
-                    { "group_id": 6, "rationale": "Light as the primary initiator of the vision process" },
-                    { "group_id": 7, "rationale": "The brain's role in processing and interpreting visual information" },
-                    { "group_id": 8, "rationale": "Concepts central to vision and image processing" }
-                ]
-            }
+                { "nodes": [{ "id": "Knowledge", "type": "concept", "group": 1 }, { "id": "Alcatraz", "type": "location", "group": 2 }, { "id": "San Francisco Bay", "type": "location", "group": 2 }, { "id": "Civil War", "type": "event", "group": 3 }, { "id": "1934", "type": "time", "group": 4 }, { "id": "Al Capone", "type": "person", "group": 5 }, { "id": "George Machine Gun Kelly", "type": "person", "group": 5 }, { "id": "Birdman of Alcatraz", "type": "person", "group": 5 }, { "id": "Pacific", "type": "location", "group": 2 }, { "id": "1963", "type": "time", "group": 4 }, { "id": "Frank Morris", "type": "person", "group": 5 }, { "id": "John Anglin", "type": "person", "group": 5 }, { "id": "Clarence Anglin", "type": "person", "group": 5 }, { "id": "Allen West", "type": "person", "group": 5 }, { "id": "June 12, 1962", "type": "time", "group": 4 }, { "id": "Dummy Heads", "type": "object", "group": 6 }, { "id": "FBI", "type": "organization", "group": 7 }, { "id": "Coast Guard", "type": "organization", "group": 7 }, { "id": "Bureau of Prison authorities", "type": "organization", "group": 7 }, { "id": "Escape Plan", "type": "concept", "group": 8 }, { "id": "Saw Blades", "type": "object", "group": 6 }, { "id": "Homemade Drill", "type": "object", "group": 6 }, { "id": "Utility Corridor", "type": "location", "group": 2 }, { "id": "Workshop", "type": "location", "group": 2 }, { "id": "Raincoats", "type": "object", "group": 6 }, { "id": "Rubber Raft", "type": "object", "group": 6 }, { "id": "Wooden Paddles", "type": "object", "group": 6 }, { "id": "Musical Instrument", "type": "object", "group": 6 }, { "id": "Ventilator", "type": "object", "group": 6 }, { "id": "Soap", "type": "object", "group": 6 }, { "id": "June 11", "type": "time", "group": 4 }, { "id": "Prison Roof", "type": "location", "group": 2 }, { "id": "Bakery Smoke Stack", "type": "location", "group": 2 }, { "id": "Northeast Shore", "type": "location", "group": 2 }], "links": [{ "source": "Knowledge", "target": "Alcatraz", "label": "is located at", "strength": 0.1, "rationale": "The text mentions that Alcatraz is a prison located on an island in San Francisco Bay." }, { "source": "Alcatraz", "target": "San Francisco Bay", "label": "is located in", "strength": 0.9, "rationale": "The text explicitly mentions that Alcatraz is located in San Francisco Bay." }, { "source": "Alcatraz", "target": "Civil War", "label": "held captives since", "strength": 0.7, "rationale": "The text mentions that Alcatraz has held captives since the Civil War." }, { "source": "Alcatraz", "target": "1934", "label": "was re-fortified into the world’s most secure prison in", "strength": 0.8, "rationale": "The text mentions that Alcatraz was re-fortified into the world’s most secure prison in 1934." }, { "source": "Alcatraz", "target": "Al Capone", "label": "held", "strength": 0.8, "rationale": "The text mentions that Al Capone was an inmate at Alcatraz." }, { "source": "Alcatraz", "target": "George Machine Gun Kelly", "label": "held", "strength": 0.8, "rationale": "The text mentions that George 'Machine Gun' Kelly was an inmate at Alcatraz." }, { "source": "Alcatraz", "target": "Birdman of Alcatraz", "label": "held", "strength": 0.8, "rationale": "The text mentions that the 'Birdman of Alcatraz' was an inmate at Alcatraz." }, { "source": "Alcatraz", "target": "Pacific", "label": "is surrounded by the waters of", "strength": 0.8, "rationale": "The text mentions that Alcatraz is surrounded by the cold, rough waters of the Pacific." }, { "source": "Alcatraz", "target": "1963", "label": "was closed in", "strength": 0.8, "rationale": "The text mentions that Alcatraz was closed in 1963." }, { "source": "Alcatraz", "target": "Frank Morris", "label": "held", "strength": 0.8, "rationale": "The text mentions that Frank Morris was an inmate at Alcatraz." }, { "source": "Alcatraz", "target": "John Anglin", "label": "held", "strength": 0.8, "rationale": "The text mentions that John Anglin was an inmate at Alcatraz." }, { "source": "Alcatraz", "target": "Clarence Anglin", "label": "held", "strength": 0.8, "rationale": "The text mentions that Clarence Anglin was an inmate at Alcatraz." }, { "source": "Alcatraz", "target": "Allen West", "label": "held", "strength": 0.8, "rationale": "The text mentions that Allen West was an inmate at Alcatraz." }, { "source": "Alcatraz", "target": "June 12, 1962", "label": "experience escape on", "strength": 0.8, "rationale": "The text mentions that on June 12, 1962, three convicts were not found in their cells at Alcatraz." }, { "source": "Alcatraz", "target": "Dummy Heads", "label": "found", "strength": 0.8, "rationale": "The text mentions that dummy heads were found in the beds of the escaped prisoners at Alcatraz." }, { "source": "Alcatraz", "target": "FBI", "label": "requested help from", "strength": 0.8, "rationale": "The text mentions that the FBI was notified immediately and asked to help after the escape from Alcatraz." }, { "source": "Alcatraz", "target": "Coast Guard", "label": "requested help from", "strength": 0.8, "rationale": "The text mentions that the Coast Guard was involved in the investigation after the escape from Alcatraz." }, { "source": "Alcatraz", "target": "Bureau of Prison authorities", "label": "requested help from", "strength": 0.8, "rationale": "The text mentions that the Bureau of Prison authorities were involved in the investigation after the escape from Alcatraz." }, { "source": "Alcatraz", "target": "Escape Plan", "label": "was the location of", "strength": 0.8, "rationale": "The text discusses the escape plan of the prisoners at Alcatraz." }, { "source": "Escape Plan", "target": "Saw Blades", "label": "involved", "strength": 0.8, "rationale": "The text mentions that the escape plan involved the use of saw blades." }, { "source": "Escape Plan", "target": "Homemade Drill", "label": "involved", "strength": 0.8, "rationale": "The text mentions that the escape plan involved the use of a homemade drill." }, { "source": "Escape Plan", "target": "Utility Corridor", "label": "used", "strength": 0.8, "rationale": "The text mentions that the escape plan involved the use of a utility corridor." }, { "source": "Escape Plan", "target": "Workshop", "label": "used", "strength": 0.8, "rationale": "The text mentions that the escape plan involved the use of a workshop." }, { "source": "Escape Plan", "target": "Raincoats", "label": "used", "strength": 0.8, "rationale": "The text mentions that the escape plan involved the use of raincoats." }, { "source": "Escape Plan", "target": "Rubber Raft", "label": "used", "strength": 0.8, "rationale": "The text mentions that the escape plan involved the use of a rubber raft." }, { "source": "Escape Plan", "target": "Wooden Paddles", "label": "used", "strength": 0.8, "rationale": "The text mentions that the escape plan involved the use of wooden paddles." }, { "source": "Escape Plan", "target": "Musical Instrument", "label": "used", "strength": 0.8, "rationale": "The text mentions that the escape plan involved the use of a musical instrument." }, { "source": "Escape Plan", "target": "Ventilator", "label": "used", "strength": 0.8, "rationale": "The text mentions that the escape plan involved the use of a ventilator." }, { "source": "Escape Plan", "target": "Soap", "label": "used", "strength": 0.8, "rationale": "The text mentions that the escape plan involved the use of soap." }, { "source": "Escape Plan", "target": "June 11", "label": "was executed on", "strength": 0.8, "rationale": "The text mentions that the escape plan was executed on the evening of June 11." }, { "source": "Escape Plan", "target": "Prison Roof", "label": "involved", "strength": 0.8, "rationale": "The text mentions that the escape plan involved getting on to the prison roof." }, { "source": "Escape Plan", "target": "Bakery Smoke Stack", "label": "involved", "strength": 0.8, "rationale": "The text mentions that the escape plan involved shimmying down the bakery smoke stack." }, { "source": "Escape Plan", "target": "Northeast Shore", "label": "involved", "strength": 0.8, "rationale": "The text mentions that the escape plan involved sneaking to the northeast shore of the island." }], "groups": [{ "group_id": 1, "rationale": "Overarching concept connecting all elements of the given context" }, { "group_id": 2, "rationale": "Locations in the context" }, { "group_id": 3, "rationale": "Historical events in the context" }, { "group_id": 4, "rationale": "Timeframes in the context" }, { "group_id": 5, "rationale": "Persons in the context" }, { "group_id": 6, "rationale": "Objects in the context" }, { "group_id": 7, "rationale": "Organizations in the context" }, { "group_id": 8, "rationale": "Concepts in the context" }] }
             return input;
         }
 
@@ -201,7 +225,7 @@
             var repulsionStrength = parseInt(document.getElementById('repulsionRange').value, 10);
             try {
 
-                if (!graph.nodes || !graph.links) {
+                if (!graph.nodes || !graph.links || !graph.groups) {
                     throw new Error('Invalid JSON structure');
                 }
                 // Clear the existing SVG content
@@ -212,6 +236,30 @@
             } catch (e) {
                 alert('Error: ' + e.message);
             }
+        });
+
+
+
+        document.getElementById('submit').addEventListener('click', function () {
+            var input = document.getElementById('jsonInput').value;
+            var repulsionStrength = parseInt(document.getElementById('repulsionRange').value, 10);
+            var button = this; // Store the reference to the button
+            // Use the stored reference to the button
+            button.disabled = true; // Disable the button
+            button.style.backgroundColor = '#ccc'; // Change background color to grey
+
+            try {
+                graph = JSON.parse(input);
+            } catch (e) {
+                document.getElementById('errorMessage').textContent = 'Invalid or missing JSON data in the input. Using Sample JSON';
+                graph = sampleJson();
+            }
+            if (!graph.nodes || !graph.links || !graph.groups) {
+                document.getElementById('errorMessage').textContent = 'Invalid or missing JSON data in the input. Using Sample JSON';
+                graph = sampleJson();
+            }
+
+            generateGraph(graph, repulsionStrength);
         });
 
         //
@@ -264,6 +312,14 @@
             }
             return groupColors[node.group];
         }
+        //
+
+        // function getNodeColor(node, neighbors) {
+        //     if (Array.isArray(neighbors) && neighbors.indexOf(node.id) > -1) {
+        //         return  'blue';
+        //     }
+        //     return 'red';
+        // }
 
         // Function to generate the legend
         function generateLegend(svg, groups) {
@@ -290,9 +346,6 @@
         }
 
         function generateGraph(graph, repulsionStrength) {
-            // Clear the existing SVG content
-            d3.select('svg').selectAll('*').remove();
-
             var radius = 10
             //var repulsion = -400
             var linkDistance = 75

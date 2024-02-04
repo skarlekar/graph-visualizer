@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Base64 Encoder/Decoder</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        padding: 20px;
+    }
+
+    #container {
+        display: flex;
+        gap: 20px;
+    }
+
+    textarea {
+        width: 300px;
+        height: 150px;
+    }
+
+    button {
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+
+<h2>Base64 Encoder/Decoder</h2>
+
+<div id="container">
+    <textarea id="input" placeholder="Enter JSON here..."></textarea>
+    <textarea id="output" placeholder="Encoded result..." readonly></textarea>
+</div>
+
+<button id="submit">Submit</button>
+
+<script>
+    document.getElementById('submit').addEventListener('click', function() {
+        var inputText = document.getElementById('input').value;
+        try {
+            // Parsing to ensure valid JSON input
+            var json = JSON.parse(inputText);
+            var encodedData = btoa(JSON.stringify(json));
+            document.getElementById('output').value = encodedData;
+        } catch (error) {
+            alert('Invalid JSON input. Please correct it and try again.');
+        }
+    });
+</script>
+
+</body>
+</html>

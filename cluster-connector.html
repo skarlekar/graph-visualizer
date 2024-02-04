@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Cluster Connector</title>
+    <style>
+        textarea {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Input JSON</h2>
+    <textarea id="inputJson"></textarea>
+
+    <h2>Output JSON</h2>
+    <textarea id="outputJson" readonly></textarea>
+
+    <button onclick="processJson()">Submit</button>
+
+    <script>
+        function processJson() {
+            let inputJson = document.getElementById('inputJson').value;
+            try {
+                let jsonData = JSON.parse(inputJson);
+                connectClusters(jsonData);
+                document.getElementById('outputJson').value = JSON.stringify(jsonData, null, 2);
+            } catch (e) {
+                alert('Invalid JSON input!');
+            }
+        }
+
+        function findIsolatedClusters(jsonData) {
+            // Use a map or object to track connected components
+            let connectedComponents = {};
+
+            // Initialize all nodes as not visited
+            jsonData.nodes.forEach(node => connectedComponents[node.id] = false);
+
+            // Function to perform DFS and mark connected nodes
+            function dfs(currentNode) {
+                connectedComponents[currentNode] = true; // Mark node as visited
+
+                // Find all links where currentNode is a source or target, then visit connected nodes
+                jsonData.links.forEach(link => {
+                    if (link.source === currentNode && !connectedComponents[link.target]) {
+                        dfs(link.target);
+                    } else if (link.target === currentNode && !connectedComponents[link.source]) {
+                        dfs(link.source);
+                    }
+                });
+            }
+
+            // Identify isolated clusters
+            let clusters = [];
+            for (let nodeID in connectedComponents) {
+                if (!connectedComponents[nodeID]) { // If node is not visited, it's a new cluster
+                    let cluster = [];
+                    dfs(nodeID); // Perform DFS to mark all nodes in this cluster as visited
+                    for (let id in connectedComponents) {
+                        if (connectedComponents[id]) {
+                            cluster.push(id);
+                            connectedComponents[id] = false; // Reset for the next cluster search
+                        }
+                    }
+                    clusters.push(cluster); // Add this cluster to the list of clusters
+                }
+            }
+
+            return clusters;
+        }
+
+        function connectClusters(jsonData) {
+            // Find isolated clusters
+            let clusters = findIsolatedClusters(jsonData);
+
+            // Add 'Knowledge' node
+            jsonData.nodes.push({ "id": "Knowledge", "type": "concept", "group": 0 });
+
+            // Connect each cluster to 'Knowledge'
+            clusters.forEach(cluster => {
+                // Assuming the first node in each cluster as representative
+                let representativeNode = cluster[0];
+                jsonData.links.push({
+                    "source": "Knowledge",
+                    "target": representativeNode,
+                    "label": "refers to",
+                    "strength": 0.1,
+                    "rationale": "Connects isolated cluster to Knowledge"
+                });
+            });
+
+            // Add 'Knowledge' group
+            jsonData.groups.push({ "group_id": 0, "rationale": "Node that represent the Knowledge" });
+        }
+    </script>
+</body>
+
+</html>

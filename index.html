@@ -265,6 +265,9 @@
             // Write the JSON to the input textarea
             // Convert the JSON object to a string
             var jsonString = JSON.stringify(graph, null, 2); // The 'null' and '2' arguments format the output with indentation for readability
+            if (jsonString == 'null')  {
+                jsonString = '';
+            }
             document.getElementById('jsonInput').value = jsonString;
 
             // Initially generate the graph with the default repulsion strength

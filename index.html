@@ -2,10 +2,13 @@
 <html>
 
 <head>
-    <title>Force-Directed Graph from JSON</title>
+    <title>DeepInsight - Knowledge Visualizer</title>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <!--<script src="../javascript/d3.v5.min.js"></script> -->
-
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="favicon_io/site.webmanifest">
     <style>
         /* Add any additional styles you need */
         .links line {
@@ -474,7 +477,7 @@
         }
 
         function generateGraph(graph, repulsionStrength) {
-            var radius = 10
+            var radius = 12
             //var repulsion = -400
             var linkDistance = 75
             var cornerOffset = 150

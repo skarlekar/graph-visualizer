@@ -39,6 +39,7 @@
 
         body {
             font-family: 'Roboto', Arial, sans-serif;
+            font-size: 12px;
             margin: 0;
             padding: 20px;
             display: flex;
@@ -46,6 +47,12 @@
             align-items: flex-start;
             min-height: 100vh;
             background-color: #c6c6c6;
+            /* Off-white text outline using text-shadow */
+            text-shadow:
+                -1px -1px 0px #f8f8f8,
+                1px -1px 0px #f8f8f8,
+                -1px 1px 0px #f8f8f8,
+                1px 1px 0px #f8f8f8;
         }
 
         #container {
@@ -84,6 +91,8 @@
         }
 
         button {
+            font-family: inherit;
+            font-size: inherit;
             background-color: #007bff;
             color: #ffffff;
             cursor: pointer;
@@ -177,13 +186,44 @@
             margin-bottom: 20px;
             /* Space below the textarea */
         }
+
+        /* Apply the same styles to anchor tags with the 'button' class */
+        a.button {
+            font-family: inherit;
+            font-size: inherit;
+            text-shadow: none;
+            display: inline-block;
+            /* To allow width and height */
+            text-align: center;
+            text-decoration: none;
+            /* Remove underline from links */
+            width: auto;
+            /* Adjust width as needed */
+            padding: 10px;
+            /* Same padding as buttons for consistency */
+            /* Reuse other styles from the button */
+            background-color: #007bff;
+            color: #ffffff;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-top: 10px;
+            /* To match button top margin */
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        /* Hover effect for the link to match the buttons */
+        a.button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 
 <body>
 
     <div id="container">
-        <h1>Knowledge Visualizer</h1>
+        <h1>DeepInsight - Knowledge Visualizer</h1>
         <fieldset>
             <legend>Paste JSON Here</legend>
             <textarea id="jsonInput" rows='10' aria-label="JSON Input" placeholder="Paste JSON here"></textarea>
@@ -200,6 +240,7 @@
             <button id="regenerate">Regenerate Graph</button>
             <button id="copyUrlButton">Share Graph</button>
             <button id="demoButton">Demo</button>
+            <a href="demo-content.html" target="_blank" class="button" id="contextForDemoButton">Context for Demo</a>
         </fieldset>
         <p id="errorMessage" class="error"></p>
         <div id="svgContainer" class="my-svg">

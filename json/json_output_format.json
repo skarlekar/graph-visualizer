@@ -1,0 +1,27 @@
+{
+    "nodes":  array // Each element in the 'nodes' array represents an entity. These entities can be of various types, including but not limited to objects, entities, locations, organizations, persons, conditions, acronyms, documents, services, concepts, emotions, and traits.
+    [
+        "id": string, // A unique identifier string for each node from the input text. Do not use numbers for this.
+        "attributes": array // Each element in the 'attributes' array represents an attribute as defined in the attributes section of the ontology. Atleast one attribute should be populated in this array.
+            [
+                "attribute": string, // One of the attribute as defined in the attributes section of the ontology
+                "value": string // A value for the attribute describing the attribute
+            ]
+        "type": string, // A field indicating the category of the entity, such as 'entity', 'location', 'organization', 'person', 'animal', 'bird', 'fish' 'condition', 'acronym', 'document', 'service', 'emotion', 'trait', or 'concept'.
+        "group": integer // A numerical field indicating the group to which the node belongs. Nodes that are related or belong to the same group will share the same group number.
+
+    ],
+    "links": array // Each element in the 'links' array represents a relationship between two nodes. Use the following logic to create the Links Array. Read the input text again. Now review the list of nodes in the Nodes array. For every node represented by the 'id' field in the Nodes array, reason step by step to find a relation with another node in the Nodes array. For each such relationship,  add an element to the Links Array containing the following fields:
+    [
+        "source": string, // The 'id' of the node where the relationship originates.
+        "target": string, // The 'id' of the node where the relationship is directed.
+        "label": string, // A descriptive label indicating the nature of the relationship between the 'source' and 'target'. Indicate the function if the 'target' is a part or component of 'source'.
+        "strength": number, // A numerical value ranging from 0.1 to 1.0, representing the strength of the relationship, with 1.0 being the strongest and 0.1 the weakest.
+        "rationale": string //A textual description indicating your rationale for coming up with the strength for each relationship.
+    ],
+    "groups" : // This array should indicate the rationale for the grouping indicated in the 'group' field of the Nodes array. There should be one element in this array for each unique group. Each element in the 'groups' aray will contain the following fields:
+    [
+        "group_id" : integer, // The group number
+        "rationale": string // A textual description of the thematic or contextual similarities between the nodes that make up the group.
+    ]
+}

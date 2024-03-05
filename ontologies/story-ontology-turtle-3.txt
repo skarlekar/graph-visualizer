@@ -1,0 +1,251 @@
+@prefix : <http://example.org/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+### Classes
+:Object rdf:type owl:Class .
+:Entity rdf:type owl:Class .
+:Location rdf:type owl:Class .
+:Organization rdf:type owl:Class ; rdfs:subClassOf :Entity .
+:Person rdf:type owl:Class ; rdfs:subClassOf :Entity .
+:Animal rdf:type owl:Class ; rdfs:subClassOf :Entity .
+:Condition rdf:type owl:Class .
+:Character rdf:type owl:Class ; rdfs:subClassOf :Entity .
+:Hero rdf:type owl:Class ; rdfs:subClassOf :Character .
+:Villain rdf:type owl:Class ; rdfs:subClassOf :Character .
+:SupportingCharacter rdf:type owl:Class ; rdfs:subClassOf :Character .
+:Concept rdf:type owl:Class .
+:Moral rdf:type owl:Class ; rdfs:subClassOf :Concept .
+:Time rdf:type owl:Class .
+:Event rdf:type owl:Class ; rdfs:subClassOf :Time .
+:PlotPoint rdf:type owl:Class ; rdfs:subClassOf :Event .
+:Chapter rdf:type owl:Class ; rdfs:subClassOf :Event .
+:Scene rdf:type owl:Class ; rdfs:subClassOf :Event .
+:Story rdf:type owl:Class .
+:Plant rdf:type owl:Class .
+:Tree rdf:type owl:Class ; rdfs:subClassOf :Plant .
+:Fruit rdf:type owl:Class ; rdfs:subClassOf :Plant .
+:BodyPart rdf:type owl:Class .
+:King rdf:type owl:Class ; rdfs:subClassOf :Person .
+:Trader rdf:type owl:Class ; rdfs:subClassOf :Person .
+:Horse rdf:type owl:Class ; rdfs:subClassOf :Animal .
+:Dog rdf:type owl:Class ; rdfs:subClassOf :Animal .
+:Cat rdf:type owl:Class ; rdfs:subClassOf :Animal .
+:Bird rdf:type owl:Class ; rdfs:subClassOf :Animal .
+:Currency rdf:type owl:Class .
+:GoldCoin rdf:type owl:Class ; rdfs:subClassOf :Currency .
+:Promise rdf:type owl:Class ; rdfs:subClassOf :Event .
+
+### Attributes (Data Properties)
+:hasAge rdf:type owl:DatatypeProperty ; rdfs:domain :Person ; rdfs:range xsd:integer .
+:hasGender rdf:type owl:DatatypeProperty ; rdfs:domain :Person ; rdfs:range xsd:string .
+:hasName rdf:type owl:DatatypeProperty ; rdfs:domain :Entity ; rdfs:range xsd:string .
+:hasDescription rdf:type owl:DatatypeProperty ;
+  rdfs:domain [
+    rdf:type owl:Class ;
+    owl:unionOf ( :Location :Event )
+  ] ;
+  rdfs:range xsd:string .
+:startTime rdf:type owl:DatatypeProperty ; rdfs:domain :Event ; rdfs:range xsd:dateTime .
+:endTime rdf:type owl:DatatypeProperty ; rdfs:domain :Event ; rdfs:range xsd:dateTime .
+:isReal rdf:type owl:DatatypeProperty ; rdfs:domain :Location ; rdfs:range xsd:boolean .
+:hasEmotionalState rdf:type owl:DatatypeProperty ; rdfs:domain :Character ; rdfs:range xsd:string .
+:hasPersonalityTrait rdf:type owl:DatatypeProperty ; rdfs:domain :Character ; rdfs:range xsd:string .
+:hasSpecies rdf:type owl:DatatypeProperty ; rdfs:domain :Animal ; rdfs:range xsd:string .
+:isEdible rdf:type owl:DatatypeProperty ;
+  rdfs:domain [
+    rdf:type owl:Class ;
+    owl:unionOf (:Plant :Fruit)
+  ] ;
+  rdfs:range xsd:boolean .
+:hasTaste rdf:type owl:DatatypeProperty ; rdfs:domain :Fruit ; rdfs:range xsd:string .
+:hasBreed rdf:type owl:DatatypeProperty ; rdfs:domain :Horse ; rdfs:range xsd:string .
+:hasValue rdf:type owl:DatatypeProperty ; rdfs:domain :Object ; rdfs:range xsd:integer .
+:hasRole rdf:type owl:DatatypeProperty ; rdfs:domain :Person ; rdfs:range xsd:string .
+:hasMonetaryValue rdf:type owl:DatatypeProperty ; rdfs:domain :Promise ; rdfs:range xsd:integer .
+:hasExpectedReturn rdf:type owl:DatatypeProperty ; rdfs:domain :Promise ; rdfs:range xsd:dateTime .
+:hasActualReturn rdf:type owl:DatatypeProperty ; rdfs:domain :Promise ; rdfs:range xsd:dateTime .
+:hasEmotion rdf:type owl:DatatypeProperty ; rdfs:domain :Person ; rdfs:range xsd:string .
+
+### Relationships (Object Properties)
+:isLocatedIn rdf:type owl:ObjectProperty ; rdfs:domain :Entity ; rdfs:range :Location .
+:belongsTo rdf:type owl:ObjectProperty ; rdfs:domain :Entity ; rdfs:range :Organization .
+:hasCondition rdf:type owl:ObjectProperty ; rdfs:domain :Entity ; rdfs:range :Condition .
+:hasTheme rdf:type owl:ObjectProperty ; rdfs:domain :Story ; rdfs:range :Concept .
+:teachesMoral rdf:type owl:ObjectProperty ; rdfs:domain :Story ; rdfs:range :Moral .
+:participatesIn rdf:type owl:ObjectProperty ; rdfs:domain :Character ; rdfs:range :Event .
+:performsAction rdf:type owl:ObjectProperty ; rdfs:domain :Character ; rdfs:range :Event .
+:hasFriend rdf:type owl:ObjectProperty ; rdfs:domain :Character ; rdfs:range :Character .
+:hasEnemy rdf:type owl:ObjectProperty ; rdfs:domain :Character ; rdfs:range :Character .
+:isMarriedTo rdf:type owl:ObjectProperty ; rdfs:domain :Character ; rdfs:range :Character .
+:isParentOf rdf:type owl:ObjectProperty ; rdfs:domain :Character ; rdfs:range :Character .
+:isChildOf rdf:type owl:ObjectProperty ; rdfs:domain :Character ; rdfs:range :Character .
+:owns rdf:type owl:ObjectProperty ; rdfs:domain :Character ; rdfs:range :Object .
+:isPartOf rdf:type owl:ObjectProperty ; rdfs:domain :Location ; rdfs:range :Location .
+:causes rdf:type owl:ObjectProperty ; rdfs:domain :Event ; rdfs:range :Event .
+:isAffectedBy rdf:type owl:ObjectProperty ;
+  rdfs:domain [
+    rdf:type owl:Class ;
+    owl:unionOf ([
+      rdf:type owl:Class ;
+      owl:unionOf (:Character :Location :Object)
+    ])
+  ] ;
+  rdfs:range :Event .
+:leadsTo rdf:type owl:ObjectProperty ; rdfs:domain :Event ; rdfs:range :Event .
+:containsScene rdf:type owl:ObjectProperty ; rdfs:domain :Chapter ; rdfs:range :Scene .
+:feelsTowards rdf:type owl:ObjectProperty ; rdfs:domain :Character ; rdfs:range :Character .
+:isMotivatedBy rdf:type owl:ObjectProperty ; rdfs:domain :Character ; rdfs:range :Concept .
+:livesOn rdf:type owl:ObjectProperty ; rdfs:domain :Animal ; rdfs:range :Location .
+:eats rdf:type owl:ObjectProperty ;
+  rdfs:domain :Animal ;
+  rdfs:range [
+    rdf:type owl:Class ;
+    owl:unionOf (:Fruit :Animal :BodyPart)
+  ] .
+:growsOn rdf:type owl:ObjectProperty ; rdfs:domain :Plant ; rdfs:range :Location .
+:hasHabitat rdf:type owl:ObjectProperty ; rdfs:domain :Animal ; rdfs:range :Location .
+:offersTo rdf:type owl:ObjectProperty ; rdfs:domain :Character ; rdfs:range :Character .
+:desires rdf:type owl:ObjectProperty ;
+  rdfs:domain :Character ;
+  rdfs:range [
+    rdf:type owl:Class ;
+    owl:unionOf (:Fruit :BodyPart)
+  ] .
+:deceives rdf:type owl:ObjectProperty ; rdfs:domain :Character ; rdfs:range :Character .
+:hasMaritalPartner rdf:type owl:ObjectProperty ; rdfs:domain :Character ; rdfs:range :Character .
+:makesPromise rdf:type owl:ObjectProperty ; rdfs:domain :Person ; rdfs:range :Event .
+:isPromiseOf rdf:type owl:ObjectProperty ; rdfs:domain :Event ; rdfs:range :Person .
+:pays rdf:type owl:ObjectProperty ; rdfs:domain :Person ; rdfs:range :Object .
+:ownsHorse rdf:type owl:ObjectProperty ; rdfs:domain :Person ; rdfs:range :Horse .
+:writesAbout rdf:type owl:ObjectProperty ; rdfs:domain :Person ; rdfs:range :Person .
+:tradesWith rdf:type owl:ObjectProperty ; rdfs:domain :Person ; rdfs:range :Person .
+:hasAdvancePayment rdf:type owl:DatatypeProperty ; rdfs:domain :Object ; rdfs:range xsd:integer .
+
+
+### Newly Added Classes
+:ShepherdBoy rdf:type owl:Class ; rdfs:subClassOf :Character .
+:Sheep rdf:type owl:Class ; rdfs:subClassOf :Animal .
+:Wolf rdf:type owl:Class ; rdfs:subClassOf :Animal .
+:Villager rdf:type owl:Class ; rdfs:subClassOf :Person.
+:Pasture rdf:type owl:Class ; rdfs:subClassOf :Location .
+:Forest rdf:type owl:Class ; rdfs:subClassOf :Location .
+### Base Class for Musical Instruments
+:MusicalInstrument rdf:type owl:Class ; rdfs:subClassOf :Object .
+
+### Subclasses for Specific Musical Instruments
+:ShepherdsPipe rdf:type owl:Class ; rdfs:subClassOf :MusicalInstrument .
+:Piano rdf:type owl:Class ; rdfs:subClassOf :MusicalInstrument .
+:Flute rdf:type owl:Class ; rdfs:subClassOf :MusicalInstrument .
+:Guitar rdf:type owl:Class ; rdfs:subClassOf :MusicalInstrument .
+:Violin rdf:type owl:Class ; rdfs:subClassOf :MusicalInstrument .
+:Drum rdf:type owl:Class ; rdfs:subClassOf :MusicalInstrument .
+:Harp rdf:type owl:Class ; rdfs:subClassOf :MusicalInstrument .
+
+
+### Newly Added Properties
+#### Attributes (Data Properties)
+:hasColor rdf:type owl:DatatypeProperty ; rdfs:domain :Animal ; rdfs:range xsd:string .
+:playsInstrument rdf:type owl:DatatypeProperty ; rdfs:domain :Person ; rdfs:range xsd:boolean .
+
+#### Relationships (Object Properties)
+:tends rdf:type owl:ObjectProperty ; rdfs:domain :ShepherdBoy ; rdfs:range :Sheep .
+:hasMaster rdf:type owl:ObjectProperty ; rdfs:domain :ShepherdBoy ; rdfs:range :Person .
+:attacks rdf:type owl:ObjectProperty ; rdfs:domain :Wolf ; rdfs:range :Sheep .
+:callsForHelp rdf:type owl:ObjectProperty ; rdfs:domain :ShepherdBoy ; rdfs:range :Event .
+:respondsTo rdf:type owl:ObjectProperty ; rdfs:domain :Villager ; rdfs:range :Event .
+:ownsPet rdf:type owl:ObjectProperty ; rdfs:domain :ShepherdBoy ; rdfs:range :Animal .
+:locatedNear rdf:type owl:ObjectProperty ;
+  rdfs:domain :Pasture ;
+  rdfs:range [
+    rdf:type owl:Class ;
+    owl:unionOf (:Forest :Village)
+  ] .
+
+
+### Newly Added Classes
+:Astrologer rdf:type owl:Class ; rdfs:subClassOf :Person .
+:Ditch rdf:type owl:Class ; rdfs:subClassOf :Location .
+:Mud rdf:type owl:Class ; rdfs:subClassOf :Object .
+:Star rdf:type owl:Class ; rdfs:subClassOf :Object .
+:Future rdf:type owl:Class ; rdfs:subClassOf :Concept .
+
+### Newly Added Object Properties
+:gazesAt rdf:type owl:ObjectProperty ;
+  rdfs:domain :Person ;
+  rdfs:range [
+    rdf:type owl:Class ;
+    owl:unionOf (:Star:Future)
+  ] .
+
+:fallsInto rdf:type owl:ObjectProperty ;
+  rdfs:domain :Person ;
+  rdfs:range :Ditch .
+
+:isFilledWith rdf:type owl:ObjectProperty ;
+  rdfs:domain :Ditch ;
+  rdfs:range :Mud .
+
+:isSavedBy rdf:type owl:ObjectProperty ;
+  rdfs:domain :Person ;
+  rdfs:range :Villager .
+
+:speaksOf rdf:type owl:ObjectProperty ;
+  rdfs:domain :Person ;
+  rdfs:range :Future .
+
+:Prison rdf:type owl:Class ; rdfs:subClassOf :Organization .
+:Inmate rdf:type owl:Class ; rdfs:subClassOf :Person .
+:LawEnforcementAgency rdf:type owl:Class ; rdfs:subClassOf :Organization .
+:EscapeTool rdf:type owl:Class ; rdfs:subClassOf :Object .
+:LifePreserver rdf:type owl:Class ; rdfs:subClassOf :Object .
+:RubberRaft rdf:type owl:Class ; rdfs:subClassOf :Object .
+:VentilatorGrill rdf:type owl:Class ; rdfs:subClassOf :Object .
+:CellBlock rdf:type owl:Class ; rdfs:subClassOf :Location .
+:UtilityCorridor rdf:type owl:Class ; rdfs:subClassOf :Location .
+:Workshop rdf:type owl:Class ; rdfs:subClassOf :Location .
+
+:usesTool rdf:type owl:ObjectProperty ;
+  rdfs:domain [
+    rdf:type owl:Class ;
+    owl:unionOf (:Inmate)
+  ] ;
+  rdfs:range [
+    rdf:type owl:Class ;
+    owl:unionOf (:EscapeTool :MusicalInstrument)
+  ] .
+
+:concealsExitWith rdf:type owl:ObjectProperty ;
+  rdfs:domain :Inmate ;
+  rdfs:range :Object .
+
+:collaboratesWith rdf:type owl:ObjectProperty ;
+  rdfs:domain :Inmate ;
+  rdfs:range :Inmate .
+
+:investigates rdf:type owl:ObjectProperty ;
+  rdfs:domain :LawEnforcementAgency ;
+  rdfs:range :Event .
+
+:constructs rdf:type owl:ObjectProperty ;
+  rdfs:domain :Inmate ;
+  rdfs:range [
+    rdf:type owl:Class ;
+    owl:unionOf (:LifePreserver :RubberRaft :EscapeTool)
+  ] .
+
+:escapesFrom rdf:type owl:ObjectProperty ;
+  rdfs:domain :Inmate ;
+  rdfs:range :Prison .
+
+:findsEvidence rdf:type owl:ObjectProperty ;
+  rdfs:domain :LawEnforcementAgency ;
+  rdfs:range :Object .
+
+:hasSecretLocation rdf:type owl:ObjectProperty ;
+  rdfs:domain :Workshop ;
+  rdfs:range :CellBlock .
+

@@ -1,0 +1,33 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix mf: <http://example.org/mf> .
+
+<mf:NamedEntity> a xsd:string .
+<mf:Property> a <mf:NamedEntity> .
+<mf:PropertyAddress> a <mf:NamedEntity> .
+<mf:PropertyName> a <mf:NamedEntity> .
+<mf:PropertyUnits> a <mf:NamedEntity> .
+<mf:PropertyAppraisedValue> a <mf:NamedEntity> .
+<mf:PropertyOwner> a <mf:NamedEntity> .
+<mf:PropertyAppraiser> a <mf:NamedEntity> .
+<mf:PropertyAppraisalRemarks> a <mf:NamedEntity> .
+<mf:PropertyAppraisalDate> a xsd:date .
+<mf:PropertyAppraisal> a <mf:document> .
+
+<mf:Property> <hasName> <mf:PropertyName> ;
+	    <hasAddress> <mf:PropertyAddress> ;
+	    <hasUnits> <mf:PropertyUnits> ;
+	    <hasOwner> <mf:PropertyOwner> ;	    
+	    <hasAppraisal> <mf:PropretyAppraisal> .
+
+<mf:PropertyAppraisal> <hasTitle> xsd:string ;
+		     <hasDate> <mf:PropertyAppraisalDate> ;
+		     <hasAppraiser> <mf:PropertyAppraiser> ;
+		     <hasRemarks> <mf:PropertyAppraisalRemarks> ;
+		     <hasAppraisedValue> <mf:PropertyAppraisedValue> .
+
+<mf:PropertyOwner> rdfs:label "Owner" .
+<mf:PropertyAppraisalDate> rdfs:label "Date of Report" , "Date of the appraisal" .
+<mf:PropertyAppraisedValue> rdfs:label "Assessed Value" , "Market Value".
+<mf:PropertyUnits> rdfs:label "Number of Units" .

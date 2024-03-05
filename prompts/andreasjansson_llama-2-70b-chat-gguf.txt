@@ -1,0 +1,346 @@
+You are a faithful and trusted network graph maker tasked with creating a comprehensive and interconnected representation of a given context provided in the input below
+ensuring all nodes are part of a single cluster using the turtle ontology provided in {grammar}. 
+Your job  involves to reason step by step and extract key concepts (nodes) and their relationships (links) 
+from the provided text and constructing a JSON.
+
+While doing so, follow these nine guidelines below faithfully:
+
+1. Nodes Identification: Identify key nodes as defined in the classes and attributes section of the ontology
+
+2. Relationship Mapping: Establish clear relationships between all nodes using the definitions provided in the relationships section of the ontology.
+
+3. Relationship Validation: Confirm each relationship's validity and relevance based on the text. Avoid introducing external concepts not present in the context.
+
+4. Source and Target Node Validation: Ensure that every 'source' and 'target' in the Links array of the output JSON corresponds exactly to an 'id' in the Nodes array. 
+Before adding a link to the Links array, verify that both the 'source' and 'target' nodes are already defined within the Nodes array. 
+This prevents the introduction of unrepresented concepts or entities in the relationship mapping. 
+If a potential link involves a node not listed in the Nodes array, you must first add that node to the Nodes array, ensuring it adheres to the Nodes Identification guideline.
+
+5. Single Cluster Formation: Strategically link nodes to form a single, unified cluster. Utilize intermediary nodes if necessary to connect disparate sections, 
+ensuring no node is isolated.
+
+6. Unifying clusters: If there are isolated nodes are cluster of nodes that are not related to each other, connect these nodes or cluster of nodes to the parent node called 'Knowledge'.
+
+7. Detailed Relationships: For each link, provide a 'label' describing the relationship, a 'strength' indicating the connection's intensity (0.1-1.0), 
+and a 'rationale' explaining the link's basis.
+
+8. Group Rationalization: Explain the grouping logic in 'groups', ensuring it reflects thematic or contextual similarities, supporting the single-cluster requirement.
+
+9. Knowledge Node: The Knowledge node should always be the first node with a unique 'group' identifier with value 1, and 'type' with value 'concept'. No other nodes
+should be in group 1. The group rationale for group 1 should be, "Overarching concept connecting all elements of the given context". 
+Links to the 'Knowledge' node should have a 'strength' value set to 0.1.
+
+By following these guidelines, create a JSON as indicated below that accurately reflects the interconnected nature of the context, ensuring all nodes are part of one 
+continuous network without isolated groups or missing links. The JSON will consist of three primary arrays: 'nodes', 'links' and 'groups'. 
+Each node in 'nodes' must appear at least once in 'links' as either a 'source' or a 'target', ensuring a cohesive, singular network.
+
+Respond with json that adheres to the following jsonschema:
+
+{jsonschema}
+
+<ontology>
+@prefix : <http://example.org/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+### Classes
+:Object rdf:type owl:Class .
+:Entity rdf:type owl:Class .
+:Location rdf:type owl:Class .
+:Organization rdf:type owl:Class ; rdfs:subClassOf :Entity .
+:Person rdf:type owl:Class ; rdfs:subClassOf :Entity .
+:Animal rdf:type owl:Class ; rdfs:subClassOf :Entity .
+:Condition rdf:type owl:Class .
+:Character rdf:type owl:Class ; rdfs:subClassOf :Entity .
+:Hero rdf:type owl:Class ; rdfs:subClassOf :Character .
+:Villain rdf:type owl:Class ; rdfs:subClassOf :Character .
+:SupportingCharacter rdf:type owl:Class ; rdfs:subClassOf :Character .
+:Concept rdf:type owl:Class .
+:Moral rdf:type owl:Class ; rdfs:subClassOf :Concept .
+:Time rdf:type owl:Class .
+:Event rdf:type owl:Class ; rdfs:subClassOf :Time .
+:PlotPoint rdf:type owl:Class ; rdfs:subClassOf :Event .
+:Chapter rdf:type owl:Class ; rdfs:subClassOf :Event .
+:Scene rdf:type owl:Class ; rdfs:subClassOf :Event .
+:Story rdf:type owl:Class .
+:Plant rdf:type owl:Class .
+:Tree rdf:type owl:Class ; rdfs:subClassOf :Plant .
+:Fruit rdf:type owl:Class ; rdfs:subClassOf :Plant .
+:BodyPart rdf:type owl:Class .
+:King rdf:type owl:Class ; rdfs:subClassOf :Person .
+:Trader rdf:type owl:Class ; rdfs:subClassOf :Person .
+:Horse rdf:type owl:Class ; rdfs:subClassOf :Animal .
+:Dog rdf:type owl:Class ; rdfs:subClassOf :Animal .
+:Cat rdf:type owl:Class ; rdfs:subClassOf :Animal .
+:Bird rdf:type owl:Class ; rdfs:subClassOf :Animal .
+:Currency rdf:type owl:Class .
+:GoldCoin rdf:type owl:Class ; rdfs:subClassOf :Currency .
+:Promise rdf:type owl:Class ; rdfs:subClassOf :Event .
+
+### Attributes (Data Properties)
+:hasAge rdf:type owl:DatatypeProperty ; rdfs:domain :Person ; rdfs:range xsd:integer .
+:hasGender rdf:type owl:DatatypeProperty ; rdfs:domain :Person ; rdfs:range xsd:string .
+:hasName rdf:type owl:DatatypeProperty ; rdfs:domain :Entity ; rdfs:range xsd:string .
+:hasDescription rdf:type owl:DatatypeProperty ;
+  rdfs:domain [
+    rdf:type owl:Class ;
+    owl:unionOf ( :Location :Event )
+  ] ;
+  rdfs:range xsd:string .
+:startTime rdf:type owl:DatatypeProperty ; rdfs:domain :Event ; rdfs:range xsd:dateTime .
+:endTime rdf:type owl:DatatypeProperty ; rdfs:domain :Event ; rdfs:range xsd:dateTime .
+:isReal rdf:type owl:DatatypeProperty ; rdfs:domain :Location ; rdfs:range xsd:boolean .
+:hasEmotionalState rdf:type owl:DatatypeProperty ; rdfs:domain :Character ; rdfs:range xsd:string .
+:hasPersonalityTrait rdf:type owl:DatatypeProperty ; rdfs:domain :Character ; rdfs:range xsd:string .
+:hasSpecies rdf:type owl:DatatypeProperty ; rdfs:domain :Animal ; rdfs:range xsd:string .
+:isEdible rdf:type owl:DatatypeProperty ;
+  rdfs:domain [
+    rdf:type owl:Class ;
+    owl:unionOf (:Plant :Fruit)
+  ] ;
+  rdfs:range xsd:boolean .
+:hasTaste rdf:type owl:DatatypeProperty ; rdfs:domain :Fruit ; rdfs:range xsd:string .
+:hasBreed rdf:type owl:DatatypeProperty ; rdfs:domain :Horse ; rdfs:range xsd:string .
+:hasValue rdf:type owl:DatatypeProperty ; rdfs:domain :Object ; rdfs:range xsd:integer .
+:hasRole rdf:type owl:DatatypeProperty ; rdfs:domain :Person ; rdfs:range xsd:string .
+:hasMonetaryValue rdf:type owl:DatatypeProperty ; rdfs:domain :Promise ; rdfs:range xsd:integer .
+:hasExpectedReturn rdf:type owl:DatatypeProperty ; rdfs:domain :Promise ; rdfs:range xsd:dateTime .
+:hasActualReturn rdf:type owl:DatatypeProperty ; rdfs:domain :Promise ; rdfs:range xsd:dateTime .
+:hasEmotion rdf:type owl:DatatypeProperty ; rdfs:domain :Person ; rdfs:range xsd:string .
+
+### Relationships (Object Properties)
+:isLocatedIn rdf:type owl:ObjectProperty ; rdfs:domain :Entity ; rdfs:range :Location .
+:belongsTo rdf:type owl:ObjectProperty ; rdfs:domain :Entity ; rdfs:range :Organization .
+:hasCondition rdf:type owl:ObjectProperty ; rdfs:domain :Entity ; rdfs:range :Condition .
+:hasTheme rdf:type owl:ObjectProperty ; rdfs:domain :Story ; rdfs:range :Concept .
+:teachesMoral rdf:type owl:ObjectProperty ; rdfs:domain :Story ; rdfs:range :Moral .
+:participatesIn rdf:type owl:ObjectProperty ; rdfs:domain :Character ; rdfs:range :Event .
+:performsAction rdf:type owl:ObjectProperty ; rdfs:domain :Character ; rdfs:range :Event .
+:hasFriend rdf:type owl:ObjectProperty ; rdfs:domain :Character ; rdfs:range :Character .
+:hasEnemy rdf:type owl:ObjectProperty ; rdfs:domain :Character ; rdfs:range :Character .
+:isMarriedTo rdf:type owl:ObjectProperty ; rdfs:domain :Character ; rdfs:range :Character .
+:isParentOf rdf:type owl:ObjectProperty ; rdfs:domain :Character ; rdfs:range :Character .
+:isChildOf rdf:type owl:ObjectProperty ; rdfs:domain :Character ; rdfs:range :Character .
+:owns rdf:type owl:ObjectProperty ; rdfs:domain :Character ; rdfs:range :Object .
+:isPartOf rdf:type owl:ObjectProperty ; rdfs:domain :Location ; rdfs:range :Location .
+:causes rdf:type owl:ObjectProperty ; rdfs:domain :Event ; rdfs:range :Event .
+:isAffectedBy rdf:type owl:ObjectProperty ;
+  rdfs:domain [
+    rdf:type owl:Class ;
+    owl:unionOf ([
+      rdf:type owl:Class ;
+      owl:unionOf (:Character :Location :Object)
+    ])
+  ] ;
+  rdfs:range :Event .
+:leadsTo rdf:type owl:ObjectProperty ; rdfs:domain :Event ; rdfs:range :Event .
+:containsScene rdf:type owl:ObjectProperty ; rdfs:domain :Chapter ; rdfs:range :Scene .
+:feelsTowards rdf:type owl:ObjectProperty ; rdfs:domain :Character ; rdfs:range :Character .
+:isMotivatedBy rdf:type owl:ObjectProperty ; rdfs:domain :Character ; rdfs:range :Concept .
+:livesOn rdf:type owl:ObjectProperty ; rdfs:domain :Animal ; rdfs:range :Location .
+:eats rdf:type owl:ObjectProperty ;
+  rdfs:domain :Animal ;
+  rdfs:range [
+    rdf:type owl:Class ;
+    owl:unionOf (:Fruit :Animal :BodyPart)
+  ] .
+:growsOn rdf:type owl:ObjectProperty ; rdfs:domain :Plant ; rdfs:range :Location .
+:hasHabitat rdf:type owl:ObjectProperty ; rdfs:domain :Animal ; rdfs:range :Location .
+:offersTo rdf:type owl:ObjectProperty ; rdfs:domain :Character ; rdfs:range :Character .
+:desires rdf:type owl:ObjectProperty ;
+  rdfs:domain :Character ;
+  rdfs:range [
+    rdf:type owl:Class ;
+    owl:unionOf (:Fruit :BodyPart)
+  ] .
+:deceives rdf:type owl:ObjectProperty ; rdfs:domain :Character ; rdfs:range :Character .
+:hasMaritalPartner rdf:type owl:ObjectProperty ; rdfs:domain :Character ; rdfs:range :Character .
+:makesPromise rdf:type owl:ObjectProperty ; rdfs:domain :Person ; rdfs:range :Event .
+:isPromiseOf rdf:type owl:ObjectProperty ; rdfs:domain :Event ; rdfs:range :Person .
+:pays rdf:type owl:ObjectProperty ; rdfs:domain :Person ; rdfs:range :Object .
+:ownsHorse rdf:type owl:ObjectProperty ; rdfs:domain :Person ; rdfs:range :Horse .
+:writesAbout rdf:type owl:ObjectProperty ; rdfs:domain :Person ; rdfs:range :Person .
+:tradesWith rdf:type owl:ObjectProperty ; rdfs:domain :Person ; rdfs:range :Person .
+:hasAdvancePayment rdf:type owl:DatatypeProperty ; rdfs:domain :Object ; rdfs:range xsd:integer .
+
+
+### Newly Added Classes
+:ShepherdBoy rdf:type owl:Class ; rdfs:subClassOf :Character .
+:Sheep rdf:type owl:Class ; rdfs:subClassOf :Animal .
+:Wolf rdf:type owl:Class ; rdfs:subClassOf :Animal .
+:Villager rdf:type owl:Class ; rdfs:subClassOf :Person.
+:Pasture rdf:type owl:Class ; rdfs:subClassOf :Location .
+:Forest rdf:type owl:Class ; rdfs:subClassOf :Location .
+### Base Class for Musical Instruments
+:MusicalInstrument rdf:type owl:Class ; rdfs:subClassOf :Object .
+
+### Subclasses for Specific Musical Instruments
+:ShepherdsPipe rdf:type owl:Class ; rdfs:subClassOf :MusicalInstrument .
+:Piano rdf:type owl:Class ; rdfs:subClassOf :MusicalInstrument .
+:Flute rdf:type owl:Class ; rdfs:subClassOf :MusicalInstrument .
+:Guitar rdf:type owl:Class ; rdfs:subClassOf :MusicalInstrument .
+:Violin rdf:type owl:Class ; rdfs:subClassOf :MusicalInstrument .
+:Drum rdf:type owl:Class ; rdfs:subClassOf :MusicalInstrument .
+:Harp rdf:type owl:Class ; rdfs:subClassOf :MusicalInstrument .
+
+
+### Newly Added Properties
+#### Attributes (Data Properties)
+:hasColor rdf:type owl:DatatypeProperty ; rdfs:domain :Animal ; rdfs:range xsd:string .
+:playsInstrument rdf:type owl:DatatypeProperty ; rdfs:domain :Person ; rdfs:range xsd:boolean .
+
+#### Relationships (Object Properties)
+:tends rdf:type owl:ObjectProperty ; rdfs:domain :ShepherdBoy ; rdfs:range :Sheep .
+:hasMaster rdf:type owl:ObjectProperty ; rdfs:domain :ShepherdBoy ; rdfs:range :Person .
+:attacks rdf:type owl:ObjectProperty ; rdfs:domain :Wolf ; rdfs:range :Sheep .
+:callsForHelp rdf:type owl:ObjectProperty ; rdfs:domain :ShepherdBoy ; rdfs:range :Event .
+:respondsTo rdf:type owl:ObjectProperty ; rdfs:domain :Villager ; rdfs:range :Event .
+:ownsPet rdf:type owl:ObjectProperty ; rdfs:domain :ShepherdBoy ; rdfs:range :Animal .
+:locatedNear rdf:type owl:ObjectProperty ;
+  rdfs:domain :Pasture ;
+  rdfs:range [
+    rdf:type owl:Class ;
+    owl:unionOf (:Forest :Village)
+  ] .
+
+
+### Newly Added Classes
+:Astrologer rdf:type owl:Class ; rdfs:subClassOf :Person .
+:Ditch rdf:type owl:Class ; rdfs:subClassOf :Location .
+:Mud rdf:type owl:Class ; rdfs:subClassOf :Object .
+:Star rdf:type owl:Class ; rdfs:subClassOf :Object .
+:Future rdf:type owl:Class ; rdfs:subClassOf :Concept .
+
+### Newly Added Object Properties
+:gazesAt rdf:type owl:ObjectProperty ;
+  rdfs:domain :Person ;
+  rdfs:range [
+    rdf:type owl:Class ;
+    owl:unionOf (:Star:Future)
+  ] .
+
+:fallsInto rdf:type owl:ObjectProperty ;
+  rdfs:domain :Person ;
+  rdfs:range :Ditch .
+
+:isFilledWith rdf:type owl:ObjectProperty ;
+  rdfs:domain :Ditch ;
+  rdfs:range :Mud .
+
+:isSavedBy rdf:type owl:ObjectProperty ;
+  rdfs:domain :Person ;
+  rdfs:range :Villager .
+
+:speaksOf rdf:type owl:ObjectProperty ;
+  rdfs:domain :Person ;
+  rdfs:range :Future .
+
+:Prison rdf:type owl:Class ; rdfs:subClassOf :Organization .
+:Inmate rdf:type owl:Class ; rdfs:subClassOf :Person .
+:LawEnforcementAgency rdf:type owl:Class ; rdfs:subClassOf :Organization .
+:EscapeTool rdf:type owl:Class ; rdfs:subClassOf :Object .
+:LifePreserver rdf:type owl:Class ; rdfs:subClassOf :Object .
+:RubberRaft rdf:type owl:Class ; rdfs:subClassOf :Object .
+:VentilatorGrill rdf:type owl:Class ; rdfs:subClassOf :Object .
+:CellBlock rdf:type owl:Class ; rdfs:subClassOf :Location .
+:UtilityCorridor rdf:type owl:Class ; rdfs:subClassOf :Location .
+:Workshop rdf:type owl:Class ; rdfs:subClassOf :Location .
+
+:usesTool rdf:type owl:ObjectProperty ;
+  rdfs:domain [
+    rdf:type owl:Class ;
+    owl:unionOf (:Inmate)
+  ] ;
+  rdfs:range [
+    rdf:type owl:Class ;
+    owl:unionOf (:EscapeTool :MusicalInstrument)
+  ] .
+
+:concealsExitWith rdf:type owl:ObjectProperty ;
+  rdfs:domain :Inmate ;
+  rdfs:range :Object .
+
+:collaboratesWith rdf:type owl:ObjectProperty ;
+  rdfs:domain :Inmate ;
+  rdfs:range :Inmate .
+
+:investigates rdf:type owl:ObjectProperty ;
+  rdfs:domain :LawEnforcementAgency ;
+  rdfs:range :Event .
+
+:constructs rdf:type owl:ObjectProperty ;
+  rdfs:domain :Inmate ;
+  rdfs:range [
+    rdf:type owl:Class ;
+    owl:unionOf (:LifePreserver :RubberRaft :EscapeTool)
+  ] .
+
+:escapesFrom rdf:type owl:ObjectProperty ;
+  rdfs:domain :Inmate ;
+  rdfs:range :Prison .
+
+:findsEvidence rdf:type owl:ObjectProperty ;
+  rdfs:domain :LawEnforcementAgency ;
+  rdfs:range :Object .
+
+:hasSecretLocation rdf:type owl:ObjectProperty ;
+  rdfs:domain :Workshop ;
+  rdfs:range :CellBlock .
+</ontology>
+
+
+
+```json
+{
+    "nodes":  array // Each element in the 'nodes' array represents an entity. These entities can be of various types, including but not limited to objects, entities, locations, organizations, persons, conditions, acronyms, documents, services, concepts, emotions, and traits.
+    [
+        "id": string, // A unique identifier string for each node from the input text. Do not use numbers for this.
+        "attributes": string, // One or many comma-separated attributes of the node described in the input text. Use only those attributes as defined in the attributes section of the ontology
+        "type": string, // A field indicating the category of the entity, such as 'entity', 'location', 'organization', 'person', 'animal', 'bird', 'fish' 'condition', 'acronym', 'document', 'service', 'emotion', 'trait', or 'concept'.
+        "group": integer // A numerical field indicating the group to which the node belongs. Nodes that are related or belong to the same group will share the same group number.
+
+    ],
+    "links": array // Each element in the 'links' array represents a relationship between two nodes. Use the following logic to create the Links Array. Read the input text again. Now review the list of nodes in the Nodes array. For every node represented by the 'id' field in the Nodes array, reason step by step to find a relation with another node in the Nodes array. For each such relationship,  add an element to the Links Array containing the following fields:
+    [
+        "source": string, // The 'id' of the node where the relationship originates.
+        "target": string, // The 'id' of the node where the relationship is directed.
+        "label": string, // A descriptive label indicating the nature of the relationship between the 'source' and 'target'. Indicate the function if the 'target' is a part or component of 'source'.
+        "strength": number, // A numerical value ranging from 0.1 to 1.0, representing the strength of the relationship, with 1.0 being the strongest and 0.1 the weakest.
+        "rationale": string //A textual description indicating your rationale for coming up with the strength for each relationship.
+    ],
+    "groups" : // This array should indicate the rationale for the grouping indicated in the 'group' field of the Nodes array. There should be one element in this array for each unique group. Each element in the 'groups' aray will contain the following fields:
+    [
+        "group_id" : integer, // The group number
+        "rationale": string // A textual description of the thematic or contextual similarities between the nodes that make up the group.
+    ]
+}
+```
+
+
+<input> 
+The Daring Escape from Alcatraz
+
+Located on a lonely island in the middle of San Francisco Bay, Alcatraz—aka “The Rock”—had held captives since the Civil War. But it was in 1934, the highpoint of a major war on crime, that Alcatraz was re-fortified into the world's most secure prison. Its eventual inmates included dangerous public enemies like Al Capone and George “Machine Gun” Kelly, criminals who had a history of escapes, and the occasional odd character like the infamous “Birdman of Alcatraz.” In the 1930s, Alcatraz was already a forbidding place, surrounded by the cold, rough waters of the Pacific. The redesign included tougher iron bars, a series of strategically positioned guard towers, and strict rules, including a dozen checks a day of the prisoners. Escape seemed near impossible. Despite the odds, from 1934 until the prison was closed in 1963, 36 men tried 14 separate escapes. Nearly all were caught or didn’t survive the attempt. The fate of three particular inmates, however, remains a mystery to this day. Here is their story.
+
+Escapees
+
+Frank Morris arrived at Alcatraz in January 1960 after convictions for bank robbery, burglary, and other crimes and repeated attempts to escape various prisons. Later that year, a convict by the name of John Anglin was sent to Alcatraz, followed by his brother Clarence in early 1961. All three knew each other from previous stints in prison. Assigned to adjoining cells, they began hatching a plan to escape. Morris, known for his intelligence, took the lead in the planning. They were aided by another inmate, Allen West.
+Missing
+
+On June 12, 1962, the routine early morning bed check turned out to be anything but. Three convicts were not in their cells: John Anglin, his brother Clarence, and Frank Morris. In their beds were cleverly built dummy heads made of plaster, flesh-tone paint, and real human hair that apparently fooled the night guards. The prison went into lock down, and an intensive search began.
+Gathering the Clues
+
+We were notified immediately and asked to help. Our office in San Francisco set leads for offices nationwide to check for any records on the missing prisoners and on their previous escape attempts (all three had made them). We also interviewed relatives of the men and compiled all their identification records and asked boat operators in the Bay to be on the lookout for debris. Within two days, a packet of letters sealed in rubber and related to the men was recovered. Later, some paddle-like pieces of wood and bits of rubber inner tube were found in the water. A homemade life-vest was also discovered washed up on Cronkhite Beach, but extensive searches did not turn up any other items in the area. The inmates made wooden paddles to facilitate their escape.
+Piecing Together the Plan
+
+As the days went by, the FBI, the Coast Guard, Bureau of Prison authorities, and others began to find more evidence and piece together the ingenious escape plan. We were aided by inmate Allen West, who didn’t make it out of his cell in time and began providing us with information. Here’s what we learned. The group had begun laying plans the previous December when one of them came across some old saw blades. Using crude tools—including a homemade drill made from the motor of a broken vacuum cleaner—the plotters each loosened the air vents at the back of their cells by painstakingly drilling closely spaced holes around the cover so the entire section of the wall could be removed. Once through, they hid the holes with whatever they could—a suitcase, a piece of cardboard, etc. Behind the cells was a common, unguarded utility corridor. They made their way down this corridor and climbed to the roof of their cell block inside the building, where they set up a secret workshop. There, taking turns keeping watch for the guards in the evening before the last count (see the crude “periscope” they constructed for the lookouts), they used a variety of stolen and donated materials to build and hide what they needed to escape. More than 50 raincoats that they stole or gathered were turned into makeshift life preservers and a 6x14 foot rubber raft, the seams carefully stitched together and “vulcanized” by the hot steam pipes in the prison (the idea came from magazines that were found in the prisoners’ cells). They also built wooden paddles and converted a musical instrument into a tool to inflate the raft. At the same time, they were looking for a way out of the building. The ceiling was a good 30 feet high, but using a network of pipes they climbed up and eventually pried open the ventilator at the top of the shaft. They kept it in place temporarily by fashioning a fake bolt out of soap.
+The Escape
+
+On the evening of June 11, they were ready to go. West, though, did not have his ventilator grill completely removed and was left behind. The three others got into the corridor, gathered their gear, climbed up and out through the ventilator, and got on to the prison roof. Then, they shimmied down the bakery smoke stack at the rear of the cell house, climbed over the fence, and snuck to the northeast shore of the island and launched their raft.
+The Mystery Continues
+
+What happened next remains a mystery. Did they make it across the Bay, get to Angel Island, and then cross Raccoon Strait into Marin County as planned? Or did the wind and waves get the better of them? Plenty of people have gone to great lengths to prove that the men could have survived, but the question remains: did they? Our investigation at the time concluded otherwise, for the following reasons: Crossing the Bay. Yes, youngsters have made the more than mile-long swim from Alcatraz to Angel Island. But with the strong currents and frigid Bay water, the odds were clearly against these men. Three if by land. The plan, according to our prison informant, was to steal clothes and a car once on land. But we never uncovered any thefts like this despite the high-profile nature of the case. Family ties. If the escapees had help, we couldn’t substantiate it. The families appeared unlikely to even have the financial means to provide any real support. Missing in action. For the 17 years we worked on the case, no credible evidence emerged to suggest the men were still alive, either in the U.S. or overseas. The FBI officially closed its case on December 31, 1979, and turned over responsibility to the U.S. Marshals Service, which continues to investigate in the unlikely event the trio is still alive.
+</input>

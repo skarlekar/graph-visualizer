@@ -6,6 +6,10 @@
 <mf:NamedEntity> a xsd:string .
 <mf:Property> a <mf:NamedEntity> .
 <mf:PropertyAddress> a <mf:NamedEntity> .
+<mf:PropertyStreetNumber> a <mf:NamedEntity> .
+<mf:PropertyStreetName> a <mf:NamedEntity> .
+<mf:PropertyCity> a <mf:NamedEntity> .
+<mf:PropertyZip> a <mf:NamedEntity> .
 <mf:PropertyName> a <mf:NamedEntity> .
 <mf:PropertyUnits> a <mf:NamedEntity> .
 <mf:PropertyAppraisedValue> a <mf:NamedEntity> .
@@ -13,6 +17,9 @@
 <mf:PropertyAppraiser> a <mf:NamedEntity> .
 <mf:PropertyAppraisalRemarks> a <mf:NamedEntity> .
 <mf:PropertyAppraisalDate> a xsd:date .
+<mf:PropertyAppraisalMonth> a xsd:string .
+<mf:PropertyAppraisalDay> a xsd:int .
+<mf:PropertyAppraisalYear> a xsd:int .
 <mf:PropertyAppraisal> a <mf:document> .
 
 <mf:Property> <hasName> <mf:PropertyName> ;
@@ -26,6 +33,15 @@
 		     <hasAppraiser> <mf:PropertyAppraiser> ;
 		     <hasRemarks> <mf:PropertyAppraisalRemarks> ;
 		     <hasAppraisedValue> <mf:PropertyAppraisedValue> .
+<mf:PropertyAddress> <hasStreetNumber> <mf:PropertyStreetNumber> ;
+		      <hasStreetName> <mf:PropertyStreetName> ;
+		       <hasCity> <mf:PropertyCity> ;
+		      <hasState> <mf:PropertyState> ;
+		      <hasZip> <mf:PropertyZip> .
+
+<mf:PropertyAppraisalDate> <hasMonth> <mf:PropertyAppraisalMonth> ;
+			   <hasDay> <mf:PropertyAppraisalDay> ;
+			   <hasYear> <mf:PropertyAppraisalYear> .
 
 <mf:PropertyOwner> rdfs:label "Owner" .
 <mf:PropertyAppraisalDate> rdfs:label "Date of Report" , "Date of the appraisal" , "Date:".

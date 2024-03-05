@@ -28,6 +28,6 @@
 		     <hasAppraisedValue> <mf:PropertyAppraisedValue> .
 
 <mf:PropertyOwner> rdfs:label "Owner" .
-<mf:PropertyAppraisalDate> rdfs:label "Date of Report" , "Date of the appraisal" .
-<mf:PropertyAppraisedValue> rdfs:label "Assessed Value" , "Market Value".
+<mf:PropertyAppraisalDate> rdfs:label "Date of Report" , "Date of the appraisal" , "Date:".
+<mf:PropertyAppraisedValue> rdfs:label "Assessed Value" , "Market Value" , "Final Value".
 <mf:PropertyUnits> rdfs:label "Number of Units" .

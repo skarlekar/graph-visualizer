@@ -1,0 +1,261 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <http://example.org/ontology/multifamily_property_appraisal#> .
+
+### Ontology Definition
+: a owl:Ontology ;
+    rdfs:comment "An ontology for extracting information from multifamily property appraisal reports." .
+
+### Classes
+:PropertyAppraisalReport a owl:Class .
+
+:Address a owl:Class .
+
+:Date a owl:Class .
+
+:PropertyDetails a owl:Class .
+
+:ValueAssessment a owl:Class .
+
+:Person a owl:Class .
+
+:Appraiser a owl:Class ;
+    rdfs:subClassOf :Person .
+
+:Owner a owl:Class ;
+    rdfs:subClassOf :Person .
+
+### Composite Classes for Addresses and Dates
+:StreetAddress a owl:Class .
+:City a owl:Class .
+:State a owl:Class .
+:ZIPCode a owl:Class .
+
+:Day a owl:Class .
+:Month a owl:Class .
+:Year a owl:Class .
+
+### Union Classes for entities that can belong to multiple classes
+:ContactInformation a owl:Class .
+:ContactInformation owl:unionOf (:Address :Person) .
+
+### Object Properties
+:hasAddress a owl:ObjectProperty ;
+    rdfs:domain :PropertyAppraisalReport ;
+    rdfs:range :Address .
+
+:hasAppraisalDate a owl:ObjectProperty ;
+    rdfs:domain :PropertyAppraisalReport ;
+    rdfs:range :Date .
+
+:hasOwner a owl:ObjectProperty ;
+    rdfs:domain :PropertyAppraisalReport ;
+    rdfs:range :Owner .
+
+:hasAppraiser a owl:ObjectProperty ;
+    rdfs:domain :PropertyAppraisalReport ;
+    rdfs:range :Appraiser .
+
+:hasPropertyDetails a owl:ObjectProperty ;
+    rdfs:domain :PropertyAppraisalReport ;
+    rdfs:range :PropertyDetails .
+
+:hasValueAssessment a owl:ObjectProperty ;
+    rdfs:domain :PropertyAppraisalReport ;
+    rdfs:range :ValueAssessment .
+
+### Data Properties for Composite Classes
+:hasStreetAddress a owl:DatatypeProperty ;
+    rdfs:domain :Address ;
+    rdfs:range xsd:string .
+
+:hasCity a owl:DatatypeProperty ;
+    rdfs:domain :Address ;
+    rdfs:range xsd:string .
+
+:hasState a owl:DatatypeProperty ;
+    rdfs:domain :Address ;
+    rdfs:range xsd:string .
+
+:hasZIPCode a owl:DatatypeProperty ;
+    rdfs:domain :Address ;
+    rdfs:range xsd:string .
+
+:hasDay a owl:DatatypeProperty ;
+    rdfs:domain :Date ;
+    rdfs:range xsd:int .
+
+:hasMonth a owl:DatatypeProperty ;
+    rdfs:domain :Date ;
+    rdfs:range xsd:int .
+
+:hasYear a owl:DatatypeProperty ;
+    rdfs:domain :Date ;
+    rdfs:range xsd:int .
+
+### Extended Classes
+:PropertyUnit a owl:Class .
+:Currency a owl:Class .
+:AppraisalFirm a owl:Class ;
+    rdfs:subClassOf :Organization .
+:InspectionDate a owl:Class ;
+    rdfs:subClassOf :Date .
+:TaxInformation a owl:Class .
+:LandArea a owl:Class .
+:Zoning a owl:Class .
+:LandValue a owl:Class .
+:Topography a owl:Class .
+:Drainage a owl:Class .
+:Utilities a owl:Class .
+:FloodZone a owl:Class .
+:Easement a owl:Class .
+:Encroachment a owl:Class .
+:BuildingType a owl:Class .
+:ConstructionType a owl:Class .
+:Quality a owl:Class .
+:YearBuilt a owl:Class .
+:ArchitecturalStyle a owl:Class .
+:BuildingCondition a owl:Class .
+:EffectiveAge a owl:Class .
+:RemainingEconomicLife a owl:Class .
+:FoundationType a owl:Class .
+:RoofCover a owl:Class .
+:BuildingFrame a owl:Class .
+:Elevators a owl:Class .
+:ServiceAccess a owl:Class .
+:Heating a owl:Class .
+:Cooling a owl:Class .
+:ParkingType a owl:Class .
+:Occupancy a owl:Class .
+
+### Union Classes for Utilities
+:UtilityType a owl:Class .
+:UtilityType owl:unionOf (:Electricity :Sewer :Water :NaturalGas) .
+
+### Extended Object Properties
+:hasPropertyUnit a owl:ObjectProperty ;
+    rdfs:domain :PropertyAppraisalReport ;
+    rdfs:range :PropertyUnit .
+
+:hasCurrency a owl:ObjectProperty ;
+    rdfs:domain :ValueAssessment ;
+    rdfs:range :Currency .
+
+:hasAppraisalFirm a owl:ObjectProperty ;
+    rdfs:domain :PropertyAppraisalReport ;
+    rdfs:range :AppraisalFirm .
+
+:hasInspectionDate a owl:ObjectProperty ;
+    rdfs:domain :PropertyAppraisalReport ;
+    rdfs:range :InspectionDate .
+
+:hasTaxInformation a owl:ObjectProperty ;
+    rdfs:domain :PropertyAppraisalReport ;
+    rdfs:range :TaxInformation .
+
+:hasLandArea a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :LandArea .
+
+:hasZoning a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :Zoning .
+
+:hasLandValue a owl:ObjectProperty ;
+    rdfs:domain :ValueAssessment ;
+    rdfs:range :LandValue .
+
+:hasTopography a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :Topography .
+
+:hasDrainage a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :Drainage .
+
+:hasUtilities a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :Utilities .
+
+:hasFloodZone a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :FloodZone .
+
+:hasEasement a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :Easement .
+
+:hasEncroachment a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :Encroachment .
+
+:hasBuildingType a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :BuildingType .
+
+:hasConstructionType a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :ConstructionType .
+
+:hasQuality a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :Quality .
+
+:hasYearBuilt a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :YearBuilt .
+
+:hasArchitecturalStyle a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :ArchitecturalStyle .
+
+:hasBuildingCondition a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :BuildingCondition .
+
+:hasEffectiveAge a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :EffectiveAge .
+
+:hasRemainingEconomicLife a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :RemainingEconomicLife .
+
+:hasFoundationType a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :FoundationType .
+
+:hasRoofCover a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :RoofCover .
+
+:hasBuildingFrame a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :BuildingFrame .
+
+:hasElevators a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :Elevators .
+
+:hasServiceAccess a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :ServiceAccess .
+
+:hasHeating a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :Heating .
+
+:hasCooling a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :Cooling .
+
+:hasParkingType a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :ParkingType .
+
+:hasOccupancy a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :Occupancy .
+

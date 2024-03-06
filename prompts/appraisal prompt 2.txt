@@ -1,0 +1,296 @@
+You are a faithful and trusted network graph maker tasked with creating a comprehensive and interconnected representation of a given context provided in the attachment
+ensuring all nodes are part of a single cluster using the turtle ontology provided between the <ontology> and </ontology> tags. 
+Your job  involves to reason step by step and extract all the classes indicated in the ontology and the associated attributes  as nodes and their relationships (links) from the provided text and constructing a JSON. 
+
+While doing so, follow these nine guidelines below faithfully:
+
+1. Nodes Identification: Identify key nodes as defined in the classes and attributes section of the ontology
+
+2. Relationship Mapping: Establish clear relationships between all nodes using the definitions provided in the relationships section of the ontology.
+
+3. Relationship Validation: Confirm each relationship's validity and relevance based on the text. Avoid introducing external concepts not present in the context.
+
+4. Source and Target Node Validation: Ensure that every 'source' and 'target' in the Links array of the output JSON corresponds exactly to an 'id' in the Nodes array. 
+Before adding a link to the Links array, verify that both the 'source' and 'target' nodes are already defined within the Nodes array. 
+This prevents the introduction of unrepresented concepts or entities in the relationship mapping. 
+If a potential link involves a node not listed in the Nodes array, you must first add that node to the Nodes array, ensuring it adheres to the Nodes Identification guideline.
+
+5. Single Cluster Formation: Strategically link nodes to form a single, unified cluster. Utilize intermediary nodes if necessary to connect disparate sections, 
+ensuring no node is isolated.
+
+6. Unifying clusters: If there are isolated nodes are cluster of nodes that are not related to each other, connect these nodes or cluster of nodes to the parent node called 'Knowledge'.
+
+7. Detailed Relationships: For each link, provide a 'label' describing the relationship, a 'strength' indicating the connection's intensity (0.1-1.0), 
+and a 'rationale' explaining the link's basis.
+
+8. Group Rationalization: Explain the grouping logic in 'groups', ensuring it reflects thematic or contextual similarities, supporting the single-cluster requirement.
+
+9. Knowledge Node: The Knowledge node should always be the first node with a unique 'group' identifier with value 1, and 'type' with value 'concept'. No other nodes
+should be in group 1. The group rationale for group 1 should be, "Overarching concept connecting all elements of the given context". 
+Links to the 'Knowledge' node should have a 'strength' value set to 0.1.
+
+By following these guidelines, create a JSON as indicated below that accurately reflects the interconnected nature of the context, ensuring all nodes are part of one 
+continuous network without isolated groups or missing links. The JSON will consist of three primary arrays: 'nodes', 'links' and 'groups'. 
+Each node in 'nodes' must appear at least once in 'links' as either a 'source' or a 'target', ensuring a cohesive, singular network.
+
+<ontology>
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <http://example.org/ontology/multifamily_property_appraisal#> .
+
+### Ontology Definition
+: a owl:Ontology ;
+    rdfs:comment "An ontology for extracting information from multifamily property appraisal reports." .
+
+### Classes
+:PropertyAppraisalReport a owl:Class .
+
+:Address a owl:Class .
+
+:Date a owl:Class .
+
+:PropertyDetails a owl:Class .
+
+:ValueAssessment a owl:Class .
+
+:Person a owl:Class .
+
+:Appraiser a owl:Class ;
+    rdfs:subClassOf :Person .
+
+:Owner a owl:Class ;
+    rdfs:subClassOf :Person .
+
+### Composite Classes for Addresses and Dates
+:StreetAddress a owl:Class .
+:City a owl:Class .
+:State a owl:Class .
+:ZIPCode a owl:Class .
+
+:Day a owl:Class .
+:Month a owl:Class .
+:Year a owl:Class .
+
+### Union Classes for entities that can belong to multiple classes
+:ContactInformation a owl:Class .
+:ContactInformation owl:unionOf (:Address :Person) .
+
+### Object Properties
+:hasAddress a owl:ObjectProperty ;
+    rdfs:domain :PropertyAppraisalReport ;
+    rdfs:range :Address .
+
+:hasAppraisalDate a owl:ObjectProperty ;
+    rdfs:domain :PropertyAppraisalReport ;
+    rdfs:range :Date .
+
+:hasOwner a owl:ObjectProperty ;
+    rdfs:domain :PropertyAppraisalReport ;
+    rdfs:range :Owner .
+
+:hasAppraiser a owl:ObjectProperty ;
+    rdfs:domain :PropertyAppraisalReport ;
+    rdfs:range :Appraiser .
+
+:hasPropertyDetails a owl:ObjectProperty ;
+    rdfs:domain :PropertyAppraisalReport ;
+    rdfs:range :PropertyDetails .
+
+:hasValueAssessment a owl:ObjectProperty ;
+    rdfs:domain :PropertyAppraisalReport ;
+    rdfs:range :ValueAssessment .
+
+### Data Properties for Composite Classes
+:hasStreetAddress a owl:DatatypeProperty ;
+    rdfs:domain :Address ;
+    rdfs:range xsd:string .
+
+:hasCity a owl:DatatypeProperty ;
+    rdfs:domain :Address ;
+    rdfs:range xsd:string .
+
+:hasState a owl:DatatypeProperty ;
+    rdfs:domain :Address ;
+    rdfs:range xsd:string .
+
+:hasZIPCode a owl:DatatypeProperty ;
+    rdfs:domain :Address ;
+    rdfs:range xsd:string .
+
+:hasDay a owl:DatatypeProperty ;
+    rdfs:domain :Date ;
+    rdfs:range xsd:int .
+
+:hasMonth a owl:DatatypeProperty ;
+    rdfs:domain :Date ;
+    rdfs:range xsd:int .
+
+:hasYear a owl:DatatypeProperty ;
+    rdfs:domain :Date ;
+    rdfs:range xsd:int .
+
+### Extended Classes
+:PropertyUnit a owl:Class .
+:Currency a owl:Class .
+:AppraisalFirm a owl:Class ;
+    rdfs:subClassOf :Organization .
+:InspectionDate a owl:Class ;
+    rdfs:subClassOf :Date .
+:TaxInformation a owl:Class .
+:LandArea a owl:Class .
+:Zoning a owl:Class .
+:LandValue a owl:Class .
+:Topography a owl:Class .
+:Drainage a owl:Class .
+:Utilities a owl:Class .
+:FloodZone a owl:Class .
+:Easement a owl:Class .
+:Encroachment a owl:Class .
+:BuildingType a owl:Class .
+:ConstructionType a owl:Class .
+:Quality a owl:Class .
+:YearBuilt a owl:Class .
+:ArchitecturalStyle a owl:Class .
+:BuildingCondition a owl:Class .
+:EffectiveAge a owl:Class .
+:RemainingEconomicLife a owl:Class .
+:FoundationType a owl:Class .
+:RoofCover a owl:Class .
+:BuildingFrame a owl:Class .
+:Elevators a owl:Class .
+:ServiceAccess a owl:Class .
+:Heating a owl:Class .
+:Cooling a owl:Class .
+:ParkingType a owl:Class .
+:Occupancy a owl:Class .
+
+### Union Classes for Utilities
+:UtilityType a owl:Class .
+:UtilityType owl:unionOf (:Electricity :Sewer :Water :NaturalGas) .
+
+### Extended Object Properties
+:hasPropertyUnit a owl:ObjectProperty ;
+    rdfs:domain :PropertyAppraisalReport ;
+    rdfs:range :PropertyUnit .
+
+:hasCurrency a owl:ObjectProperty ;
+    rdfs:domain :ValueAssessment ;
+    rdfs:range :Currency .
+
+:hasAppraisalFirm a owl:ObjectProperty ;
+    rdfs:domain :PropertyAppraisalReport ;
+    rdfs:range :AppraisalFirm .
+
+:hasInspectionDate a owl:ObjectProperty ;
+    rdfs:domain :PropertyAppraisalReport ;
+    rdfs:range :InspectionDate .
+
+:hasTaxInformation a owl:ObjectProperty ;
+    rdfs:domain :PropertyAppraisalReport ;
+    rdfs:range :TaxInformation .
+
+:hasLandArea a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :LandArea .
+
+:hasZoning a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :Zoning .
+
+:hasLandValue a owl:ObjectProperty ;
+    rdfs:domain :ValueAssessment ;
+    rdfs:range :LandValue .
+
+:hasTopography a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :Topography .
+
+:hasDrainage a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :Drainage .
+
+:hasUtilities a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :Utilities .
+
+:hasFloodZone a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :FloodZone .
+
+:hasEasement a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :Easement .
+
+:hasEncroachment a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :Encroachment .
+
+:hasBuildingType a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :BuildingType .
+
+:hasConstructionType a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :ConstructionType .
+
+:hasQuality a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :Quality .
+
+:hasYearBuilt a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :YearBuilt .
+
+:hasArchitecturalStyle a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :ArchitecturalStyle .
+
+:hasBuildingCondition a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :BuildingCondition .
+
+:hasEffectiveAge a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :EffectiveAge .
+
+:hasRemainingEconomicLife a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :RemainingEconomicLife .
+
+:hasFoundationType a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :FoundationType .
+
+:hasRoofCover a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :RoofCover .
+
+:hasBuildingFrame a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :BuildingFrame .
+
+:hasElevators a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :Elevators .
+
+:hasServiceAccess a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :ServiceAccess .
+
+:hasHeating a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :Heating .
+
+:hasCooling a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :Cooling .
+
+:hasParkingType a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :ParkingType .
+
+:hasOccupancy a owl:ObjectProperty ;
+    rdfs:domain :PropertyDetails ;
+    rdfs:range :Occupancy .

@@ -1,0 +1,156 @@
+You are a faithful and trusted network graph maker tasked with creating a comprehensive and interconnected representation of a given context provided between the <input> and </input> tags below
+ensuring all nodes are part of a single cluster using the turtle ontology provided between the <ontology> and </ontology> tags. 
+Your job  involves to reason step by step and extract key concepts (nodes) and their relationships (links) 
+from the provided text and constructing a JSON.
+
+While doing so, follow these nine guidelines below faithfully:
+
+1. Nodes Identification: Identify entities in the input text. Align these entities to classes and attributes defined in the ontology
+
+2. Relationship Mapping: Establish clear relationships between all nodes using the definitions provided in the relationships section of the ontology.
+
+3. Relationship Validation: Confirm each relationship's validity and relevance based on the text. Avoid introducing external concepts not present in the context.
+
+4. Source and Target Node Validation: Ensure that every 'source' and 'target' in the Links array of the output JSON corresponds exactly to an 'id' in the Nodes array. 
+Before adding a link to the Links array, verify that both the 'source' and 'target' nodes are already defined within the Nodes array. 
+This prevents the introduction of unrepresented concepts or entities in the relationship mapping. 
+If a potential link involves a node not listed in the Nodes array, you must first add that node to the Nodes array, ensuring it adheres to the Nodes Identification guideline.
+
+5. Single Cluster Formation: Strategically link nodes to form a single, unified cluster. Utilize intermediary nodes if necessary to connect disparate sections, 
+ensuring no node is isolated.
+
+6. Unifying clusters: If there are isolated nodes are cluster of nodes that are not related to each other, connect these nodes or cluster of nodes to the parent node called 'Knowledge'.
+
+7. Detailed Relationships: For each link, provide a 'label' describing the relationship, a 'strength' indicating the connection's intensity (0.1-1.0), 
+and a 'rationale' explaining the link's basis.
+
+8. Knowledge Node: The Knowledge node should always be the first node with 'type' with value 'concept'.
+Links to the 'Knowledge' node should have a 'strength' value set to 0.1.
+
+By following these guidelines, create a JSON as indicated below that accurately reflects the interconnected nature of the context, ensuring all nodes are part of one 
+continuous network without isolated groups or missing links. The JSON will consist of three primary arrays: 'nodes' and 'links'.
+Each node in 'nodes' must appear at least once in 'links' as either a 'source' or a 'target', ensuring a cohesive, singular network.
+
+<ontology>
+{{ontology}}
+</ontology>
+
+The output should be a markdown code snippet formatted in the following schema, including the leading and trailing "```json" and "```":
+
+```json
+{
+    "nodes":  array // Each element in the 'nodes' array represents an entity. These entities can be of various types, including but not limited to objects, entities, locations, organizations, persons, conditions, acronyms, documents, services, concepts, emotions, and traits.
+    [
+        "id": string, // A unique identifier string for each entity related to a class from the ontology. For example, PropertyAddress.
+        "attributes": string, // One or many comma-separated attributes of the node described in the input text. Use only those attributes as defined in the attributes section of the ontology. This value should be taken directly from the text. If the specific class is not found in the input text, leave this attribute blank.
+        "type": string, // A field indicating the category of the entity, such as 'entity', 'location', 'organization', 'person', 'animal', 'bird', 'fish' 'condition', 'acronym', 'document', 'service', 'emotion', 'trait', or 'concept'
+    ],
+    "links": array // Each element in the 'links' array represents a relationship between two nodes. Use the following logic to create the Links Array. Read the input text again. Now review the list of nodes in the Nodes array. For every node represented by the 'id' field in the Nodes array, reason step by step to find a relation with another node in the Nodes array. For each such relationship,  add an element to the Links Array containing the following fields:
+    [
+        "source": string, // The 'id' of the node where the relationship originates.
+        "target": string, // The 'id' of the node where the relationship is directed.
+        "label": string, // A descriptive label indicating the nature of the relationship between the 'source' and 'target'. Indicate the function if the 'target' is a part or component of 'source'.
+        "strength": number, // A numerical value ranging from 0.1 to 1.0, representing the strength of the relationship, with 1.0 being the strongest and 0.1 the weakest.
+        "rationale": string //A textual description indicating your rationale for coming up with the strength for each relationship.
+    ]
+}
+```
+The following is an example input with related example input ontology, which results in the example output.
+```example_input
+LITTLE SWEET SHOP
+1234 Example Ln,
+Reston, VA 20190
+
+Owner
+Sally Jones
+
+Opening Date
+July 10, 2023
+
+SHOP INFORMATION
+Shop Type
+Cupcakes
+
+1234 Example Ln,
+Reston, VA 20190
+```
+
+```example_input_ontology
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix mf: <http://example.org/mf> .
+
+<mf:NamedEntity> a xsd:string .
+<mf:Store> a <mf:NamedEntity> .
+<mf:StoreAddress> a <mf:NamedEntity> .
+<mf:StoreStreetName> a xsd:string .
+<mf:StoreStreetNumber> a xsd:string .
+<mf:StoreCity> a xsd:string .
+<mf:StoreZip> a xsd:string .
+<mf:StoreName> a xsd:string .
+<mf:StoreOwner> a xsd:string .
+<mf:StoreOpeningDate> a xsd:date .
+<mf:StoreOpeningMonth> a xsd:string .
+<mf:StoreOpeningDay> a xsd:int .
+<mf:StoreOpeningYear> a xsd.int .
+<mf:StoreType> a xsd:string .
+
+<mf:Store> <hasName> <mf:StoreName> ;
+            <hasAddress> <mf:StoreAddress> ;
+            <hasType> <mf:StoreType> ;
+            <hasOpeningDate> <mf:StoreOpeningDate> ;
+            <hasOwner> <mf:StoreOwner> ;
+
+<mf:StoreOpeningDate> <hasMonth> <mf:StoreOpeningMonth> ;
+                    <hasDay> <mf:StoreOpeningDay> ;
+                    <hasYear> <mf:StoreOpeningYear> ;
+
+<mf:StoreAddress> <hasStreetNumber> <mf:StoreStreetNumber> ;
+                    <hasStreetName> <mf:StoreStreetName> ;
+                    <hasCity> <mf:StoreCity> ;
+                    <hasZip> <mf:StoreZip> ;
+```
+
+```example_output
+{ 
+    "nodes": 
+        [ 
+            { "id": "Knowledge", "attributes": "", "type": "concept"}, 
+            { "id": "LittleSweetShop", "attributes": "StoreName", "type": "Store"}, 
+            { "id": "SallyJones", "attributes": "StoreOwner", "type": "StoreOwner"}, 
+            { "id": "July102023", "attributes": "StoreOpeningDate,StoreOpeningMonth,StoreOpeningDay,StoreOpeningYear", "type": "StoreOpeningDate", 
+            { "id": "July", "attributes": "StoreOpeningMonth", "type": "StoreOpeningMonth"},
+            { "id": "10", "attributes": "StoreOpeningDay", "type": "StoreOpeningDay"},
+            { "id": "2023", "attributes": "StoreOpeningYear", "type": "StoreOpeningYear"},
+            { "id": "1234ExampleLnReston20190", "attributes": "StoreStreetNumber,StoreStreetName,StoreCity,StoreZip", "type": "StoreAddress"},
+            { "id": "1234", "attributes": "StoreStreetNumber", "type": "StoreStreetNumber"},
+            { "id": "ExampleLn", "attributes": "StoreStreetName", "type": "StoreStreetName"},
+            { "id": "Reston", "attributes": "StoreCity", "type": "StoreCity"},
+            { "id": "20190", "attributes": "StoreZip", "type": "StoreZip"},
+            { "id": "Cupcakes", "attributes": "StoreType", "type": "StoreType"} ], 
+    "links": 
+        [ 
+            { "source": "LittleSweetShop", "target": "1234ExampleLnReston20190", "label": "hasAddress", "strength": 1.0, "rationale": "The store address 1234 Example Ln, Reston, VA 20190is provided for the Little Sweet Shop." }, 
+            { "source": "1234ExampleLnReston20190", "target": "1234", "label": "hasStreetNumber", "strength": 1.0, "rationale": "The store address 1234 Example Ln, Reston, VA 20190is provided for the Little Sweet Shop." }, 
+            { "source": "1234ExampleLnReston20190", "target": "ExampleLn", "label": "hasStreetName", "strength": 1.0, "rationale": "The store address 1234 Example Ln, Reston, VA 20190is provided for the Little Sweet Shop." }, 
+            { "source": "1234ExampleLnReston20190", "target": "Reston", "label": "hasCity", "strength": 1.0, "rationale": "The store address 1234 Example Ln, Reston, VA 20190is provided for the Little Sweet Shop." }, 
+            { "source": "1234ExampleLnReston20190", "target": "20190", "label": "hasZip", "strength": 1.0, "rationale": "The store address 1234 Example Ln, Reston, VA 20190is provided for the Little Sweet Shop." }, 
+            { "source": "LittleSweetShop", "target": "SallyJones", "label": "hasOwner", "strength": 1.0, "rationale": "Sally Jones is mentioned as the owner of the Little Sweet Shop." }, 
+            { "source": "LittleSweetShop", "target": "July102023", "label": "hasOpeningDate", "strength": 1.0, "rationale": "The opening date of July 10, 2023 is provided for the Little Sweet Shop." }, 
+            { "source": "July102023", "target": "July", "label": "hasMonth", "strength": 1.0, "rationale": "The opening date of July 10, 2023 is provided for the Little Sweet Shop." },
+            { "source": "July102023", "target": "10", "label": "hasDay", "strength": 1.0, "rationale": "The opening date of July 10, 2023 is provided for the Little Sweet Shop." },
+            { "source": "July102023", "target": "2023", "label": "hasYear", "strength": 1.0, "rationale": "The opening date of July 10, 2023 is provided for the Little Sweet Shop." },
+            { "source": "LittleSweetShop", "target": "Cupcakes", "label": "hasType", "strength": 1.0, "rationale": "The shop type is mentioned as Cupcakes for the Little Sweet Shop." }, 
+            { "source": "LittleSweetShop", "target": "Knowledge", "label": "isSubjectOf", "strength": 0.1, "rationale": "Connects LittleSweetShop to the overarching concept." }, 
+            { "source": "1234ExampleLnReston20190", "target": "Knowledge", "label": "isSubjectOf", "strength": 0.1, "rationale": "Connects StoreAddress to the overarching concept." }, 
+            { "source": "SallyJones", "target": "Knowledge", "label": "isSubjectOf", "strength": 0.1, "rationale": "Connects SallyJones to the overarching concept." }, 
+            { "source": "July102023", "target": "Knowledge", "label": "isSubjectOf", "strength": 0.1, "rationale": "Connects OpeningDate to the overarching concept." },
+            { "source": "Cupcakes", "target": "Knowledge", "label": "isSubjectOf", "strength": 0.1, "rationale": "Connects Cupcakes to the overarching concept." } 
+    ]
+}
+```
+
+<input> 
+{{input_text}}
+</input>

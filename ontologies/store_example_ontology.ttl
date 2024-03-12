@@ -1,0 +1,34 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix mf: <http://example.org/mf> .
+
+<mf:NamedEntity> a xsd:string .
+<mf:Store> a <mf:NamedEntity> .
+<mf:StoreAddress> a <mf:NamedEntity> .
+<mf:StoreStreetName> a xsd:string .
+<mf:StoreStreetNumber> a xsd:string .
+<mf:StoreCity> a xsd:string .
+<mf:StoreZip> a xsd:string .
+<mf:StoreName> a xsd:string .
+<mf:StoreOwner> a xsd:string .
+<mf:StoreOpeningDate> a xsd:date .
+<mf:StoreOpeningMonth> a xsd:string .
+<mf:StoreOpeningDay> a xsd:int .
+<mf:StoreOpeningYear> a xsd.int .
+<mf:StoreType> a xsd:string .
+
+<mf:Store> <hasName> <mf:StoreName> ;
+            <hasAddress> <mf:StoreAddress> ;
+            <hasType> <mf:StoreType> ;
+            <hasOpeningDate> <mf:StoreOpeningDate> ;
+            <hasOwner> <mf:StoreOwner> ;
+
+<mf:StoreOpeningDate> <hasMonth> <mf:StoreOpeningMonth> ;
+                    <hasDay> <mf:StoreOpeningDay> ;
+                    <hasYear> <mf:StoreOpeningYear> ;
+
+<mf:StoreAddress> <hasStreetNumber> <mf:StoreStreetNumber> ;
+                    <hasStreetName> <mf:StoreStreetName> ;
+                    <hasCity> <mf:StoreCity> ;
+                    <hasZip> <mf:StoreZip> ;

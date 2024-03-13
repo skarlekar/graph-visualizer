@@ -1,0 +1,44 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix mf: <http://example.org/mf> .
+
+<mf:Property_1> a <mf:Property> ;
+    <mf:hasName> "College Courtyard Apartments & Raider Housing" ;
+    <mf:hasAddress> <mf:PropertyAddress_1> ;
+    <mf:hasUnits> "62"^^xsd:int ;
+    <mf:hasOwner> <mf:PropertyOwner_1> ;
+    <mf:hasAppraisal> <mf:PropertyAppraisal_1> .
+
+<mf:PropertyAddress_1> a <mf:PropertyAddress> ;
+    <mf:hasStreetNumber> "28" , "30" ;
+    <mf:hasStreetName> "Garden Lane" ;
+    <mf:hasCity> "Niceville" ;
+    <mf:hasState> "FL" ;
+    <mf:hasZip> "32578" .
+
+<mf:PropertyOwner_1> a <mf:PropertyOwner> ;
+    rdfs:label "Owner" ;
+    rdfs:value "Okaloosa-Walton Community College Foundation, Inc." .
+
+<mf:PropertyAppraisal_1> a <mf:PropertyAppraisal> ;
+    <mf:hasTitle> "APPRAISAL REPORT" ;
+    <mf:hasDate> <mf:PropertyAppraisalDate_1> ;
+    <mf:hasAppraiser> _:appraiser1 , _:appraiser2 ;
+    <mf:hasAppraisedValue> _:appraisedValue .
+
+_:appraiser1 a <mf:PropertyAppraiser> ;
+    rdfs:label "Jason P. Shirey, MAI, CCIM State Certified General Real Estate Appraiser RZ3186" .
+
+_:appraiser2 a <mf:PropertyAppraiser> ;
+    rdfs:label "Josette D. Jackson, CCIM State Certified General Real Estate Appraiser RZ3275" .
+
+<mf:PropertyAppraisalDate_1> a <mf:PropertyAppraisalDate> ;
+    <mf:hasMonth> "December" ;
+    <mf:hasDay> "13"^^xsd:int ;
+    <mf:hasYear> "2019"^^xsd:int ;
+    rdfs:label "Effective Date" .
+
+_:appraisedValue a <mf:PropertyAppraisedValue> ;
+    rdfs:label "Market Value" .
+    

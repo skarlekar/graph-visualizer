@@ -1,0 +1,19 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix mf: <http://example.org/mf> .
+
+<mf:PropertyAppraisal1> a <mf:PropertyAppraisal> ;
+    <hasTitle> "Current Market Value, 'As Is'" ;
+    <hasDate> <mf:PropertyAppraisalDate1> ;
+    <hasAppraisedValue> <mf:PropertyAppraisedValue1> ;
+    <hasRemarks> "It is the appraiser's opinion that assessed value has no direct correlation to Current Market Value in the subject market area." .
+
+<mf:PropertyAppraisalDate1> a <mf:PropertyAppraisalDate> ;
+    <hasMonth> "December" ;
+    <hasDay> 13 ;
+    <hasYear> 2019 .
+
+<mf:PropertyAppraisedValue1> a <mf:PropertyAppraisedValue> ;
+    rdfs:label "Assessed Value" ;
+    rdf:value "2730415"^^xsd:decimal .

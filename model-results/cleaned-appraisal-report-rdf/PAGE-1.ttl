@@ -1,0 +1,27 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix mf: <http://example.org/mf> .
+
+<mf:Property_CollegeCourtyard> a <mf:Property> ;
+    <mf:hasName> "COLLEGE COURTYARD APARTMENTS & RAIDER HOUSING" ;
+    <mf:hasUnits> "62"^^xsd:int ;
+    <mf:hasAddress> <mf:PropertyAddress_CollegeCourtyard> .
+
+<mf:PropertyAddress_CollegeCourtyard> a <mf:PropertyAddress> ;
+    <mf:hasStreetNumber> "28" , "30" ;
+    <mf:hasStreetName> "GARDEN LANE" ;
+    <mf:hasCity> "NICEVILLE" ;
+    <mf:hasState> "FL" ;
+    <mf:hasZip> "32578" .
+
+<mf:PropertyAppraisal_CollegeCourtyard> a <mf:PropertyAppraisal> ;
+    <mf:hasTitle> "APPRAISAL REPORT" ;
+    <mf:hasAppraiser> <mf:PropertyAppraiser_JasonShirey> , <mf:PropertyAppraiser_JosetteJackson> .
+
+<mf:PropertyAppraiser_JasonShirey> a <mf:PropertyAppraiser> ;
+    rdfs:label "Jason P. Shirey, MAI, CCIM, CPM" .
+
+<mf:PropertyAppraiser_JosetteJackson> a <mf:PropertyAppraiser> ;
+    rdfs:label "Josette D. Jackson, CCIM" .
+

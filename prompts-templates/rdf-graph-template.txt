@@ -1,0 +1,9 @@
+Using this provided ontology, between <ontology> tags, exclusively, please create specific instances and data about the property appraisal from the following input text, between <input_text> tags. Also, create a full and complete RDF graph without leaving any statements from the graph.
+
+<ontology>
+{{ontology}}
+</ontology>
+
+<input_text>
+{{input_text}}
+</input_text>

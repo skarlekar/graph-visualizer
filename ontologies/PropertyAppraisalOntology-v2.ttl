@@ -5,6 +5,7 @@
 
 <mf:NamedEntity> a xsd:string .
 <mf:Property> a <mf:NamedEntity> .
+<mf:SubjectProperty> a <mf:Property> .
 <mf:PropertyAddress> a <mf:NamedEntity> .
 <mf:PropertyStreetNumber> a <mf:NamedEntity> .
 <mf:PropertyStreetName> a <mf:NamedEntity> .
@@ -114,6 +115,7 @@
 <mf:PropertyElevators> rdfs:label "Elevators:" .
 <mf:PropertyServiceAccess> rdfs:label "Service / Access/ Overhead Doors:" .
 <mf:PropertyHeating> rdfs:label "Heating:" .
+<mf:SubjectProperty> rdfs:label "Subject Property" .
 <mf:PropertyCooling> rdfs:label "Cooling:" .
 <mf:PropertyParkingType> rdfs:label "Parking Type and Condition of Spaces:" .
 <mf:PropertyLTV> rdfs:label "Loan to Value Ratio" .

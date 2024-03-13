@@ -1,0 +1,47 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix mf: <http://example.org/mf> .
+
+<mf:CollegeCourtyard> a <mf:Property> ;
+    <mf:hasName> "College Courtyard Apartments & Raider Housing" ;
+    <mf:hasUnits> "9 buildings with multiple units" ;
+    <mf:hasAppraisal> <mf:CollegeCourtAppraisal> .
+
+<mf:CollegeCourtAppraisal> a <mf:PropertyAppraisal> ;
+    <mf:hasAppraiser> "Marshall Swift" ;
+    <mf:hasRemarks> "Routine maintenance has been performed extending economic lifespan. Blended effective year built estimate of 2000 based on weighted average size and age." ;
+    <mf:hasAppraisedValue> "To be determined" ;
+    <mf:hasDate> <mf:AppraisalDate> .
+    
+<mf:AppraisalDate> a <mf:PropertyAppraisalDate> ;
+    <mf:hasMonth> "Not provided" ;
+    <mf:hasDay> "Not provided" ;
+    <mf:hasYear> "Not provided" .
+    
+<mf:Building1-4> a <mf:PropertyBuildingType> ;
+    <mf:hasConstructionType> "Vinyl Siding over Wood and Concrete Frame on Concrete Slab" ;
+    <mf:hasQuality> "Average" ;
+    <mf:hasYearBuilt> "2007"@xsd:gYear ;
+    <mf:hasArchitectureStyle> "Traditional Garden Apartments, Class C, Average" ;
+    <mf:hasBuildingCondition> "Average" ;
+    <mf:hasEffectiveAge> "12"^^xsd:integer .
+    
+<mf:Building5> a <mf:PropertyBuildingType> ;
+    <mf:hasConstructionType> "Vinyl Siding over Wood and Concrete Frame on Concrete Slab" ;  
+    <mf:hasQuality> "Average" ;
+    <mf:hasYearBuilt> "1984"^^xsd:gYear ;
+    <mf:hasArchitectureStyle> "General Commercial Building, Class D, Average" ;
+    <mf:hasBuildingCondition> "Average" ;
+    <mf:hasEffectiveAge> "35"^^xsd:integer .
+    
+<mf:Building6-9> a <mf:PropertyBuildingType> ;
+    <mf:hasConstructionType> "Vinyl Siding over Wood and Concrete Frame on Concrete Slab" ;
+    <mf:hasQuality> "Average" ;
+    <mf:hasYearBuilt> "1996"^^xsd:gYear ;
+    <mf:hasArchitectureStyle> "Traditional Garden Apartments, Class D, Average" ;
+    <mf:hasBuildingCondition> "Average" ;
+    <mf:hasEffectiveAge> "23"^^xsd:integer .
+    
+<mf:CollegeCourtAppraisal> <mf:hasRemainingEconomicLife> "33 years" .
+

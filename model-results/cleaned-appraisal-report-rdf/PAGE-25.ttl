@@ -1,0 +1,9 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix mf: <http://example.org/mf> .
+
+<mf:SubjectProperty> rdfs:label "College Courtyard Apartments & Raider Housing" .
+
+<mf:PropertyAppraisal> <hasRemarks> "Drainage appears adequate for the subject property. Drainage on the subject site is currently achieved by natural run-off and storm water drainage infrastructure. The subject property is considered typical with regard to other existing, older multi-family properties in the subject market area and is one of many that have these characteristics."@en ;
+                       <mf:PropertyDrainage> "Adequate"@en .

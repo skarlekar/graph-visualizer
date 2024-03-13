@@ -1,0 +1,22 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix mf: <http://example.org/mf> .
+
+<mf:CollegeCourtyard> a <mf:Property> ;
+    <mf:hasName> "College Courtyard Apartments & Raider Housing" ;
+    <mf:hasUnits> "62"^^xsd:int ;
+    <mf:hasAppraisal> <mf:CollegeCourtyard_Appraisal> .
+
+<mf:CollegeCourtyard_Appraisal> a <mf:PropertyAppraisal> ;
+    <mf:hasRemarks> "The 30 Raider Housing units are 100% occupied by students of the ownership entity college (non-income producing). The 32 College Courtyard Apartment units are 100% occupied via short term residential lease agreements (typical term of 12 months or less)." .
+    
+<mf:CollegeCourtyard_LandArea> a <mf:PropertyLandArea> ;
+    rdfs:label "Land Area:" ;
+    <mf:hasTotal> "4.84"^^xsd:decimal ;
+    <mf:hasUsable> "4.84"^^xsd:decimal ;
+    <mf:hasExcess> "0.00"^^xsd:decimal .
+    
+<mf:CollegeCourtyard_Zoning> a <mf:PropertyZoning> ;
+    rdfs:label "Zoning:" ;
+    <mf:hasZoning> "R-3, Multi-Family Residential District, by the City of Niceville" .

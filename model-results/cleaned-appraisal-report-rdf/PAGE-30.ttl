@@ -1,0 +1,27 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix mf: <http://example.org/mf> .
+
+<mf:CollegeCourtyard> a <mf:Property> ;
+    <mf:hasName> "College Courtyard Apartments & Raider Housing" ;
+    <mf:hasUnits> <mf:CollegeCourtyard-Units> ;
+    <mf:hasHeating> <mf:CollegeCourtyard-Heating> ;
+    <mf:hasCooling> <mf:CollegeCourtyard-Cooling> ;
+    <mf:hasOccupancy> <mf:CollegeCourtyard-Occupancy> .
+
+<mf:CollegeCourtyard-Units> a <mf:PropertyUnits> ;
+    rdfs:label "Number of Units" ;
+    rdf:value "30 College Courtyard Apartment units and 32 Raider Housing units" .
+
+<mf:CollegeCourtyard-Heating> a <mf:PropertyHeating> ;
+    rdfs:label "Heating" ;
+    rdf:value "Electric Heat" .
+
+<mf:CollegeCourtyard-Cooling> a <mf:PropertyCooling> ;
+    rdfs:label "Cooling" ;
+    rdf:value "Central A/C individual system per residential unit, and for the office / laundry / maintenance building" .
+
+<mf:CollegeCourtyard-Occupancy> a <mf:PropertyOccupancy> ;
+    rdfs:label "Occupancy" ;
+    rdf:value "All 30 College Courtyard Apartment units are currently occupied. The 32 Raider Housing are occupied by student athletes on a seasonal school year basis." .

@@ -1,0 +1,18 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix mf: <http://example.org/mf> .
+
+<mf:CollegeCourtyard> a <mf:Property> ;
+    <mf:hasName> "College Courtyard Apartments & Raider Housing" ;
+    <mf:hasUtilities> <mf:CollegeCourtyard_Utilities> .
+
+<mf:CollegeCourtyard_Utilities> a <mf:PropertyUtilities> ;
+    rdfs:label "Utilities:" ;
+    <mf:hasElectricity> "Electricity is on site." ;
+    <mf:hasSewer> "Municipal Sewer is on site." ;
+    <mf:hasWater> "Municipal Water is on site." ;
+    <mf:hasNaturalGas> "Natural Gas is on site." ;
+    <mf:hasUndergroundUtilities> "None" ;
+    <mf:hasUtilityAdequacy> "Utility service is considered adequate for the subject improvements and is at least standard for the subject market area." .
+

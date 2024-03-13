@@ -1,0 +1,39 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix mf: <http://example.org/mf> .
+
+<mf:CollegeCourtyard> a <mf:Property> ;
+    <mf:hasName> "College Courtyard Apartments & Raider Housing" ;
+    <mf:hasFoundationType> "Concrete Slab" ;
+    <mf:hasConstructionType> "Concrete Frame", "Wood Frame" ;
+    <mf:hasRoofCover> "Asphalt Shingle over Wood Frame" ;
+    <mf:hasElevators> "None" ;
+    <mf:hasServiceAccess> "One service door at south side of office/maintenance/laundry building" .
+
+<mf:Building1> a <mf:NamedEntity> ;
+    <mf:hasConstructionType> "Concrete Frame" .
+
+<mf:Building2> a <mf:NamedEntity> ;
+    <mf:hasConstructionType> "Concrete Frame" .
+    
+<mf:Building3> a <mf:NamedEntity> ;
+    <mf:hasConstructionType> "Concrete Frame" .
+    
+<mf:Building4> a <mf:NamedEntity> ;
+    <mf:hasConstructionType> "Concrete Frame" .
+    
+<mf:Building5> a <mf:NamedEntity> ;
+    <mf:hasConstructionType> "Wood Frame" .
+    
+<mf:Building6> a <mf:NamedEntity> ;
+    <mf:hasConstructionType> "Wood Frame" .
+    
+<mf:Building7> a <mf:NamedEntity> ;
+    <mf:hasConstructionType> "Wood Frame" .
+    
+<mf:Building8> a <mf:NamedEntity> ;
+    <mf:hasConstructionType> "Wood Frame" .
+    
+<mf:Building9> a <mf:NamedEntity> ;
+    <mf:hasConstructionType> "Wood Frame" .

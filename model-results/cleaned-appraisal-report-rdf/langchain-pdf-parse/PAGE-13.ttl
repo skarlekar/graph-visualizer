@@ -1,0 +1,34 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix mf: <http://example.org/mf> .
+
+<mf:Property_CollegeCourtyard> a <mf:Property> ;
+    <mf:hasName> "College Courtyard Apartments & Raider Housing" ;
+    <mf:hasOwner> <mf:PropertyOwner_NWFStateCollegeFoundation> .
+
+<mf:PropertyAppraisal_EQ190416> a <mf:PropertyAppraisal> ;
+    <mf:hasTitle> "EQ 190416 – College Courtyard Apartments/Raider Housing – NWF State College Foundation" ;
+    <mf:hasAppraisedValue> "2730415"^^xsd:int ;
+    <mf:hasAppraisalDate> <mf:PropertyAppraisalDate_2019-12-13> .
+
+<mf:PropertyAppraisalDate_2019-12-13> a <mf:PropertyAppraisalDate> ;
+    <mf:hasMonth> "12" ;
+    <mf:hasDay> "13"^^xsd:int ;
+    <mf:hasYear> "2019"^^xsd:int .
+
+<mf:PropertyOwner_NWFStateCollegeFoundation> a <mf:PropertyOwner> ;
+    rdfs:label "Northwest Florida State College Foundation" .
+
+<mf:Property_CollegeCourtyard> <mf:hasAppraisal> <mf:PropertyAppraisal_EQ190416> ;
+    <mf:hasAddress> <mf:PropertyAddress_CollegeCourtyard> ;
+    <mf:hasUnits> <mf:PropertyUnits_CollegeCourtyard> .
+
+<mf:PropertyTaxInformation_CollegeCourtyard> a <mf:PropertyTaxInformation> ;
+    rdfs:label "Tax Identification:" ;
+    <mf:hasValue> "Parcels 05-1S-22-256C-0004-0010 and 05-1S-22-256C-0009-0010 (Raider Housing) hold an educational exemption from property taxes." .
+
+<mf:PropertyAddress_CollegeCourtyard> a <mf:PropertyAddress> .
+
+<mf:PropertyUnits_CollegeCourtyard> a <mf:PropertyUnits> ;
+    rdfs:label "Number of Units" .

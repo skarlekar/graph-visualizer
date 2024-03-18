@@ -1,0 +1,51 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix mf: <http://example.org/mf> .
+
+<mf:SubjectProperty_1> a <mf:SubjectProperty> ;
+    rdfs:label "College Courtyard Apartments & Raider Housing" .
+
+<mf:PropertyAppraisal_1> a <mf:PropertyAppraisal> ;
+    <hasTitle> "EQ 190416 – College Courtyard Apartments/Raider Housing – NWF State College Foundation" ;
+    <hasAppraisedValue> "Pg. 28" ;
+    <hasConstructionType> mf:ConstructionType_1, mf:ConstructionType_2 ;
+    <hasQuality> mf:Quality_1 ;
+    <hasYearBuilt> mf:YearBuilt_1 ;
+    <hasArchitectureStyle> mf:ArchitectureStyle_1, mf:ArchitectureStyle_2, mf:ArchitectureStyle_3 ;
+    <hasBuildingCondition> mf:BuildingCondition_1 ;
+    <hasEffectiveAge> mf:EffectiveAge_1 ;
+    <hasRemainingEconomicLife> mf:RemainingEconomicLife_1 .
+
+mf:ConstructionType_1 a <mf:PropertyConstructionType> ;
+    rdfs:label "Vinyl Siding over Wood and Concrete Frame on Concrete Slab" .
+
+mf:ConstructionType_2 a <mf:PropertyConstructionType> ;
+    rdfs:label "Vinyl Siding over Wood and Concrete Frame on Concrete Slab" .
+    
+mf:Quality_1 a <mf:PropertyQuality> ;
+    rdfs:label "Average" .
+
+mf:YearBuilt_1 a <mf:PropertyYearBuilt> ;
+    rdfs:label "Blended Actual 1996 / Blended Effective 2000" ;
+    rdfs:comment "Actual Dates of Construction Range from 1984 to 2007. Blended Effective year built estimate of 2000 represents a weighted average based on size of improvements and associated effective year built." .
+
+mf:ArchitectureStyle_1 a <mf:PropertyArchitectureStyle> ;
+    rdfs:label "Traditional Garden Apartments, Class C, Average" .
+
+mf:ArchitectureStyle_2 a <mf:PropertyArchitectureStyle> ;
+    rdfs:label "General Commercial Building, Class D, Average" .
+
+mf:ArchitectureStyle_3 a <mf:PropertyArchitectureStyle> ;
+    rdfs:label "Traditional Garden Apartments, Class D, Average" .
+
+mf:BuildingCondition_1 a <mf:PropertyBuildingCondition> ;
+    rdfs:label "Average, Evidence of Sufficient Ongoing Maintenance" .
+
+mf:EffectiveAge_1 a <mf:PropertyEffectiveAge> ;
+    rdfs:label "Blended 19 years" ;
+    rdfs:comment "as of the effective date of this appraisal" .
+
+mf:RemainingEconomicLife_1 a <mf:PropertyRemainingEconomicLife> ;
+    rdfs:label "Blended 33 years" ;
+    rdfs:comment "Per Marshall Swift Cost Reporting Data" .

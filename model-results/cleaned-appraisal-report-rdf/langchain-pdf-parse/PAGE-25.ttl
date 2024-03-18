@@ -1,0 +1,51 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix mf: <http://example.org/mf> .
+
+<mf:Property_CollegeCourtyard> a <mf:Property> ;
+    <hasName> "College Courtyard Apartments & Raider Housing" ;
+    <hasAddress> <mf:PropertyAddress_CollegeCourtyard> ;
+    <hasUnits> "190"^^xsd:int ;
+    <hasOwner> "NWF State College Foundation" ;
+    <hasAppraisal> <mf:PropertyAppraisal_CollegeCourtyard> .
+
+<mf:PropertyAppraisal_CollegeCourtyard> a <mf:PropertyAppraisal> ;
+    <hasTitle> "EQ 190416 – College Courtyard Apartments/Raider Housing" ;
+    <hasDate> <mf:PropertyAppraisalDate_CollegeCourtyard> ;
+    <hasAppraiser> _:blankNode ;
+    <hasRemarks> _:blankNode ;
+    <hasAppraisedValue> _:blankNode .
+
+<mf:PropertyAddress_CollegeCourtyard> a <mf:PropertyAddress> ;
+    <hasStreetNumber> _:blankNode ;
+    <hasStreetName> "College Boulevard" ;
+    <hasCity> "Niceville" ;
+    <hasState> _:blankNode ;
+    <hasZip> _:blankNode .
+    
+<mf:PropertyAppraisalDate_CollegeCourtyard> a <mf:PropertyAppraisalDate> ;
+    <hasMonth> _:blankNode ;
+    <hasDay> _:blankNode ;
+    <hasYear> _:blankNode .
+    
+<mf:PropertyInspectionDate_CollegeCourtyard> a <mf:PropertyInspectionDate> ;
+    <hasMonth> _:blankNode ;
+    <hasDay> _:blankNode ;
+    <hasYear> _:blankNode .
+    
+<mf:PropertyLandArea_CollegeCourtyard> a <mf:PropertyLandArea> ;
+    rdfs:label "Land Area:" ;
+    "4.84 acres"^^xsd:string .
+    
+<mf:PropertyZoning_CollegeCourtyard> a <mf:PropertyZoning> ;
+    rdfs:label "Zoning:" ;
+    _:blankNode .
+    
+<mf:PropertyTopography_CollegeCourtyard> a <mf:PropertyTopography> ;
+    rdfs:label "Topography:" ;
+    "The subject property appears level and is depicted as 0 to 5% slopes in the Soil Survey."^^xsd:string .
+    
+<mf:PropertyDrainage_CollegeCourtyard> a <mf:PropertyDrainage> ;
+    rdfs:label "Drainage:" ;
+    "Drainage appears adequate for the subject property. Drainage on the subject site is currently achieved by natural run-off and storm water drainage infrastructure."^^xsd:string .

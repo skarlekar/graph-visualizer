@@ -1,0 +1,41 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix mf: <http://example.org/mf> .
+
+<mf:CollegeCourtyard> a <mf:Property> ;
+    <mf:hasName> "College Courtyard Apartments & Raider Housing" ;
+    <mf:hasUnits> "30 apartment units and 32 Raider Housing units" ;
+    <mf:hasOwner> <mf:NWFStateCollegeFoundation> .
+
+<mf:PropertyAppraisal1> a <mf:PropertyAppraisal> ;
+    <mf:hasTitle> "EQ 190416 – College Courtyard Apartments/Raider Housing – NWF State College Foundation" ;
+    <mf:hasAppraiser> "Pg. 30" ;
+    <mf:hasAppraisedValue> _:unlabeled .
+
+<mf:NWFStateCollegeFoundation> a <mf:PropertyOwner> .
+
+<mf:PropertyAppraisal1> <mf:hasRemarks> """Interior Finish: Average Residential Apartment Finishes including carpet and laminate flooring. Average Kitchen Finishes and Appliances including refrigerator, stove/range and dishwasher.
+
+College Courtyard units include garbage disposals and refrigerators with icemakers. Stackable washers and dryers are included in some two bedroom units and standard washers and dryers included in the three bedroom units.""" .
+
+<mf:PropertyAppraisal1> <mf:hasRemarks> """Heating: Electric Heat
+
+Cooling: Central A/C individual system per residential unit, and for the office / laundry / maintenance building.
+
+Hot Water: Electric - Adequate for Subject Improvements
+
+Electrical: Adequate for Subject Improvements
+
+Plumbing: Adequate for Subject Improvements.""" .
+
+<mf:PropertyAppraisal1> <mf:hasRemarks> """Parking Type and Condition of Spaces: Adequate for Subject Improvements. Condition: Average Type: 101 asphalt paved and striped parking spaces, including 5 ADA compliant handicap designated spaces
+
+Additional Amenities: Coin laundry in Office Building""" .
+    
+<mf:PropertyAppraisal1> <mf:hasRemarks> """Functional Utility: Average
+
+Design & Appeal: Average. Design, functional utility and appeal rated as average as compared to most competing properties in the market.""" .
+    
+<mf:PropertyAppraisal1> <mf:hasRemarks> """Occupancy: Per the current rent roll provided by the Client, all 30 of the College Courtyard Apartment units are currently occupied. The 32 Raider Housing are occupied by student athletes on a seasonal school year basis.""" .
+    

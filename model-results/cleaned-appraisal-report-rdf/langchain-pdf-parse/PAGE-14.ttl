@@ -1,0 +1,47 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix mf: <http://example.org/mf> .
+
+<mf:CollegeCourtyard> a <mf:Property> ;
+    <mf:hasName> "College Courtyard Apartments & Raider Housing" ;
+    <mf:hasUnits> "62"^^xsd:int ;
+    <mf:hasOwner> <mf:NWFStateCollegeFoundation> ;
+    <mf:hasAppraisal> <mf:CollegeCourtyard_Appraisal> .
+
+<mf:CollegeCourtyard_Appraisal> a <mf:PropertyAppraisal> ;
+    <mf:hasTitle> "EQ 190416 – College Courtyard Apartments/Raider Housing – NWF State College Foundation" ;
+    <mf:hasDate> <mf:CollegeCourtyard_AppraisalDate> ;
+    <mf:hasAppraiser> _:appraiser ;
+    <mf:hasRemarks> "Pg. 14" ;
+    <mf:hasAppraisedValue> _:appraisedValue .
+
+<mf:CollegeCourtyard> <mf:hasAddress> <mf:CollegeCourtyard_Address> .
+
+<mf:CollegeCourtyard_Address> a <mf:PropertyAddress> ;
+    <mf:hasStreetNumber> _:streetNumber ;
+    <mf:hasStreetName> _:streetName ;
+    <mf:hasCity> _:city ;
+    <mf:hasState> _:state ;
+    <mf:hasZip> _:zip .
+
+<mf:CollegeCourtyard_AppraisalDate> a <mf:PropertyAppraisalDate> ;
+    <mf:hasMonth> _:month ;
+    <mf:hasDay> _:day ;
+    <mf:hasYear> _:year .
+    
+<mf:CollegeCourtyard> <mf:PropertyLandArea> "4.84 acres"^^xsd:string ;
+    <mf:PropertyZoning> "R-3, Multi-Family Residential District, by the City of Niceville"^^xsd:string .
+    
+<mf:NWFStateCollegeFoundation> a <mf:PropertyOwner> .
+    
+_:appraiser a <mf:PropertyAppraiser> .
+_:appraisedValue a <mf:PropertyAppraisedValue> .
+_:streetNumber a <mf:PropertyStreetNumber> . 
+_:streetName a <mf:PropertyStreetName> .
+_:city a <mf:PropertyCity> .
+_:state a <mf:PropertyState> .  
+_:zip a <mf:PropertyZip> .
+_:month a <mf:PropertyAppraisalMonth> .
+_:day a <mf:PropertyAppraisalDay> .
+_:year a <mf:PropertyAppraisalYear> .

@@ -1,0 +1,34 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix mf: <http://example.org/mf> .
+
+<mf:CollegeCourtyard> a <mf:Property> ;
+    <mf:hasName> "College Courtyard Apartments & Raider Housing" ;
+    <mf:hasAddress> <mf:CollegeCourtyard_Address> ;
+    <mf:hasUnits> "62"^^xsd:int ;
+    <mf:hasAppraisal> <mf:CollegeCourtyard_Appraisal> .
+
+<mf:CollegeCourtyard_Address> a <mf:PropertyAddress> ;
+    <mf:hasStreetNumber> "28"^^xsd:string, "30"^^xsd:string ;
+    <mf:hasStreetName> "Garden Lane" ;
+    <mf:hasCity> "Niceville" ;
+    <mf:hasState> "FL" ;
+    <mf:hasZip> "32578" .
+
+<mf:CollegeCourtyard_Appraisal> a <mf:PropertyAppraisal> ;
+    <mf:hasTitle> "APPRAISAL REPORT" ;
+    <mf:hasDate> <mf:CollegeCourtyard_AppraisalDate> ;
+    <mf:hasAppraiser> <mf:JasonShirey>, <mf:JosetteJackson> ;
+    <mf:hasAppraisedValue> _:unlabeled .
+
+<mf:JasonShirey> a <mf:PropertyAppraiser> ;
+    rdfs:label "Jason P. Shirey, MAI, CCIM, CPM" .
+
+<mf:JosetteJackson> a <mf:PropertyAppraiser> ;
+    rdfs:label "Josette D. Jackson, CCIM" .
+
+<mf:CollegeCourtyard_AppraisalDate> a <mf:PropertyAppraisalDate> ;
+    <mf:hasMonth> _:unlabeled ;
+    <mf:hasDay> _:unlabeled ;
+    <mf:hasYear> "2019"^^xsd:int .

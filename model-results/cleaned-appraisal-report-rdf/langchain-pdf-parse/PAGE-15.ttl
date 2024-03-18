@@ -1,0 +1,59 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix mf: <http://example.org/mf> .
+
+<mf:CollegeCourtyard> a <mf:Property> ;
+    <mf:hasName> "College Courtyard Apartments & Raider Housing" ;
+    <mf:hasAppraisal> <mf:CollegeCourtyard_Appraisal> .
+
+<mf:CollegeCourtyard_Appraisal> a <mf:PropertyAppraisal> ;
+    <mf:hasTitle> "EQ 190416 – College Courtyard Apartments/Raider Housing – NWF State College Foundation" ;
+    <mf:hasAppraisedValue> "5000000"^^xsd:int ;
+    <mf:hasAppraisalRemarks> "Premise: Current Market Value 'As Is', Estate: Fee Simple, Existing Multi-Family Property" ;
+    <mf:hasAppraisalDate> <mf:CollegeCourtyard_AppraisalDate> .
+
+<mf:CollegeCourtyard_AppraisalDate> a <mf:PropertyAppraisalDate> ;
+    <mf:hasMonth> xsd:string ;
+    <mf:hasDay> xsd:int ;
+    <mf:hasYear> xsd:int .
+
+<mf:CollegeCourtyard_Building1> a <mf:NamedEntity> ;
+    <mf:hasInsurableReplacementCostNew> "455000"^^xsd:int .
+
+<mf:CollegeCourtyard_Building2> a <mf:NamedEntity> ;
+    <mf:hasInsurableReplacementCostNew> "455000"^^xsd:int .
+
+<mf:CollegeCourtyard_Building3> a <mf:NamedEntity> ;
+    <mf:hasInsurableReplacementCostNew> "455000"^^xsd:int .
+
+<mf:CollegeCourtyard_Building4> a <mf:NamedEntity> ;
+    <mf:hasInsurableReplacementCostNew> "455000"^^xsd:int .
+
+<mf:CollegeCourtyard_Building5> a <mf:NamedEntity> ;
+    <mf:hasInsurableReplacementCostNew> "50000"^^xsd:int .
+
+<mf:CollegeCourtyard_Building6> a <mf:NamedEntity> ;
+    <mf:hasInsurableReplacementCostNew> "470000"^^xsd:int .
+
+<mf:CollegeCourtyard_Building7> a <mf:NamedEntity> ;
+    <mf:hasInsurableReplacementCostNew> "470000"^^xsd:int .
+
+<mf:CollegeCourtyard_Building8> a <mf:NamedEntity> ;
+    <mf:hasInsurableReplacementCostNew> "435000"^^xsd:int .
+
+<mf:CollegeCourtyard_Building9> a <mf:NamedEntity> ;
+    <mf:hasInsurableReplacementCostNew> "325000"^^xsd:int .
+
+<mf:CollegeCourtyard_ImprovedSalesComparisonApproach> a <mf:NamedEntity> ;
+    <mf:hasValue> "4650000"^^xsd:int .
+
+<mf:CollegeCourtyard_IncomeApproach> a <mf:NamedEntity> ;
+    <mf:hasValue> "5220000"^^xsd:int .
+
+<mf:CollegeCourtyard_EstimatedMarketingTime> a <mf:NamedEntity> ;
+    <rdfs:label> "9-12 months" .
+
+<mf:CollegeCourtyard_EstimatedExposurePeriod> a <mf:NamedEntity> ;
+    <rdfs:label> "9-12 months" .
+

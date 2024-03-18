@@ -1,0 +1,32 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix mf: <http://example.org/mf> .
+
+<mf:CollegeCourtyard> a <mf:Property> ;
+    <mf:hasName> "College Courtyard Apartments & Raider Housing" ;
+    <mf:hasAddress> <mf:CollegeCourtyard-Address> ;
+    <mf:hasAppraisal> <mf:CollegeCourtyard-Appraisal> .
+
+<mf:CollegeCourtyard-Address> a <mf:PropertyAddress> ;
+    <mf:hasCity> "Niceville" ;
+    <mf:hasState> "Florida" ;
+    <mf:hasZip> "32578" .
+
+<mf:CollegeCourtyard-Appraisal> a <mf:PropertyAppraisal> ;
+    <mf:hasTitle> "EQ 190416 – College Courtyard Apartments/Raider Housing – NWF State College Foundation" ;
+    <mf:hasAppraiser> "NWF State College Foundation" ;
+    <mf:hasRemarks> "Pg. 27" ;
+    <mf:hasAppraisedValue> "To be determined" ;
+    <mf:hasInspectionDate> "2019-04-16"^^xsd:date ;
+    <mf:PropertyTaxInformation> "To be provided" ;
+    <mf:PropertyLandArea> "To be provided" ;
+    <mf:PropertyZoning> "To be provided" ;
+    <mf:PropertyLandValue> "To be provided" ;
+    <mf:PropertyTopography> "typical of the market, indicating overall average site utility, access and frontage" ;
+    <mf:PropertyDrainage> "To be provided" ;
+    <mf:PropertyUtilities> "To be provided" ;
+    <mf:PropertyFloodZoneIndicator> "X" ;
+    <mf:PropertyEasement> "Central Telephone Company of Florida has a 250' easement along the north boundary and 585' along the west boundary. S. E. Streets holds a 12' wide ingress/egress easement along the southwest boundary at a distance of 53.25'." ;
+    <mf:PropertyEncroachment> "No encroachments found" ;
+    <mf:PropertyBuildingType> "Four 2.0 Story Multi-Family Quadplex buildings, General Commercial Building" .

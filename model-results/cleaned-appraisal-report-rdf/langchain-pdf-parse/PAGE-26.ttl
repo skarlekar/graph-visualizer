@@ -1,0 +1,30 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix mf: <http://example.org/mf> .
+
+<mf:CollegeCourtyard> a <mf:Property> ;
+    <mf:hasName> "College Courtyard Apartments & Raider Housing" ;
+    <mf:hasOwner> <mf:NWFStateCollegeFoundation> .
+
+<mf:PropertyAppraisal1> a <mf:PropertyAppraisal> ;
+    <mf:hasTitle> "EQ 190416 – College Courtyard Apartments/Raider Housing – NWF State College Foundation" ;
+    <mf:hasAppraisedValue> "Pg. 26" ;
+    <mf:hasUtilities> <mf:ElectricityOnSite>, <mf:MunicipalSewer>, <mf:MunicipalWater>, <mf:NaturalGasOnSite> ;
+    <mf:hasLandArea> "100% Lakeland Sand, 0 to 5% slopes" ;
+    <mf:hasTopography> "excessively drained, with no frequency of flooding or ponding" ;
+    <mf:hasFloodZoneIndicator> "comprised entirely of uplands area, with no wetlands present" .
+
+<mf:NWFStateCollegeFoundation> a <mf:PropertyOwner> .
+
+<mf:ElectricityOnSite> a <mf:PropertyUtilities> ;
+    rdfs:label "Electricity" .
+
+<mf:MunicipalSewer> a <mf:PropertyUtilities> ;
+    rdfs:label "Sewer" .
+    
+<mf:MunicipalWater> a <mf:PropertyUtilities> ;
+    rdfs:label "Water" .
+    
+<mf:NaturalGasOnSite> a <mf:PropertyUtilities> ;
+    rdfs:label "Natural Gas" .

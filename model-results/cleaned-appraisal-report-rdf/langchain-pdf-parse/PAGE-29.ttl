@@ -1,0 +1,30 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix mf: <http://example.org/mf> .
+
+<mf:CollegeCourtyard> a <mf:Property> ;
+    <hasName> "College Courtyard Apartments & Raider Housing" ;
+    <hasAddress> <mf:CollegeCourtyadAddress> ;
+    <hasUnits> "190"^^xsd:int ;
+    <hasOwner> "NWF State College Foundation" ;
+    <hasAppraisal> <mf:CollegeCourtyadAppraisal> .
+
+<mf:CollegeCourtyadAppraisal> a <mf:PropertyAppraisal> ;
+    <hasTitle> "EQ 190416 – College Courtyard Apartments/Raider Housing" ;
+    <hasAppraiser> _:unknownAppraiser ;
+    <hasRemarks> _:unknownRemarks ;
+    <hasAppraisedValue> _:unknownValue .
+
+<mf:CollegeCourtyadAddress> a <mf:PropertyAddress> ;
+    <hasStreetNumber> _:unknownStreetNumber ;
+    <hasStreetName> _:unknownStreetName ;
+    <hasCity> _:unknownCity ;
+    <hasState> _:unknownState ;
+    <hasZip> _:unknownZip .
+
+<mf:CollegeCourtyadAppraisal> <mf:PropertyFoundationType> "Concrete Slab" ;
+    <mf:PropertyBuildingFrame> "Buildings #1-4 – Concrete Frame", "Buildings #5-9 - Wood Frame" ;
+    <mf:PropertyRoofCover> "Asphalt Shingle over Wood Frame" ;
+    <mf:PropertyElevators> "None.  Each second floor unit is accessible by front elevation exterior stairs." ;
+    <mf:PropertyServiceAccess> "One service door at south side of office/maintenance/laundry building" .

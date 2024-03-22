@@ -1,0 +1,14 @@
+cookie:
+  expiry_days: 30
+  key: some_signature_key
+  name: ssk_streamlit
+credentials:
+  usernames:
+    kgdemo:
+      email: example@example.com
+      logged_in: true
+      name: Knowledge Graph Demo
+      password: $2b$12$SdNiTuKP6pPKKKnLjCiFcudwO60grQ2vqFPqvg8NnklyYOW2XcFIG
+preauthorized:
+  emails:
+  - diegofigueroa79@gmail.com

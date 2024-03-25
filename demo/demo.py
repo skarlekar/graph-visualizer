@@ -16,6 +16,8 @@ import streamlit_authenticator as stauth
 import yaml
 from yaml.loader import SafeLoader
 
+from rdflib import Graph
+
 BGCOLOR="rgb(38, 39, 48)"
 
 @st.cache_data
@@ -107,18 +109,20 @@ def main():
                 with tab1:
                     prompt = construct_prompt(ontology=ontology, text=texts[0].page_content)
                     response = llm.invoke(input=prompt)
-                    st.text(f"""{response.content}""")
+                    g1 = Graph()
+                    g1.parse(data=response.content, format='turtle')
+                    st.text(f"""{g1.serialize(format='turtle')}""")
                 
                 with tab2:
                     prompt2 = construct_prompt(ontology=ontology, text=texts[1].page_content)
                     response2 = llm.invoke(input=prompt2)
-                    st.divider()
-                    st.text(f"""{response2.content}""")
+                    g2 = Graph()
+                    g2.parse(data=response2.content, format='turtle')
+                    st.text(f"""{g2.serialize(format='turtle')}""")
                 
                 with tab3:
-                    st.divider()
-                    joined_graph = join_graphs(graph1=response.content, graph2=response2.content, llm=llm)
-                    st.text(f"""{joined_graph}""")
+                    g3 = g1 + g2
+                    st.text(f"""{g3.serialize(format='turtle')}""")
             else:
                 st.error('Document or ontology is missing', icon="🚨")
 

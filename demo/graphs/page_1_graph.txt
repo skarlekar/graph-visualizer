@@ -1,0 +1,31 @@
+@prefix mf: <http://example.org/mf> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<mf:PropertyAppraisal_1> a mf:PropertyAppraisal ;
+    mf:hasAppraisalNumber "190416" ;
+    mf:hasAppraiser <mf:PropertyAppraiser_1>,
+        <mf:PropertyAppraiser_2> ;
+    mf:hasTitle "APPRAISAL REPORT" .
+
+<mf:Property_1> a mf:Property ;
+    mf:hasAddress <mf:PropertyAddress_1> ;
+    mf:hasName "COLLEGE COURTYARD APARTMENTS & RAIDER HOUSING" ;
+    mf:hasOwner "NORTHWEST FLORIDA STATE COLLEGE FOUNDATION" ;
+    mf:hasUnits "62"^^xsd:int .
+
+<mf:PropertyAddress_1> a mf:PropertyAddress ;
+    mf:hasCity "NICEVILLE" ;
+    mf:hasState "FL" ;
+    mf:hasStreetName "GARDEN LANE" ;
+    mf:hasStreetNumber "28",
+        "30" ;
+    mf:hasZip "32578" .
+
+<mf:PropertyAppraiser_1> a mf:PropertyAppraiser ;
+    rdfs:label "Jason P. Shirey, MAI, CCIM, CPM" ;
+    mf:hasAppraisalLicense "RZ3186" .
+
+<mf:PropertyAppraiser_2> a mf:PropertyAppraiser ;
+    rdfs:label "Josette D. Jackson, CCIM" ;
+    mf:hasAppraisalLicense "RZ3275" .

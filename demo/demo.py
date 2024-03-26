@@ -77,7 +77,7 @@ def main():
                 doc = loader.load()
                 texts = split_documents(chunk_size=1000, document=doc)
 
-                tab1, tab2, tab3 = st.tabs(["Graph 1", "Graph 2", "Merged Graph"])
+                tab1, tab2, tab3, tab4 = st.tabs(["Graph 1", "Graph 2", "Graph3", "Merged Graph"])
 
                 with tab1:
                     prompt = construct_prompt(ontology=ontology, text=texts[0].page_content)
@@ -94,8 +94,15 @@ def main():
                     st.text(f"""{g2.serialize(format='turtle')}""")
                 
                 with tab3:
-                    g3 = g1 + g2
+                    prompt3 = construct_prompt(ontology=ontology, text=texts[2].page_content)
+                    response3 = llm.invoke(input=prompt3)
+                    g3 = Graph()
+                    g3.parse(data=response3.content, format='turtle')
                     st.text(f"""{g3.serialize(format='turtle')}""")
+                
+                with tab4:
+                    g4 = g1 + g2 + g3
+                    st.text(f"""{g4.serialize(format='turtle')}""")
             else:
                 st.error('Document or ontology is missing', icon="🚨")
 

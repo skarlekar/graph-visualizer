@@ -1,0 +1,29 @@
+@prefix mf: <http://example.org/mf> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<mf:Property1> a mf:Property ;
+    mf:hasAddress <mf:PropertyAddress1> ;
+    mf:hasAppraisal <mf:PropertyAppraisal1> ;
+    mf:hasName "College Courtyard Apartments & Raider Housing" ;
+    mf:hasOwner "Northwest Florida State College Foundation" ;
+    mf:hasUnits "62"^^xsd:int .
+
+<mf:PropertyAddress1> a mf:PropertyAddress ;
+    mf:hasCity "Niceville" ;
+    mf:hasState "FL" ;
+    mf:hasStreetName "Garden Lane" ;
+    mf:hasStreetNumber "28"^^xsd:string,
+        "30"^^xsd:string ;
+    mf:hasZip "32578" .
+
+<mf:PropertyAppraisal1> a mf:PropertyAppraisal ;
+    mf:hasAppraisedValue "Current Market Value" ;
+    mf:hasAppraiser "EquiValue Appraisal LLC" ;
+    mf:hasDate <mf:PropertyAppraisalDate1> ;
+    mf:hasRemarks "File No. EQ 190416" ;
+    mf:hasTitle "Appraisal of College Courtyard Apartments & Raider Housing" .
+
+<mf:PropertyAppraisalDate1> a mf:PropertyAppraisalDate ;
+    mf:hasDay "13"^^xsd:int ;
+    mf:hasMonth "December" ;
+    mf:hasYear "2019"^^xsd:int .

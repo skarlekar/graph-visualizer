@@ -1,5 +1,4 @@
 import streamlit as st
-from streamlit_d3graph import d3graph, vec2adjmat
 
 #from langchain_community.document_loaders import UnstructuredFileIOLoader
 from langchain_community.document_loaders import PyPDFLoader
@@ -7,7 +6,6 @@ from langchain_community.document_loaders import PyPDFLoader
 from docparser import split_documents
 from prompts import construct_prompt
 from ontology import get_ontology
-from graph_merger import join_graphs
 
 from langchain_community.chat_models import BedrockChat
 import boto3
@@ -18,31 +16,6 @@ from yaml.loader import SafeLoader
 
 from rdflib import Graph
 
-BGCOLOR="rgb(38, 39, 48)"
-
-@st.cache_data
-def init_graph():
-    # Initialize
-    d3 = d3graph()
-    # Load example
-    source = ["CollegeCourtyardApartments&RaiderHousing"] * 7
-    target = ["Knowledge", "28&30GardenLaneNicevilleFL32578", "62Units", "OkaloosaWaltonCommunityCollegeFoundationInc", "EquiValueAppraisalLLC", "5000000USD", "December132019"]
-    label = ["is a concept of", "located at", "comprises", "owned by", "appraised by", "valued at", "appraisal date"]
-    weight = [0.1, 1, 1, 1, 0.9, 1, 0.9]
-    adjmat = vec2adjmat(source=source, target=target, weight=weight)
-
-    return d3, label, adjmat
-
-#@st.cache_data
-def graph(d3, label, adjmat):
-    d3.graph(adjmat)
-    d3.set_edge_properties(edge_distance=100, label=label)
-    return d3
-
-def generate_graph():
-    d3, label, adjmat = init_graph()
-    d3 = graph(d3=d3, label=label, adjmat=adjmat)
-    d3.show(show_slider=False)
 
 def connect_to_bedrock():
     boto_session = boto3.Session()

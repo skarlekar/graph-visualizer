@@ -8,11 +8,6 @@
     mf:hasOwner "Northwest Florida State College Foundation" ;
     mf:hasUnits "62"^^xsd:int .
 
-<mf:PropertyInspectionDate1> a mf:PropertyInspectionDate ;
-    mf:hasDay "N/A" ;
-    mf:hasMonth "N/A" ;
-    mf:hasYear "N/A" .
-
 <mf:PropertyAddress1> a mf:PropertyAddress ;
     mf:hasCity "Niceville" ;
     mf:hasState "FL" ;

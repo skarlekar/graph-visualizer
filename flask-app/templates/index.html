@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>DeepInsight - Knowledge Visualizer</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lz-string/1.4.4/lz-string.min.js"></script>
+    <!--<script src="../javascript/d3.v5.min.js"></script> -->
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="favicon_io/site.webmanifest">
+    <style>
+        /* Add any additional styles you need */
+        .links line {
+            stroke: #999;
+            stroke-opacity: 0.6;
+        }
+
+        .nodes circle {
+            stroke: #fff;
+            stroke-width: 1.5px;
+        }
+
+        .text {
+            font: 12px sans-serif;
+            pointer-events: none;
+            text-anchor: middle;
+        }
+
+        #jsonInput {
+            width: 300px;
+            height: 100px;
+        }
+
+        #submit {
+            margin-top: 10px;
+        }
+
+        .error {
+            color: red;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            font-size: 12px;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            background-color: #c6c6c6;
+            /* Off-white text outline using text-shadow */
+            text-shadow:
+                -1px -1px 0px #f8f8f8,
+                1px -1px 0px #f8f8f8,
+                -1px 1px 0px #f8f8f8,
+                1px 1px 0px #f8f8f8;
+        }
+
+        #container {
+            width: 90%;
+            max-width: 1200px;
+            margin-top: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: #ffffff;
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+
+        input[type="range"],
+        button {
+            font-family: inherit;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-top: 10px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+
+        input[type="range"]:focus,
+        button:focus {
+            border-color: #88a;
+            outline: none;
+        }
+
+        button {
+            font-family: inherit;
+            font-size: inherit;
+            background-color: #007bff;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        .my-svg {
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        label {
+            display: block;
+            color: #333;
+            font-size: 15px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        legend {
+            font-size: 18px;
+            font-weight: bold;
+            color: #444;
+            padding-bottom: 10px;
+            width: auto;
+        }
+
+        /* Repulsion Strength Range Input Enhancement */
+        input[type="range"] {
+            width: 75%;
+            margin: 10px 0;
+        }
+
+        #repulsionValue {
+            display: inline-block;
+            padding: 2px 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            background-color: #c6c6c6;
+        }
+
+        #container {
+            width: 90%;
+            max-width: 1200px;
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f6f6;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        textarea {
+            width: calc(100% - 24px);
+            /* Adjusted to account for padding and ensure it doesn't overflow its container */
+            padding: 12px;
+            /* Comfortable padding inside the textarea */
+            border: 1px solid #ccc;
+            /* Subtle border */
+            border-radius: 4px;
+            /* Rounded corners */
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            /* Inner shadow for depth */
+            font-size: 14px;
+            /* Larger font size for readability */
+            line-height: 1.5;
+            /* Spacing between lines */
+            resize: vertical;
+            /* Allows resizing only vertically */
+            box-sizing: border-box;
+            /* Includes padding and border in the element's total width and height */
+            margin-bottom: 20px;
+            /* Space below the textarea */
+        }
+
+        /* Apply the same styles to anchor tags with the 'button' class */
+        a.button {
+            font-family: inherit;
+            font-size: inherit;
+            text-shadow: none;
+            display: inline-block;
+            /* To allow width and height */
+            text-align: center;
+            text-decoration: none;
+            /* Remove underline from links */
+            width: auto;
+            /* Adjust width as needed */
+            padding: 10px;
+            /* Same padding as buttons for consistency */
+            /* Reuse other styles from the button */
+            background-color: #007bff;
+            color: #ffffff;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-top: 10px;
+            /* To match button top margin */
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        /* Hover effect for the link to match the buttons */
+        a.button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="container">
+        <h1>DeepInsight - Knowledge Visualizer</h1>
+        <p id="errorMessage" class="error"></p>
+        <div id="svgContainer" class="my-svg">
+            <svg width="1400" height="800"></svg>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript code goes here
+
+        var graph;
+
+
+        function sampleJson() {
+            const input =
+                { "nodes": [{ "id": "Knowledge", "type": "concept", "group": 1 }, { "id": "Alcatraz", "type": "location", "group": 2 }, { "id": "San Francisco Bay", "type": "location", "group": 2 }, { "id": "Civil War", "type": "event", "group": 3 }, { "id": "1934", "type": "time", "group": 4 }, { "id": "Al Capone", "type": "person", "group": 5 }, { "id": "George Machine Gun Kelly", "type": "person", "group": 5 }, { "id": "Birdman of Alcatraz", "type": "person", "group": 5 }, { "id": "Pacific", "type": "location", "group": 2 }, { "id": "1963", "type": "time", "group": 4 }, { "id": "Frank Morris", "type": "person", "group": 5 }, { "id": "John Anglin", "type": "person", "group": 5 }, { "id": "Clarence Anglin", "type": "person", "group": 5 }, { "id": "Allen West", "type": "person", "group": 5 }, { "id": "June 12, 1962", "type": "time", "group": 4 }, { "id": "Dummy Heads", "type": "object", "group": 6 }, { "id": "FBI", "type": "organization", "group": 7 }, { "id": "Coast Guard", "type": "organization", "group": 7 }, { "id": "Bureau of Prison authorities", "type": "organization", "group": 7 }, { "id": "Escape Plan", "type": "concept", "group": 8 }, { "id": "Saw Blades", "type": "object", "group": 6 }, { "id": "Homemade Drill", "type": "object", "group": 6 }, { "id": "Utility Corridor", "type": "location", "group": 2 }, { "id": "Workshop", "type": "location", "group": 2 }, { "id": "Raincoats", "type": "object", "group": 6 }, { "id": "Rubber Raft", "type": "object", "group": 6 }, { "id": "Wooden Paddles", "type": "object", "group": 6 }, { "id": "Musical Instrument", "type": "object", "group": 6 }, { "id": "Ventilator", "type": "object", "group": 6 }, { "id": "Soap", "type": "object", "group": 6 }, { "id": "June 11", "type": "time", "group": 4 }, { "id": "Prison Roof", "type": "location", "group": 2 }, { "id": "Bakery Smoke Stack", "type": "location", "group": 2 }, { "id": "Northeast Shore", "type": "location", "group": 2 }], "links": [{ "source": "Knowledge", "target": "Alcatraz", "label": "is located at", "strength": 0.1, "rationale": "The text mentions that Alcatraz is a prison located on an island in San Francisco Bay." }, { "source": "Alcatraz", "target": "San Francisco Bay", "label": "is located in", "strength": 0.9, "rationale": "The text explicitly mentions that Alcatraz is located in San Francisco Bay." }, { "source": "Alcatraz", "target": "Civil War", "label": "held captives since", "strength": 0.7, "rationale": "The text mentions that Alcatraz has held captives since the Civil War." }, { "source": "Alcatraz", "target": "1934", "label": "was re-fortified into the world's most secure prison in", "strength": 0.8, "rationale": "The text mentions that Alcatraz was re-fortified into the world's most secure prison in 1934." }, { "source": "Alcatraz", "target": "Al Capone", "label": "held", "strength": 0.8, "rationale": "The text mentions that Al Capone was an inmate at Alcatraz." }, { "source": "Alcatraz", "target": "George Machine Gun Kelly", "label": "held", "strength": 0.8, "rationale": "The text mentions that George 'Machine Gun' Kelly was an inmate at Alcatraz." }, { "source": "Alcatraz", "target": "Birdman of Alcatraz", "label": "held", "strength": 0.8, "rationale": "The text mentions that the 'Birdman of Alcatraz' was an inmate at Alcatraz." }, { "source": "Alcatraz", "target": "Pacific", "label": "is surrounded by the waters of", "strength": 0.8, "rationale": "The text mentions that Alcatraz is surrounded by the cold, rough waters of the Pacific." }, { "source": "Alcatraz", "target": "1963", "label": "was closed in", "strength": 0.8, "rationale": "The text mentions that Alcatraz was closed in 1963." }, { "source": "Alcatraz", "target": "Frank Morris", "label": "held", "strength": 0.8, "rationale": "The text mentions that Frank Morris was an inmate at Alcatraz." }, { "source": "Alcatraz", "target": "John Anglin", "label": "held", "strength": 0.8, "rationale": "The text mentions that John Anglin was an inmate at Alcatraz." }, { "source": "Alcatraz", "target": "Clarence Anglin", "label": "held", "strength": 0.8, "rationale": "The text mentions that Clarence Anglin was an inmate at Alcatraz." }, { "source": "Alcatraz", "target": "Allen West", "label": "held", "strength": 0.8, "rationale": "The text mentions that Allen West was an inmate at Alcatraz." }, { "source": "Alcatraz", "target": "June 12, 1962", "label": "experience escape on", "strength": 0.8, "rationale": "The text mentions that on June 12, 1962, three convicts were not found in their cells at Alcatraz." }, { "source": "Alcatraz", "target": "Dummy Heads", "label": "found", "strength": 0.8, "rationale": "The text mentions that dummy heads were found in the beds of the escaped prisoners at Alcatraz." }, { "source": "Alcatraz", "target": "FBI", "label": "requested help from", "strength": 0.8, "rationale": "The text mentions that the FBI was notified immediately and asked to help after the escape from Alcatraz." }, { "source": "Alcatraz", "target": "Coast Guard", "label": "requested help from", "strength": 0.8, "rationale": "The text mentions that the Coast Guard was involved in the investigation after the escape from Alcatraz." }, { "source": "Alcatraz", "target": "Bureau of Prison authorities", "label": "requested help from", "strength": 0.8, "rationale": "The text mentions that the Bureau of Prison authorities were involved in the investigation after the escape from Alcatraz." }, { "source": "Alcatraz", "target": "Escape Plan", "label": "was the location of", "strength": 0.8, "rationale": "The text discusses the escape plan of the prisoners at Alcatraz." }, { "source": "Escape Plan", "target": "Saw Blades", "label": "involved", "strength": 0.8, "rationale": "The text mentions that the escape plan involved the use of saw blades." }, { "source": "Escape Plan", "target": "Homemade Drill", "label": "involved", "strength": 0.8, "rationale": "The text mentions that the escape plan involved the use of a homemade drill." }, { "source": "Escape Plan", "target": "Utility Corridor", "label": "used", "strength": 0.8, "rationale": "The text mentions that the escape plan involved the use of a utility corridor." }, { "source": "Escape Plan", "target": "Workshop", "label": "used", "strength": 0.8, "rationale": "The text mentions that the escape plan involved the use of a workshop." }, { "source": "Escape Plan", "target": "Raincoats", "label": "used", "strength": 0.8, "rationale": "The text mentions that the escape plan involved the use of raincoats." }, { "source": "Escape Plan", "target": "Rubber Raft", "label": "used", "strength": 0.8, "rationale": "The text mentions that the escape plan involved the use of a rubber raft." }, { "source": "Escape Plan", "target": "Wooden Paddles", "label": "used", "strength": 0.8, "rationale": "The text mentions that the escape plan involved the use of wooden paddles." }, { "source": "Escape Plan", "target": "Musical Instrument", "label": "used", "strength": 0.8, "rationale": "The text mentions that the escape plan involved the use of a musical instrument." }, { "source": "Escape Plan", "target": "Ventilator", "label": "used", "strength": 0.8, "rationale": "The text mentions that the escape plan involved the use of a ventilator." }, { "source": "Escape Plan", "target": "Soap", "label": "used", "strength": 0.8, "rationale": "The text mentions that the escape plan involved the use of soap." }, { "source": "Escape Plan", "target": "June 11", "label": "was executed on", "strength": 0.8, "rationale": "The text mentions that the escape plan was executed on the evening of June 11." }, { "source": "Escape Plan", "target": "Prison Roof", "label": "involved", "strength": 0.8, "rationale": "The text mentions that the escape plan involved getting on to the prison roof." }, { "source": "Escape Plan", "target": "Bakery Smoke Stack", "label": "involved", "strength": 0.8, "rationale": "The text mentions that the escape plan involved shimmying down the bakery smoke stack." }, { "source": "Escape Plan", "target": "Northeast Shore", "label": "involved", "strength": 0.8, "rationale": "The text mentions that the escape plan involved sneaking to the northeast shore of the island." }], "groups": [{ "group_id": 1, "rationale": "Overarching concept connecting all elements of the given context" }, { "group_id": 2, "rationale": "Locations in the context" }, { "group_id": 3, "rationale": "Historical events in the context" }, { "group_id": 4, "rationale": "Timeframes in the context" }, { "group_id": 5, "rationale": "Persons in the context" }, { "group_id": 6, "rationale": "Objects in the context" }, { "group_id": 7, "rationale": "Organizations in the context" }, { "group_id": 8, "rationale": "Concepts in the context" }] }
+            return input;
+        }
+
+        //
+        // Object to hold group id to color mapping
+        const groupColors = {};
+
+        // Initialize an array to keep track of used colors
+        const usedColors = [];
+
+        function getRandomWebSafeColor() {
+            // Create a set of web safe colors. To avoid potential duplicates, convert the array to a Set and back to an Array to remove duplicates.
+            const webSafeColors = Array.from(new Set([
+                '#8e0808', '#731508', '#b03711', '#933c0b', '#a0530c',
+                '#b06d09', '#7e5d09', '#967f08', '#6e6a07', '#768009',
+                '#637b03', '#69940d', '#4f8904', '#4ca406', '#3db206',
+                '#209a02', '#106f08', '#04a00a', '#01b01d', '#04a130',
+                '#099240', '#0c9252', '#029c65', '#10ae88', '#037164',
+                '#027171', '#0f8596', '#0581a9', '#046ba5', '#064178',
+                '#0146ac', '#092f8f', '#07186f', '#0f15a7', '#0f0392',
+                '#1d028a', '#32088a', '#4e0ca2', '#590998', '#7e10b2',
+                '#7f0d9b', '#90069c', '#83027e', '#b00f96', '#7e075d',
+                '#690a43', '#9d0950', '#8d0d3b', '#ad002a', '#820716'
+            ]));
+
+
+            // Filter out colors that have already been used
+            const availableColors = webSafeColors.filter(color => !usedColors.includes(color));
+
+            // If all colors have been used, you might want to handle this scenario separately
+            if (availableColors.length === 0) {
+                console.warn('All available colors have been used.');
+                // You can choose to start over or handle this scenario differently
+                return '#000000'; // Default color or handle differently
+            }
+
+            // Select a random color from the available (unused) colors
+            const randomIndex = Math.floor(Math.random() * availableColors.length);
+            const selectedColor = availableColors[randomIndex];
+
+            // Mark the selected color as used
+            usedColors.push(selectedColor);
+
+            return selectedColor;
+        }
+        // Function to get or generate a color for a node based on its group
+        function getNodeColor(node) {
+            if (!groupColors[node.group]) {
+                // If no color is associated with the group id, generate a new one
+                groupColors[node.group] = getRandomWebSafeColor();
+            }
+            return groupColors[node.group];
+        }
+
+        // Function to generate the legend
+        function generateLegend(svg, groups) {
+            const legend = svg.append("g")
+                .attr("class", "legend")
+                .selectAll("g")
+                .data(groups)
+                .enter().append("g")
+                .attr("transform", (d, i) => `translate(0, ${i * 20})`);
+
+            legend.append("rect")
+                .attr("width", 18)
+                .attr("height", 18)
+                .attr("fill", d => groupColors[d.group_id]);
+
+            legend.append("text")
+                .attr("x", 24)
+                .attr("y", 9)
+                .attr("dy", "0.35em")
+                .text(d => `${d.group_id}: ${d.rationale}`);
+
+            // Position the legend on the SVG
+            svg.select(".legend").attr("transform", "translate(20,20)");
+        }
+
+        function generateGraph(graph, repulsionStrength) {
+            console.log(graph);
+            var radius = 12
+            //var repulsion = -400
+            var linkDistance = 75
+            var cornerOffset = 150
+            var nodeLabelFontSize = 22
+            var nodeLabelX = 15
+            var nodeLabelY = 8
+            var nodeLabelColor = 'black'
+            var linkLabelFontSize = 15
+            var linkLabelColor = 'gray'
+
+            var nodes = graph.nodes;
+            var links = graph.links;
+
+            var repulsion = repulsionStrength;
+
+            var svg = d3.select('svg'),
+                width = +svg.attr('width'),
+                height = +svg.attr('height');
+
+            var simulation = d3.forceSimulation()
+                //.force('link', linkForce)
+                .force('link', d3.forceLink().id(function (d) { return d.id; }).strength(1.0).distance(linkDistance))
+                .force('charge', d3.forceManyBody().strength(repulsion))
+                .force('center', d3.forceCenter(width / 2, height / 2));
+
+            var link = svg.append('g')
+                .attr('class', 'links')
+                .selectAll('line')
+                .data(graph.links)
+                .enter().append('line')
+                // Modify the stroke-width to scale with the 'strength' attribute
+                .attr('stroke-width', function (d) { return 1 + (d.strength - 0.1) * 9; });
+            //.attr('stroke-width', function (d) { return Math.sqrt(d.strength); });
+
+            var node = svg.append('g')
+                .attr('class', 'nodes')
+                .selectAll('circle')
+                .data(graph.nodes)
+                .enter().append('circle')
+                .attr('r', radius)
+                .attr("fill", "blue")
+                .call(d3.drag()
+                    .on('start', dragstarted)
+                    .on('drag', dragged)
+                    .on('end', dragended));
+
+            var label = svg.append('g')
+                .attr('class', 'labels')
+                .selectAll('text')
+                .data(graph.nodes)
+                .enter().append('text')
+                .attr('class', 'text')
+                .attr('font-size', nodeLabelFontSize)
+                .attr('dx', nodeLabelX)
+                .attr('dy', nodeLabelY)
+                .attr('fill', nodeLabelColor)
+                .text(function (d) { return d.id; });
+
+            var linkLabel = svg.append('g')
+                .attr('class', 'linkLabels')
+                .selectAll('text')
+                .data(graph.links)
+                .enter().append('text')
+                .attr('class', 'text')
+                .attr('font-size', linkLabelFontSize)
+                .attr('fill', linkLabelColor)
+                .text(function (d) { return d.label; });
+
+            simulation
+                .nodes(graph.nodes)
+                .on('tick', ticked);
+
+            simulation.force('link')
+                .links(graph.links);
+
+            // Generate the legend after the graph elements
+            // generateLegend(svg, graph.groups);
+
+            function ticked() {
+                link
+                    .attr('x1', function (d) { return d.source.x; })
+                    .attr('y1', function (d) { return d.source.y; })
+                    .attr('x2', function (d) { return d.target.x; })
+                    .attr('y2', function (d) { return d.target.y; });
+
+                node
+                    .attr('cx', function (d) { return d.x; })
+                    .attr('cy', function (d) { return d.y; });
+
+                label
+                    .attr('x', function (d) { return d.x; })
+                    .attr('y', function (d) { return d.y; });
+
+                linkLabel
+                    .attr('x', function (d) { return (d.source.x + d.target.x) / 2; })
+                    .attr('y', function (d) { return (d.source.y + d.target.y) / 2; });
+            }
+
+            function dragstarted(d) {
+                if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+                d.fx = d.x;
+                d.fy = d.y;
+            }
+
+            function dragged(d) {
+                d.fx = d3.event.x;
+                d.fy = d3.event.y;
+            }
+
+            function dragended(d) {
+                if (!d3.event.active) simulation.alphaTarget(0);
+                d.fx = null;
+                d.fy = null;
+            }
+        }
+        generateGraph({{data|tojson}},-300);
+    </script>
+</body>
+
+</html>

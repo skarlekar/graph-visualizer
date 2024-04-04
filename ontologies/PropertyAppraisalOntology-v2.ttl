@@ -88,7 +88,7 @@
 <mf:PropertyOwner> rdfs:label "Owner" .
 <mf:PropertyAppraisalDate> rdfs:label "Date of Report" , "Date of the appraisal" , "Date:".
 <mf:PropertyInspectionDate> rdfs:label "Date of Inspection" , "Inspection Date".
-<mf:PropertyAppraisedValue> rdfs:label "Assessed Value" , "Market Value" , "Final Value".
+<mf:PropertyAppraisedValue> rdfs:label "Reconciled Final Value".
 <mf:PropertyUnits> rdfs:label "Number of Units" .
 <mf:PropertyTaxInformation> rdfs:label "Tax Identification:" .
 <mf:PropertyLandArea> rdfs:label "Land Area:" .
@@ -120,3 +120,4 @@
 <mf:PropertyParkingType> rdfs:label "Parking Type and Condition of Spaces:" .
 <mf:PropertyLTV> rdfs:label "Loan to Value Ratio" .
 <mf:PropertyDCR> rdfs:label "Debt Coverage Ratio" .
+<mf:PropertyName> rdfs:label "Property:" .

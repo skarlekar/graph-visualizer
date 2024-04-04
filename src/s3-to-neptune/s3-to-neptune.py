@@ -123,6 +123,7 @@ def convert_rdf_json():
         })
 
     out = {"links":links,"nodes":nodes}
+    return out
 
 def main():
     graph = Graph()

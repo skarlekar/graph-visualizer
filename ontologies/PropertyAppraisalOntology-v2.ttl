@@ -86,9 +86,9 @@
 			   <hasYear> <mf:PropertyInspectionYear> .
 
 <mf:PropertyOwner> rdfs:label "Owner" .
-<mf:PropertyAppraisalDate> rdfs:label "Date of Report" , "Date of the appraisal" , "Date:".
-<mf:PropertyInspectionDate> rdfs:label "Date of Inspection" , "Inspection Date".
-<mf:PropertyAppraisedValue> rdfs:label "Current Market Value".
+<mf:PropertyAppraisalDate> rdfs:label "Date of Report" , "Date of the appraisal" , "Date:" .
+<mf:PropertyInspectionDate> rdfs:label "Date of Inspection" , "Inspection Date" .
+<mf:PropertyAppraisedValue> rdfs:label "Current Market Value" .
 <mf:PropertyUnits> rdfs:label "Number of Units" .
 <mf:PropertyTaxInformation> rdfs:label "Tax Identification:" .
 <mf:PropertyLandArea> rdfs:label "Land Area:" .

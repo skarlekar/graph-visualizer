@@ -90,7 +90,7 @@ def hello_world():
     conn.close()
     id_node_name = {n["id"]:n["entity_id"] for n in node_data}
     nodes=[]
-    edges=[]
+    links=[]
     for n in node_data:
         nodes.append({
             "id":n["entity_id"],
@@ -99,7 +99,7 @@ def hello_world():
         })
 
     for e in edge_data:
-        edges.append({
+        links.append({
             "source":id_node_name[e["IN"]["id"]],
             "target":id_node_name[e["OUT"]["id"]],
             "label":e["label"],
@@ -151,4 +151,4 @@ def hello_world():
     return render_template("index.html", data=out_data)
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port='8080')
+    app.run(host='0.0.0.0')

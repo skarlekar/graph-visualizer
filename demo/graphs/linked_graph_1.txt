@@ -1,0 +1,22 @@
+@prefix mf: <http://example.org/mf> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<mf:Property1> a mf:Property ;
+    mf:hasAddress <mf:PropertyAddress1> ;
+    mf:hasName "College Courtyard Apartments & Raider Housing" ;
+    mf:hasOwner "Northwest Florida State College Foundation" ;
+    mf:hasPCR "4" ;
+    mf:hasPropertyInspectionAgency "florida property inspection llc" ;
+    mf:hasPropertyInspector "john d. goodhouse" ;
+    mf:hasUnits "62"^^xsd:int .
+
+
+<mf:PropertyAddress_1> a mf:PropertyAddress ;
+    mf:hasCity "niceville" ;
+    mf:hasState "fl" ;
+    mf:hasStreetName "garden lane" ;
+    mf:hasStreetNumber "28",
+        "30" ;
+    mf:hasZip "32578" .
+

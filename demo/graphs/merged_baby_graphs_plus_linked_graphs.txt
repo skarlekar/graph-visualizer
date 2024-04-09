@@ -1,0 +1,69 @@
+@prefix mf: <http://example.org/mf> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<mf:Property1> a mf:Property ;
+    mf:hasAddress <mf:PropertyAddress1> ;
+    mf:hasName "college courtyard apartments & raider housing" ;
+    mf:hasOwner "northwest florida state college foundation" ;
+    mf:hasPCR "4" ;
+    mf:hasPropertyInspectionAgency "florida property inspection llc" ;
+    mf:hasPropertyInspector "john d. goodhouse" ;
+    mf:hasUnits "62"^^xsd:int .
+
+<mf:Property2> a mf:Property ;
+    mf:hasAddress <mf:PropertyAddress2> ;
+    mf:hasName "beachside apartments" ;
+    mf:hasOwner "good living llc" ;
+    mf:hasPCR "4" ;
+    mf:hasPropertyInspectionAgency "florida property inspection llc" ;
+    mf:hasPropertyInspector "john d. goodhouse" ;
+    mf:hasUnits "80"^^xsd:int .
+
+<mf:PropertyAddress_2> a mf:PropertyAddress ;
+    mf:hasCity "tampa" ;
+    mf:hasState "fl" ;
+    mf:hasStreetName "beach road" ;
+    mf:hasStreetNumber "1" ;
+    mf:hasZip "32475" .
+
+<mf:PropertyAppraisalDate_1> a <mf:PropertyAppraisalDate> ;
+    mf:hasDay "10" ;
+    mf:hasMonth "january" ;
+    mf:hasYear "2020" .
+
+<mf:PropertyAppraisal_1> a <mf:PropertyAppraisal> ;
+    mf:hasAppraisedValue "current market value" ;
+    mf:hasAppraiser "jason p. shirey, mai, ccim state certified general real estate appraiser rz3186",
+        "jason p. shirey, mai, ccim, cpm",
+        "josette d. jackson, ccim",
+        "josette d. jackson, ccim state certified general real estate appraiser rz3275" ;
+    mf:hasDate "2019-04-16",
+        "2019-12-13" ;
+    mf:hasRemarks "equivalue appraisal llc professional appraisal and valuation services po box 5326 destin, florida 32540 phone (850) 424-6119",
+        "of existing multi-family property" ;
+    mf:hasTitle "appraisal report" .
+
+<mf:PropertyBuildingType_1> a <mf:PropertyBuildingType> ;
+    rdfs:label "a 62 unit multi-family residential property" .
+
+<mf:PropertyInspectionDate_1> a <mf:PropertyInspectionDate> ;
+    mf:hasDay "13" ;
+    mf:hasMonth "december" ;
+    mf:hasYear "2019" .
+
+<mf:Property_1> a <mf:SubjectProperty> ;
+    mf:hasAddress <mf:PropertyAddress_1> ;
+    mf:hasName "college courtyard apartments & raider housing" ;
+    mf:hasOwner "ms. cristie kedroski vice president of college advancement northwest florida state college foundation" ;
+    mf:hasUnits "62",
+        "62 unit multi-family property" .
+
+<mf:PropertyAddress_1> a mf:PropertyAddress,
+        <mf:PropertyAddress> ;
+    mf:hasCity "niceville" ;
+    mf:hasState "fl" ;
+    mf:hasStreetName "garden lane" ;
+    mf:hasStreetNumber "28",
+        "30" ;
+    mf:hasZip "32578" .

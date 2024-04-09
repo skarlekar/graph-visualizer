@@ -1,0 +1,32 @@
+<mf:Property1> a mf:Property ;
+    mf:hasAddress <mf:PropertyAddress1> ;
+    mf:hasName "college courtyard apartments & raider housing" ;
+    mf:hasOwner "northwest florida state college foundation" ;
+    mf:hasPCR "4" ;
+    mf:hasPropertyInspectionAgency "florida property inspection llc" ;
+    mf:hasPropertyInspector "john d. goodhouse" ;
+    mf:hasUnits "62"^^xsd:int .
+
+<mf:Property2> a mf:Property ;
+    mf:hasAddress <mf:PropertyAddress2> ;
+    mf:hasName "beachside apartments" ;
+    mf:hasOwner "good living llc" ;
+    mf:hasPCR "4" ;
+    mf:hasPropertyInspectionAgency "florida property inspection llc" ;
+    mf:hasPropertyInspector "john d. goodhouse" ;
+    mf:hasUnits "80"^^xsd:int .
+
+<mf:PropertyAddress_1> a mf:PropertyAddress ;
+    mf:hasCity "niceville" ;
+    mf:hasState "fl" ;
+    mf:hasStreetName "garden lane" ;
+    mf:hasStreetNumber "28",
+        "30" ;
+    mf:hasZip "32578" .
+
+<mf:PropertyAddress_2> a mf:PropertyAddress ;
+    mf:hasCity "tampa" ;
+    mf:hasState "fl" ;
+    mf:hasStreetName "beach road" ;
+    mf:hasStreetNumber "1" ;
+    mf:hasZip "32475" .

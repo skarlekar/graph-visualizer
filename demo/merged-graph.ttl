@@ -1,0 +1,31 @@
+@prefix ns1: <https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/ontologies/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<mf:PropertyAppraisal_1> a <mf:PropertyAppraisal> ;
+    ns1:hasAppraisedValue "current market value" ;
+    ns1:hasAppraiser "jason p. shirey, mai, ccim state certified general real estate appraiser rz3186",
+        "jason p. shirey, mai, ccim, cpm",
+        "josette d. jackson, ccim",
+        "josette d. jackson, ccim state certified general real estate appraiser rz3275" ;
+    ns1:hasDate "2019-04-16",
+        "2020-01-10" ;
+    ns1:hasRemarks "equivalue appraisal llc professional appraisal and valuation services po box 5326 destin, florida 32540 phone (850) 424-6119" ;
+    ns1:hasTitle "appraisal report" .
+
+<mf:PropertyBuildingType_1> a <mf:PropertyBuildingType> ;
+    rdfs:label "a 62 unit multi-family residential property" .
+
+<mf:SubjectProperty_1> a <mf:SubjectProperty> ;
+    ns1:hasAddress <mf:PropertyAddress_1> ;
+    ns1:hasName "college courtyard apartments & raider housing" ;
+    ns1:hasUnits "62",
+        "62 unit multi-family property" .
+
+<mf:PropertyAddress_1> a <mf:PropertyAddress> ;
+    ns1:hasCity "niceville" ;
+    ns1:hasState "fl" ;
+    ns1:hasStreetName "garden lane" ;
+    ns1:hasStreetNumber "28",
+        "30" ;
+    ns1:hasZip "32578" .
+

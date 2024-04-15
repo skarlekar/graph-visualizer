@@ -43,27 +43,28 @@ def connect_to_bedrock():
     modelId = "anthropic.claude-3-sonnet-20240229-v1:0"
     
     llm = BedrockChat(model_id=modelId, client=bedrock_runtime, model_kwargs={"temperature": 0})
-    return llm
+    
+    bedrock_agent = boto_session.client('bedrock-agent-runtime', region_name='us-east-1')
+    
+    return llm, bedrock_agent
 
 def main():
-    llm = connect_to_bedrock()
+    llm, bedrock_agent = connect_to_bedrock()
+    file_link = st.text_input(
+        label="Document Link", 
+        key="file_link", 
+        value="https://raw.githubusercontent.com/skarlekar/graph-visualizer/1927533f5b79fd1fd529944d77462553e7fe9bde/content/Appraisal-Report.pdf"
+    )
 
-    col1, col2 = st.columns([0.4, 0.6])
+    ontology_link = st.text_input(
+        label="Ontology Link", 
+        key="ontology_link",
+        value="https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/ontologies/PropertyAppraisalOntology-v2.ttl"
+    )
+
+    col1, col2 = st.columns([0.6, 0.4])
 
     with col1:
-        file_link = st.text_input(
-            label="Document Link", 
-            key="file_link", 
-            value="https://raw.githubusercontent.com/skarlekar/graph-visualizer/1927533f5b79fd1fd529944d77462553e7fe9bde/content/Appraisal-Report.pdf"
-        )
-
-        ontology_link = st.text_input(
-            label="Ontology Link", 
-            key="ontology_link",
-            value="https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/ontologies/PropertyAppraisalOntology-v2.ttl"
-        )
-
-    with col2:
         if st.button("Generate Graph"):
             if file_link and ontology_link:
 
@@ -138,9 +139,53 @@ def main():
                     st.text(g4_l.serialize(format='ttl'))
 
                     s3_client = boto3.client('s3')
-                    response = s3_client.upload_file('merged-graph.ttl', 'kg-merged-rdf', 'merged-graph.ttl')
+                    #response = s3_client.upload_file('merged-graph.ttl', 'kg-merged-rdf', 'merged-graph.ttl')
             else:
                 st.error('Document or ontology is missing', icon="🚨")
+    
+    with col2:
+        def get_model_response(user_input):
+            # Write code to call model here
+            response = bedrock_agent.retrieve_and_generate(
+                input={'text': user_input},
+                retrieveAndGenerateConfiguration={
+                    'type': 'KNOWLEDGE_BASE',
+                    'knowledgeBaseConfiguration': {
+                        'knowledgeBaseId': "PI1IJJBF84",
+                        'modelArn': 'arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-3-sonnet-20240229-v1:0'
+                        }
+                    }
+                )
+            return response['output']['text']
+
+        # Init chatbot history
+        if "messages" not in st.session_state:
+            st.session_state.messages=[]
+
+        # Display the previous messages
+        for message in st.session_state.messages:
+            with st.chat_message(message["role"]):
+                st.markdown(message["content"])
+
+        # React to user input
+        if prompt := st.chat_input("Type your question here"):
+
+            # Display the user message
+            st.chat_message("user").markdown(prompt)
+            # Add user message to chat history
+            st.session_state.messages.append({"role":"user","content":prompt})
+
+            # Call model using user prompt
+            response = get_model_response(prompt)
+
+            # Display model response
+            with st.chat_message("assistant"):
+                st.markdown(response)
+            
+            # Now add model response to chat history
+            st.session_state.messages.append({"role":"assistant","content":response})
+
+            st.rerun()
 
 if __name__ == '__main__':
     st.set_page_config(layout="wide")

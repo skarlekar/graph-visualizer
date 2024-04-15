@@ -107,7 +107,7 @@ def main():
                         g2_l.add((s, p, o))
                 #st.text("*************************")
                 #st.text(g2_l.serialize(format='ttl'))
-                st.session_state.graphs.append[1] = g2_l.serialize(format='ttl')
+                st.session_state.graphs[1] = g2_l.serialize(format='ttl')
                     
                 
                 prompt3 = construct_prompt(ontology=ontology, text=texts[3].page_content)
@@ -124,7 +124,7 @@ def main():
                         g3_l.add((s, p, o))
                 #st.text("*************************")
                 #st.text(g3_l.serialize(format='ttl'))
-                st.session_state.graphs.append[2] = g3_l.serialize(format='ttl')
+                st.session_state.graphs[2] = g3_l.serialize(format='ttl')
                 
                 #g4 = g1 + g2
                 #st.text(g4.serialize(format='ttl'))
@@ -133,7 +133,7 @@ def main():
                 g4_l.serialize(destination='merged-graph.ttl')
                 #st.text("*************************")
                 #st.text(g4_l.serialize(format='ttl'))
-                st.session_state.graphs.append[3] = g4_l.serialize(format='ttl')
+                st.session_state.graphs[3] = g4_l.serialize(format='ttl')
 
                 s3_client = boto3.client('s3')
                 #response = s3_client.upload_file('merged-graph.ttl', 'kg-merged-rdf', 'merged-graph.ttl')

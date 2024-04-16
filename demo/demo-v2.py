@@ -169,8 +169,17 @@ def main():
                     'type': 'KNOWLEDGE_BASE',
                     'knowledgeBaseConfiguration': {
                         'knowledgeBaseId': "PI1IJJBF84",
-                        'modelArn': 'arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-3-sonnet-20240229-v1:0'
-                        }
+                        'modelArn': 'arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-3-sonnet-20240229-v1:0',
+                        'generationConfiguration': {
+                            'promptTemplate': {
+                                'textPromptTemplate': """
+                                Instructions: Use only the provided search results to answer the question at the end. Do not include any explanations in your response.
+                                Search Results:
+                                $search_results$
+                                Question: $query$"""
+                                }
+                            }
+                        },
                     }
                 )
             return response['output']['text']

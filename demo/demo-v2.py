@@ -175,34 +175,35 @@ def main():
                 )
             return response['output']['text']
 
-        # Init chatbot history
-        if "messages" not in st.session_state:
-            st.session_state.messages=[]
+        with st.container(height=700, border=True):
+            # Init chatbot history
+            if "messages" not in st.session_state:
+                st.session_state.messages=[]
 
-        # Display the previous messages
-        for message in st.session_state.messages:
-            with st.chat_message(message["role"]):
-                st.markdown(message["content"])
+            # Display the previous messages
+            for message in st.session_state.messages:
+                with st.chat_message(message["role"]):
+                    st.markdown(message["content"])
 
-        # React to user input
-        if prompt := st.chat_input("Type your question here"):
+            # React to user input
+            if prompt := st.chat_input("Type your question here"):
 
-            # Display the user message
-            st.chat_message("user").markdown(prompt)
-            # Add user message to chat history
-            st.session_state.messages.append({"role":"user","content":prompt})
+                # Display the user message
+                st.chat_message("user").markdown(prompt)
+                # Add user message to chat history
+                st.session_state.messages.append({"role":"user","content":prompt})
 
-            # Call model using user prompt
-            response = get_model_response(prompt)
+                # Call model using user prompt
+                response = get_model_response(prompt)
 
-            # Display model response
-            with st.chat_message("assistant"):
-                st.markdown(response)
-            
-            # Now add model response to chat history
-            st.session_state.messages.append({"role":"assistant","content":response})
+                # Display model response
+                with st.chat_message("assistant"):
+                    st.markdown(response)
+                
+                # Now add model response to chat history
+                st.session_state.messages.append({"role":"assistant","content":response})
 
-            st.rerun()
+                st.rerun()
 
 if __name__ == '__main__':
     st.set_page_config(layout="wide")

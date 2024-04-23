@@ -17,9 +17,57 @@ def get_knowledge_graph_input_doc(file_link,ontology_link):
 
     return "example graph"
 
+example_graph = """<mf:Property1> a mf:Property ;
+	mf:hasAddress <mf:PropertyAddress1> ;
+	mf:hasName "College Courtyard Apartments & Raider Housing" ;
+	mf:hasOwner "Northwest Florida State College Foundation" ;
+	mf:hasPCR "4" ;
+	mf:hasPropertyInspectionAgency "florida property inspection llc" ;
+	mf:hasPropertyInspector "john d. goodhouse" ;
+	mf:hasInspectionDate "01/03/2018" ;
+	mf:hasUnits "62"^^xsd:int .
+
+<mf:PropertyAddress1> a mf:PropertyAddress ;
+	mf:hasCity "niceville" ;
+	mf:hasState "fl" ;
+	mf:hasStreetName "garden lane" ;
+	mf:hasStreetNumber "28",
+	  "30" ;
+	mf:hasZip "32578" ;
+	mf:hasLowIncomeUnits "12" ;
+	mf:hasVeryLowIncomeUnits "5" ;
+	mf:isSmallMultifamilyUnitMeetingLowIncome "yes" ;
+	mf:hasMSA "" .
+ """
+
 def get_model_response(user_input):
     # Write code to call model here
-    return "mock model response"
+    response = bedrock_agent.retrieve_and_generate(
+                input={'text': user_input},
+                retrieveAndGenerateConfiguration={
+                    'type': 'KNOWLEDGE_BASE',
+                    'knowledgeBaseConfiguration': {
+                        'knowledgeBaseId': "PI1IJJBF84",
+                        'modelArn': 'arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-3-sonnet-20240229-v1:0',
+                        'generationConfiguration': {
+                            'promptTemplate': {
+                                'textPromptTemplate': f"""
+                                Instructions: Use only the provided search results to answer the question at the end. Do not include any explanations in your response.
+                                Search Results:
+                                $search_results$
+                                Question: 
+                                I am providing a property and its address in the <context> tags:
+                                <context>
+                                {example_graph}
+                                </context>
+                                $query$
+                                """
+                                }
+                            }
+                        },
+                    }
+                )
+    return response['output']['text']
 
 with st.sidebar:
     with st.form('document'):

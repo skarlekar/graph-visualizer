@@ -1,0 +1,33 @@
+<mf:Property1> a mf:Property ;
+	mf:hasAddress <mf:PropertyAddress1> ;
+	mf:hasName "College Courtyard Apartments & Raider Housing" ;
+	mf:hasOwner "Northwest Florida State College Foundation" ;
+	mf:hasPCR "4" ;
+	mf:hasPropertyInspectionAgency "florida property inspection llc" ;
+	mf:hasPropertyInspector "john d. goodhouse" ;
+	mf:hasInspectionDate "01/03/2018" ;
+	mf:hasUnits "62"^^xsd:int .
+
+<mf:PropertyAddress1> a mf:PropertyAddress ;
+	mf:hasCity "niceville" ;
+	mf:hasState "fl" ;
+	mf:hasStreetName "garden lane" ;
+	mf:hasStreetNumber "28",
+	  "30" ;
+	mf:hasZip "32578" ;
+	mf:hasLowIncomeUnits "12" ;
+	mf:hasVeryLowIncomeUnits "5" ;
+	mf:isSmallMultifamilyUnitMeetingLowIncome "yes" ;
+	mf:hasMSA "" .
+
+<mf:Loan_1> a mf:Loan ;
+	mf:hasProperty mf:PropertyAddress_1 ;
+	mf:hasLender "Johnny Lender" ;
+	mf:hasBorrower "Mr. Sam Millions" ;
+	mf:hasKeyPrincipal "Mrs. Sally Principal" ;
+	mf:hasApprovalDecision "yes" ;
+	mf:hasApprovalDate "01/04/2018" ;
+	mf:hasApprovalNotes "Based on the strength and experience of the sponsor including managing other seniors assets in the same market and state for many
+years as well as the financial improvement of the asset, this supplemental transaction is recommended for Loan Committee Approval." ;
+	mf:hasAssetManagementNotes "The property is maintained well and the rentals have met projected expectations." ;
+	mf:hasAssetManagementNotesDate "01/05/2021" .

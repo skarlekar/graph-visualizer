@@ -1,0 +1,31 @@
+<mf:Property1> a mf:Property ;
+	mf:hasAddress <mf:PropertyAddress1> ;
+	mf:hasName "Hill Housing" ;
+	mf:hasOwner "Western Housing" ;
+	mf:hasPCR "4" ;
+	mf:hasPropertyInspectionAgency "insights inspection llc" ;
+	mf:hasPropertyInspector "Steve Davis" ;
+	mf:hasInspectionDate "08/14/2017" ;
+	mf:hasUnits "51"^^xsd:int .
+
+<mf:PropertyAddress1> a mf:PropertyAddress ;
+	mf:hasCity "bethesda" ;
+	mf:hasState "md" ;
+	mf:hasStreetName "joyce" ;
+	mf:hasStreetNumber "500" ;
+	mf:hasZip "20814" ;
+	mf:hasLowIncomeUnits "3" ;
+	mf:hasVeryLowIncomeUnits "1" ;
+	mf:isSmallMultifamilyUnitMeetingLowIncome "no" ;
+	mf:hasMSA "" .
+
+<mf:Loan_1> a mf:Loan ;
+	mf:hasProperty mf:PropertyAddress_1 ;
+	mf:hasLender "Patrick Miller" ;
+	mf:hasBorrower "Mr. Thomas Smith" ;
+	mf:hasKeyPrincipal "Mr. Andrew Harris" ;
+	mf:hasApprovalDecision "yes" ;
+	mf:hasApprovalDate "01/14/2018" ;
+	mf:hasApprovalNotes "This transaction is recommeded for approval based on it's properties." ;
+	mf:hasAssetManagementNotes "Rentals for this property have met expectations." ;
+	mf:hasAssetManagementNotesDate "01/20/2018" .

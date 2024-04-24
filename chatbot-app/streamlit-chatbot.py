@@ -2,6 +2,9 @@ import streamlit as st
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_community.chat_models import BedrockChat
 from rdflib import Graph, Literal
+import boto3
+
+bedrock_agent = boto3.client('bedrock-agent-runtime', region_name='us-east-1')
 
 if 'kg_input_document' not in st.session_state:
     st.session_state.kg_input_document= None

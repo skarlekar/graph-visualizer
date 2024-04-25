@@ -70,7 +70,7 @@ def get_user_answer(user_input,new_property,retrieval_rel_info):
         'messages':messages,
         'anthropic_version':'bedrock-2023-05-31',
         'top_p':0.99,
-        'temperature':1,
+        'temperature':0.2,
         'top_k':250,
         'max_tokens':3000
     })

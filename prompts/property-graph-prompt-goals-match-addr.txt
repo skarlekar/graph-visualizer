@@ -158,35 +158,37 @@ Now given the following information about a property and user question, answer t
 <newPropertyContext>
 <mf:Property1> a mf:Property ;
 	mf:hasAddress <mf:PropertyAddress1> ;
-	mf:hasName "Edgeland Apartments" ;
-	mf:hasOwner "Montgumery Housing" ;
-	mf:hasPCR "3" ;
-	mf:hasPropertyInspectionAgency "innovation inspection llc" ;
-	mf:hasPropertyInspector "Anne Farrah" ;
-	mf:hasInspectionDate "10/20/2021" ;
-	mf:hasUnits "51"^^xsd:int .
+	mf:hasName "Edgemoor Apartments" ;
+	mf:hasOwner "Wilfred Foundation" ;
+	mf:hasPCR 2" ;
+	mf:hasPropertyInspectionAgency "ace inspections llc" ;
+	mf:hasPropertyInspector "james martin" ;
+	mf:hasInspectionDate "03/05/2020" ;
+	mf:hasUnits "62"^^xsd:int .
 
 <mf:PropertyAddress1> a mf:PropertyAddress ;
-	mf:hasCity "bethesda" ;
-	mf:hasState "md" ;
-	mf:hasStreetName "joyce" ;
-	mf:hasStreetNumber "500" ;
-	mf:hasZip "20814" ;
-	mf:hasLowIncomeUnits "3" ;
-	mf:hasVeryLowIncomeUnits "1" ;
-	mf:isSmallMultifamilyUnitMeetingLowIncome "no" ;
+	mf:hasCity "niceville" ;
+	mf:hasState "fl" ;
+	mf:hasStreetName "garden lane" ;
+	mf:hasStreetNumber "28",
+	  "30" ;
+	mf:hasZip "32578" ;
+	mf:hasLowIncomeUnits "12" ;
+	mf:hasVeryLowIncomeUnits "5" ;
+	mf:isSmallMultifamilyUnitMeetingLowIncome "yes" ;
 	mf:hasMSA "" .
 
 <mf:Loan_1> a mf:Loan ;
 	mf:hasProperty mf:PropertyAddress_1 ;
-	mf:hasLender "David Smith" ;
-	mf:hasBorrower "Mr. Dean Holmes" ;
-	mf:hasKeyPrincipal "Mr. Derek Fischer" ;
+	mf:hasLender "Jane Lyon" ;
+	mf:hasBorrower "Mrs. Sally Andrews" ;
+	mf:hasKeyPrincipal "Mrs. Sam I. Ames" ;
 	mf:hasApprovalDecision "yes" ;
-	mf:hasApprovalDate "02/08/2022" ;
-	mf:hasApprovalNotes "This transaction is recommeded for approval based on it's properties." ;
-	mf:hasAssetManagementNotes "Rentals for this property have met expectations." ;
-	mf:hasAssetManagementNotesDate "03/10/2022" .
+	mf:hasApprovalDate "05/04/2020" ;
+	mf:hasApprovalNotes "Based on the strength and experience of the sponsor including managing other seniors assets in the same market and state for many
+years as well as the financial improvement of the asset, this supplemental transaction is recommended for Loan Committee Approval." ;
+	mf:hasAssetManagementNotes "The property is maintained well and the rentals have met projected expectations." ;
+	mf:hasAssetManagementNotesDate "06/05/2020" .
 </newPropertyContext>
 <otherPropertyContext>
 <mf:Property1> a mf:Property ;
@@ -224,5 +226,5 @@ years as well as the financial improvement of the asset, this supplemental trans
 	mf:hasAssetManagementNotesDate "01/05/2021" .
 </otherPropertyContext>
 <userQuestion>
-Have we seen this property before, if so, what was the property's name?
+Have we seen this property before, if so, what was the property's lender?
 </userQuestion>

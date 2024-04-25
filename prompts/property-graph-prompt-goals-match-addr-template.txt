@@ -1,0 +1,166 @@
+Given the following property in the <newPropertyContext> tags, relevant information about other properties within the <otherPropertyContext> tags, and the user question provided in the <userQuestion> tags, answer the user question.
+
+When asked about if a property advances housing goals, the percentage of the properties low income units out of the total number of units should be found. If the property has >30% of units marked as low income, it will advance housing goals.
+
+When asked if we have seen the property before, the given property's address should be found. Then, a property with a matching address should be found from the other properties within the <otherPropertyContext> tags. If one of the other properties has a matching address, the new property has been seen before.
+
+Here is are examples of an expected response, with the model response within the <modelResponse> tags. Each examples is within <example> tags.
+
+<example>
+<newPropertyContext>
+<mf:Property1> a mf:Property ;
+	mf:hasAddress <mf:PropertyAddress1> ;
+	mf:hasName "McCloud Housing" ;
+	mf:hasOwner "Virginia Housing Foundation" ;
+	mf:hasPCR "6" ;
+	mf:hasPropertyInspectionAgency "virginia property inspection llc" ;
+	mf:hasPropertyInspector "James Brunson" ;
+	mf:hasInspectionDate "11/07/2020" ;
+	mf:hasUnits "70"^^xsd:int .
+
+<mf:PropertyAddress1> a mf:PropertyAddress ;
+	mf:hasCity "charlottesville" ;
+	mf:hasState "va" ;
+	mf:hasStreetName "10th" ;
+	mf:hasStreetNumber "430" ;
+	mf:hasZip "22902" ;
+	mf:hasLowIncomeUnits "25" ;
+	mf:hasVeryLowIncomeUnits "10" ;
+	mf:isSmallMultifamilyUnitMeetingLowIncome "yes" ;
+	mf:hasMSA "" .
+
+<mf:Loan_1> a mf:Loan ;
+	mf:hasProperty mf:PropertyAddress_1 ;
+	mf:hasLender "John Hart" ;
+	mf:hasBorrower "Mr. Keith Guy" ;
+	mf:hasKeyPrincipal "Mr. Anthony Ware" ;
+	mf:hasApprovalDecision "yes" ;
+	mf:hasApprovalDate "02/01/2021" ;
+	mf:hasApprovalNotes "This transaction is recommeded for approval based on it's properties." ;
+	mf:hasAssetManagementNotes "Rentals for this property have met expectations." ;
+	mf:hasAssetManagementNotesDate "01/05/2021" .
+</newPropertyContext>
+<otherPropertyContext>
+<mf:Property1> a mf:Property ;
+	mf:hasAddress <mf:PropertyAddress1> ;
+	mf:hasName "Edgeland Apartments" ;
+	mf:hasOwner "Montgumery Housing" ;
+	mf:hasPCR "3" ;
+	mf:hasPropertyInspectionAgency "innovation inspection llc" ;
+	mf:hasPropertyInspector "Anne Farrah" ;
+	mf:hasInspectionDate "10/20/2021" ;
+	mf:hasUnits "51"^^xsd:int .
+
+<mf:PropertyAddress1> a mf:PropertyAddress ;
+	mf:hasCity "bethesda" ;
+	mf:hasState "md" ;
+	mf:hasStreetName "joyce" ;
+	mf:hasStreetNumber "500" ;
+	mf:hasZip "20814" ;
+	mf:hasLowIncomeUnits "3" ;
+	mf:hasVeryLowIncomeUnits "1" ;
+	mf:isSmallMultifamilyUnitMeetingLowIncome "no" ;
+	mf:hasMSA "" .
+
+<mf:Loan_1> a mf:Loan ;
+	mf:hasProperty mf:PropertyAddress_1 ;
+	mf:hasLender "David Smith" ;
+	mf:hasBorrower "Mr. Dean Holmes" ;
+	mf:hasKeyPrincipal "Mr. Derek Fischer" ;
+	mf:hasApprovalDecision "yes" ;
+	mf:hasApprovalDate "02/08/2022" ;
+	mf:hasApprovalNotes "This transaction is recommeded for approval based on it's properties." ;
+	mf:hasAssetManagementNotes "Rentals for this property have met expectations." ;
+	mf:hasAssetManagementNotesDate "03/10/2022" .
+</otherPropertyContext>
+<userQuestion>
+Does the property advance housing goals?
+</userQuestion>
+<modelResponse>
+There are 70 units in the property. The property has 25 low income units. As a result,(25/70)= 0.36, 36% of all units in the property are marked as low income units. Since the threshold to help housing goals is to have above 30% of units as low income units, this property advances housing goals.
+</modelResponse>
+</example>
+<example>
+<newPropertyContext>
+<mf:Property1> a mf:Property ;
+	mf:hasAddress <mf:PropertyAddress1> ;
+	mf:hasName "Edgeland Apartments" ;
+	mf:hasOwner "Montgumery Housing" ;
+	mf:hasPCR "3" ;
+	mf:hasPropertyInspectionAgency "innovation inspection llc" ;
+	mf:hasPropertyInspector "Anne Farrah" ;
+	mf:hasInspectionDate "10/20/2021" ;
+	mf:hasUnits "51"^^xsd:int .
+
+<mf:PropertyAddress1> a mf:PropertyAddress ;
+	mf:hasCity "bethesda" ;
+	mf:hasState "md" ;
+	mf:hasStreetName "joyce" ;
+	mf:hasStreetNumber "500" ;
+	mf:hasZip "20814" ;
+	mf:hasLowIncomeUnits "3" ;
+	mf:hasVeryLowIncomeUnits "1" ;
+	mf:isSmallMultifamilyUnitMeetingLowIncome "no" ;
+	mf:hasMSA "" .
+
+<mf:Loan_1> a mf:Loan ;
+	mf:hasProperty mf:PropertyAddress_1 ;
+	mf:hasLender "David Smith" ;
+	mf:hasBorrower "Mr. Dean Holmes" ;
+	mf:hasKeyPrincipal "Mr. Derek Fischer" ;
+	mf:hasApprovalDecision "yes" ;
+	mf:hasApprovalDate "02/08/2022" ;
+	mf:hasApprovalNotes "This transaction is recommeded for approval based on it's properties." ;
+	mf:hasAssetManagementNotes "Rentals for this property have met expectations." ;
+	mf:hasAssetManagementNotesDate "03/10/2022" .
+</newPropertyContext>
+<otherPropertyContext>
+<mf:Property1> a mf:Property ;
+	mf:hasAddress <mf:PropertyAddress1> ;
+	mf:hasName "Hill Housing" ;
+	mf:hasOwner "Western Housing" ;
+	mf:hasPCR "4" ;
+	mf:hasPropertyInspectionAgency "insights inspection llc" ;
+	mf:hasPropertyInspector "Steve Davis" ;
+	mf:hasInspectionDate "08/14/2017" ;
+	mf:hasUnits "51"^^xsd:int .
+
+<mf:PropertyAddress1> a mf:PropertyAddress ;
+	mf:hasCity "bethesda" ;
+	mf:hasState "md" ;
+	mf:hasStreetName "joyce" ;
+	mf:hasStreetNumber "500" ;
+	mf:hasZip "20814" ;
+	mf:hasLowIncomeUnits "3" ;
+	mf:hasVeryLowIncomeUnits "1" ;
+	mf:isSmallMultifamilyUnitMeetingLowIncome "no" ;
+	mf:hasMSA "" .
+
+<mf:Loan_1> a mf:Loan ;
+	mf:hasProperty mf:PropertyAddress_1 ;
+	mf:hasLender "Patrick Miller" ;
+	mf:hasBorrower "Mr. Thomas Smith" ;
+	mf:hasKeyPrincipal "Mr. Andrew Harris" ;
+	mf:hasApprovalDecision "yes" ;
+	mf:hasApprovalDate "01/14/2018" ;
+	mf:hasApprovalNotes "This transaction is recommeded for approval based on it's properties." ;
+	mf:hasAssetManagementNotes "Rentals for this property have met expectations." ;
+	mf:hasAssetManagementNotesDate "01/20/2018" .
+</otherPropertyContext>
+<userQuestion>
+Have we seen this property before? If so, who was the lender previously?
+</userQuestion>
+<modelResponse>
+The new property's address is 500 Joyce St., Bethesda, MD 20814. In the other properties, we see that one property also has the address of 500 Joyce St., Bethesda, MD 20814. As a result, we have seen this property before. This other property's lender was Patrick Miller
+</modelResponse>
+</example>
+Now given the following information about a property and user question, answer the following user question:
+<newPropertyContext>
+{{new_property_context}}
+</newPropertyContext>
+<otherPropertyContext>
+{{otherPropertyContext}}
+</otherPropertyContext>
+<userQuestion>
+{{user_input}}
+</userQuestion>

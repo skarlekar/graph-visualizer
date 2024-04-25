@@ -1,0 +1,31 @@
+<mf:Property1> a mf:Property ;
+	mf:hasAddress <mf:PropertyAddress1> ;
+	mf:hasName "Edgeland Apartments" ;
+	mf:hasOwner "Montgumery Housing" ;
+	mf:hasPCR "3" ;
+	mf:hasPropertyInspectionAgency "innovation inspection llc" ;
+	mf:hasPropertyInspector "Anne Farrah" ;
+	mf:hasInspectionDate "10/20/2021" ;
+	mf:hasUnits "51"^^xsd:int .
+
+<mf:PropertyAddress1> a mf:PropertyAddress ;
+	mf:hasCity "bethesda" ;
+	mf:hasState "md" ;
+	mf:hasStreetName "joyce" ;
+	mf:hasStreetNumber "500" ;
+	mf:hasZip "20814" ;
+	mf:hasLowIncomeUnits "3" ;
+	mf:hasVeryLowIncomeUnits "1" ;
+	mf:isSmallMultifamilyUnitMeetingLowIncome "no" ;
+	mf:hasMSA "" .
+
+<mf:Loan_1> a mf:Loan ;
+	mf:hasProperty mf:PropertyAddress_1 ;
+	mf:hasLender "David Smith" ;
+	mf:hasBorrower "Mr. Dean Holmes" ;
+	mf:hasKeyPrincipal "Mr. Derek Fischer" ;
+	mf:hasApprovalDecision "yes" ;
+	mf:hasApprovalDate "02/08/2022" ;
+	mf:hasApprovalNotes "This transaction is recommeded for approval based on it's properties." ;
+	mf:hasAssetManagementNotes "Rentals for this property have met expectations." ;
+	mf:hasAssetManagementNotesDate "03/10/2022" .

@@ -1,0 +1,9 @@
+Given the following information about a property between <newPropertyContext> tags and a user question within <userQuestion> tags, summarize information about the property that is relevant to the user question. Be as concise as possible.
+
+If a user requests to understand if the property meets housing goals, the number of low income units, the number of very low income units, and the total number of units is relevant. If the user asks if the property has been seen before, the properties address is relevant because it can be used to match other properties.
+<newPropertyContext>
+{{new_property_context}}
+</newPropertyContext>
+<userQuestion>
+{{user_input}}
+</userQuestion>

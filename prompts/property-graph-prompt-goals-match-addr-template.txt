@@ -1,8 +1,12 @@
 Given the following property in the <newPropertyContext> tags, relevant information about other properties within the <otherPropertyContext> tags, and the user question provided in the <userQuestion> tags, answer the user question.
 
-When asked about if a property advances housing goals, the percentage of the properties low income units out of the total number of units should be found. If the property has >30% of units marked as low income, it will advance housing goals.
+The following are qualities of a property that, if met, will allow the property to advance housing goals:
+- 61% of all units in a property marked as low income
+- 12% of all units in a property marked as very low income
 
-When asked if we have seen the property before, the given property's address should be found. Then, a property with a matching address should be found from the other properties within the <otherPropertyContext> tags. If one of the other properties has a matching address, the new property has been seen before.
+To understand if a property advances housing goals, the percentage of low income units should be found. This is done by finding the number of low income units, and dividing by the total number of units. Then, this percentage should be compares against the threshold of 61%. The percentage of very low income units also should be found, which is found by dividing the total number of very low income units by the total number of units. Then, the percentage of very low income units should be compares against the theshold of 12%. A unit can only be classified as neither, low income, or very low income, so the total number of low income units excludes any very low income units. If a property has a percentage of low income units about 61% and/or has a percentage of very low income units above 12%, the property advances housing goals.
+
+When asked if we have seen the property before, the given property's address should be found. Then, a property with a matching address should be found from the other properties within the <otherPropertyContext> tags. If one of the other properties has a matching address, the new property has been seen before. Then, the other properties approval decision, approval date, and approval notes should be returned.
 
 Here is are examples of an expected response, with the model response within the <modelResponse> tags. Each examples is within <example> tags.
 
@@ -148,10 +152,10 @@ There are 70 units in the property. The property has 25 low income units. As a r
 	mf:hasAssetManagementNotesDate "01/20/2018" .
 </otherPropertyContext>
 <userQuestion>
-Have we seen this property before? If so, who was the lender previously?
+Have we seen this property before?
 </userQuestion>
 <modelResponse>
-The new property's address is 500 Joyce St., Bethesda, MD 20814. In the other properties, we see that one property also has the address of 500 Joyce St., Bethesda, MD 20814. As a result, we have seen this property before. This other property's lender was Patrick Miller
+The new property's address is 500 Joyce St., Bethesda, MD 20814. In the other properties, we see that one property also has the address of 500 Joyce St., Bethesda, MD 20814. As a result, we have seen this property before. The other property's approval decision was yes. The other property's approval date was 01/14/2018. The other property's approval notes were "This transaction is recommeded for approval based on it's properties.".
 </modelResponse>
 </example>
 Now given the following information about a property and user question, answer the following user question:

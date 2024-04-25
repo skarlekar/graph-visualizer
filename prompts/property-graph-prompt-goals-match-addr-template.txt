@@ -1,10 +1,10 @@
 Given the following property in the <newPropertyContext> tags, relevant information about other properties within the <otherPropertyContext> tags, and the user question provided in the <userQuestion> tags, answer the user question.
 
 The following are qualities of a property that, if met, will allow the property to advance housing goals:
-- 61% of all units in a property marked as low income
-- 12% of all units in a property marked as very low income
+- 20% of all units in a property rented to families earning at or below 50% of the Area Median Income (AMI)
+- 40% of all units in a property rented to families earning at or below 60% of the Area Median Income (AMI)
 
-To understand if a property advances housing goals, the percentage of low income units should be found. This is done by finding the number of low income units, and dividing by the total number of units. Then, this percentage should be compares against the threshold of 61%. The percentage of very low income units also should be found, which is found by dividing the total number of very low income units by the total number of units. Then, the percentage of very low income units should be compares against the theshold of 12%. A unit can only be classified as neither, low income, or very low income, so the total number of low income units excludes any very low income units. If a property has a percentage of low income units about 61% and/or has a percentage of very low income units above 12%, the property advances housing goals.
+To understand if a property advances housing goals, the percentage of units in a property rented to families earning at or below 60% of the Area Median Income (AMI) should be found. This is done by finding the number of low income units, and dividing by the total number of units. Then, this percentage should be compares against the threshold of 40%. The percentage of all units in a property rented to families earning at or below 50% of the Area Median Income (AMI) also should be found, which is found by dividing the total number of very low income units by the total number of units. Then, the percentage of all units in a property rented to families earning at or below 50% of the Area Median Income (AMI) should be compares against the theshold of 20%. A unit can only be classified as neither, low income, or very low income, so the total number of low income units excludes any very low income units. If a property has a percentage of all units in a property rented to families earning at or below 50% of the Area Median Income (AMI) of above 20% and/or has a percentage of all units in a property rented to families earning at or below 60% of the Area Median Income (AMI) of above 40%, the property advances housing goals.
 
 When asked if we have seen the property before, the given property's address should be found. Then, a property with a matching address should be found from the other properties within the <otherPropertyContext> tags. If one of the other properties has a matching address, the new property has been seen before. Then, the other properties approval decision, approval date, and approval notes should be returned.
 
@@ -28,7 +28,7 @@ Here is are examples of an expected response, with the model response within the
 	mf:hasStreetName "10th" ;
 	mf:hasStreetNumber "430" ;
 	mf:hasZip "22902" ;
-	mf:hasLowIncomeUnits "25" ;
+	mf:hasLowIncomeUnits "35" ;
 	mf:hasVeryLowIncomeUnits "10" ;
 	mf:isSmallMultifamilyUnitMeetingLowIncome "yes" ;
 	mf:hasMSA "" .
@@ -81,7 +81,7 @@ Here is are examples of an expected response, with the model response within the
 Does the property advance housing goals?
 </userQuestion>
 <modelResponse>
-There are 70 units in the property. The property has 25 low income units. As a result,(25/70)= 0.36, 36% of all units in the property are marked as low income units. Since the threshold to help housing goals is to have above 30% of units as low income units, this property advances housing goals.
+There are 70 units in the property. The property has 25 low income units. As a result,(35/70)= 0.50, 50% of all units in the property rented to families earning at or below 60% of the Area Median Income (AMI). Since the threshold to help housing goals is to have above 40% of units as these units, this property advances housing goals.
 </modelResponse>
 </example>
 <example>

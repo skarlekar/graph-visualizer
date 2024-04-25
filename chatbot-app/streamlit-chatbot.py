@@ -2,6 +2,7 @@ import streamlit as st
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_community.chat_models import BedrockChat
 from rdflib import Graph, Literal
+from rag-chat-property import main
 import boto3
 
 bedrock_agent = boto3.client('bedrock-agent-runtime', region_name='us-east-1')
@@ -112,7 +113,7 @@ if prompt := st.chat_input("Type your question here",disabled=not (st.session_st
     st.session_state.messages.append({"role":"user","content":prompt})
 
     # Call model using user prompt
-    response = get_model_response(prompt)
+    response = main(prompt)
 
     # Display model response
     with st.chat_message("assistant"):

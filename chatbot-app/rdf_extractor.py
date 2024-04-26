@@ -68,7 +68,7 @@ def extract(doc_link, ontology_link):
     return rdf_graph
 
 if __name__ == '__main__':
-    ontology_url = 'https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/ontologies/ontology-uw-narrative.txt'
+    ontology_link = 'https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/ontologies/ontology-uw-narrative.txt'
     doc_link = 'https://files.hudexchange.info/resources/documents/MFRUnderwritingTemplate-Example.pdf'
-    graph = extract(ontology_url, doc_link)
+    graph = extract(doc_link=doc_link, ontology_link=ontology_link)
     print(graph)

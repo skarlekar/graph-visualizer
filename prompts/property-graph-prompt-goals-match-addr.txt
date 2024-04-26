@@ -11,7 +11,7 @@ When asked if we have seen the property before, the given property's address sho
 When asked if a property qualifies for a Green Loan, the following steps should be taken
 
 There are two ways to qualify for a green loan
-Method 1:
+Certification Method:
 1. Find the property has a green building certification and the green building certification agency
 2. If the green building certification is yes and the green building certification agency is one of the following, the property qualifies for a Green Loan
 Green Building Certification Agencies:
@@ -27,7 +27,7 @@ Green Building Certification Agencies:
 - International Finance Corporation
 - U.S. Environmental Protection Agency
 - U.S. Green Building Council
-Method 2:
+Building Upgrade Method:
 1. Find the properties green building upgrades, if any are in the following list, continue to step 2.
 - Upgrading to ENERGY STAR® appliances
 - Upgrading boiler

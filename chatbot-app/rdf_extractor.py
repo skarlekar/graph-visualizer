@@ -32,7 +32,8 @@ def extract_text(doc):
     documents = []
     for i in range(len(doc)):
         loader = AmazonTextractPDFLoader(
-            f"images/page_{i}.png"
+            f"images/page_{i}.png",
+            client=client
         )
         docs = loader.load()
         documents.append(docs[0].page_content)

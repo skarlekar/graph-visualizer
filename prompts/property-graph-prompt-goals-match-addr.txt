@@ -1,11 +1,17 @@
 Given the following property in the <newPropertyContext> tags, relevant information about other properties within the <otherPropertyContext> tags, and the user question provided in the <userQuestion> tags, answer the user question.
 
-When asked about if a property advances housing goals, the percentage of the properties low income units out of the total number of units should be found. If the property has >30% of units marked as low income, it will advance housing goals.
+The following are qualities of a property that, if met, will allow the property to advance housing goals:
+- 20% of all units in a property rented to families earning at or below 50% of the Area Median Income (AMI)
+- 40% of all units in a property rented to families earning at or below 60% of the Area Median Income (AMI)
 
-When asked if we have seen the property before, the given property's address should be found. Then, a property with a matching address should be found from the other properties within the <otherPropertyContext> tags. If one of the other properties has a matching address, the new property has been seen before.
+To understand if a property advances housing goals, the percentage of units in a property rented to families earning at or below 60% of the Area Median Income (AMI) should be found. This is done by finding the number of low income units, and dividing by the total number of units. Then, this percentage should be compares against the threshold of 40%. The percentage of all units in a property rented to families earning at or below 50% of the Area Median Income (AMI) also should be found, which is found by dividing the total number of very low income units by the total number of units. Then, the percentage of all units in a property rented to families earning at or below 50% of the Area Median Income (AMI) should be compares against the theshold of 20%. A unit can only be classified as neither, low income, or very low income, so the total number of low income units excludes any very low income units. If a property has a percentage of all units in a property rented to families earning at or below 50% of the Area Median Income (AMI) of above 20% and/or has a percentage of all units in a property rented to families earning at or below 60% of the Area Median Income (AMI) of above 40%, the property advances housing goals.
+
+When asked if we have seen the property before, the given property's address should be found. Then, a property with a matching address should be found from the other properties within the <otherPropertyContext> tags. If one of the other properties has a matching address, the new property has been seen before. Then, the other properties approval decision, approval date, and approval notes should be returned.
 
 When asked if a property qualifies for a Green Loan, the following steps should be taken
 
+There are two ways to qualify for a green loan
+Method 1:
 1. Find the property has a green building certification and the green building certification agency
 2. If the green building certification is yes and the green building certification agency is one of the following, the property qualifies for a Green Loan
 Green Building Certification Agencies:
@@ -21,7 +27,8 @@ Green Building Certification Agencies:
 - International Finance Corporation
 - U.S. Environmental Protection Agency
 - U.S. Green Building Council
-3. Find the properties green building upgrades, if any are in the following list, the property qualifies for a green loan
+Method 2:
+1. Find the properties green building upgrades, if any are in the following list, continue to step 2.
 - Upgrading to ENERGY STAR® appliances
 - Upgrading boiler
 - Replacing inefficient lighting
@@ -29,9 +36,11 @@ Green Building Certification Agencies:
 - Installing water-saving irrigation systems
 - Improving insulation
 - Making other energy- & water-saving improvements
-4. Return if property is a green loan and justification, and mention that this information is extracted from High-Performance Building Report.
+2. Find the property's annual energy consumption reduction commitment and the property's annual water consumption reduction commitment, if either value is at or above 30%, the building qualifies for a Green Loan
+Finally, return if property is a green loan and justification, and mention that this information is extracted from High-Performance Building Report.
 
 Here is are examples of an expected response, with the model response within the <modelResponse> tags. Each examples is within <example> tags.
+
 
 <example>
 <newPropertyContext>
@@ -51,7 +60,7 @@ Here is are examples of an expected response, with the model response within the
 	mf:hasStreetName "10th" ;
 	mf:hasStreetNumber "430" ;
 	mf:hasZip "22902" ;
-	mf:hasLowIncomeUnits "25" ;
+	mf:hasLowIncomeUnits "35" ;
 	mf:hasVeryLowIncomeUnits "10" ;
 	mf:isSmallMultifamilyUnitMeetingLowIncome "yes" ;
 	mf:hasMSA "" .
@@ -104,7 +113,7 @@ Here is are examples of an expected response, with the model response within the
 Does the property advance housing goals?
 </userQuestion>
 <modelResponse>
-There are 70 units in the property. The property has 25 low income units. As a result,(25/70)= 0.36, 36% of all units in the property are marked as low income units. Since the threshold to help housing goals is to have above 30% of units as low income units, this property advances housing goals.
+There are 70 units in the property. The property has 25 low income units. As a result,(35/70)= 0.50, 50% of all units in the property rented to families earning at or below 60% of the Area Median Income (AMI). Since the threshold to help housing goals is to have above 40% of units as these units, this property advances housing goals.
 </modelResponse>
 </example>
 <example>
@@ -175,10 +184,10 @@ There are 70 units in the property. The property has 25 low income units. As a r
 	mf:hasAssetManagementNotesDate "01/20/2018" .
 </otherPropertyContext>
 <userQuestion>
-Have we seen this property before? If so, who was the lender previously?
+Have we seen this property before?
 </userQuestion>
 <modelResponse>
-The new property's address is 500 Joyce St., Bethesda, MD 20814. In the other properties, we see that one property also has the address of 500 Joyce St., Bethesda, MD 20814. As a result, we have seen this property before. This other property's lender was Patrick Miller
+The new property's address is 500 Joyce St., Bethesda, MD 20814. In the other properties, we see that one property also has the address of 500 Joyce St., Bethesda, MD 20814. As a result, we have seen this property before. The other property's approval decision was yes. The other property's approval date was 01/14/2018. The other property's approval notes were "This transaction is recommeded for approval based on it's properties.".
 </modelResponse>
 </example>
 <example>
@@ -337,5 +346,5 @@ years as well as the financial improvement of the asset, this supplemental trans
 	mf:hasAssetManagementNotesDate "01/05/2021" .
 </otherPropertyContext>
 <userQuestion>
-Have we seen this property before, if so, what was the property's lender?
+Does this property qualify as a green loan?
 </userQuestion>

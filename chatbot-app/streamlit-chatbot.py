@@ -2,8 +2,11 @@ import streamlit as st
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_community.chat_models import BedrockChat
 from rdflib import Graph, Literal
-from rag-chat-property import main
 import boto3
+import importlib
+from rdf_extractor import extractor
+
+ragchat = importlib.import_module('rag-chat-property')
 
 bedrock_agent = boto3.client('bedrock-agent-runtime', region_name='us-east-1')
 
@@ -12,14 +15,16 @@ if 'kg_input_document' not in st.session_state:
 
 def get_knowledge_graph_input_doc(file_link,ontology_link):
     print("Call to llm!")
+	"""
     ontology_graph = Graph()
     ontology_graph.parse(ontology_link, format="ttl")
     ontology = ontology_graph.serialize(format="ttl")
 
     loader = PyPDFLoader(file_link)
-    texts = loader.load()
+    texts = loader.load()"""
 
-    return "example graph"
+	graph = extractor(file_link, ontology_link)
+    return graph
 
 example_graph = """<mf:Property1> a mf:Property ;
 	mf:hasAddress <mf:PropertyAddress1> ;
@@ -113,7 +118,11 @@ if prompt := st.chat_input("Type your question here",disabled=not (st.session_st
     st.session_state.messages.append({"role":"user","content":prompt})
 
     # Call model using user prompt
-    response = main(prompt)
+	print("kg_input_document **********")
+	print(st.session_state.kg_input_document)
+    response = ragchat.main(prompt, st.session_state.kg_input_document)
+    response = response.replace("<modelResponse>", "")
+    response = response.replace("</modelResponse>", "")
 
     # Display model response
     with st.chat_message("assistant"):

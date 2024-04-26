@@ -51,7 +51,7 @@ def get_rdf_graph(content, ontology):
     {ontology}
     </ontology>
 
-    Task: Generate an RDF Graph using the provided context and ontology.
+    Task: Generate an RDF Graph using the provided context and ontology. Do not provide any explanation or description.
     """
     
     bedrock_runtime = boto3.client("bedrock-runtime", region_name='us-east-1')

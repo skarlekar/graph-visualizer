@@ -83,13 +83,13 @@ with st.sidebar:
         file_link = st.text_input(
             label="Document Link", 
             key="file_link", 
-            value="https://raw.githubusercontent.com/skarlekar/graph-visualizer/1927533f5b79fd1fd529944d77462553e7fe9bde/content/Appraisal-Report.pdf"
+            value="https://files.hudexchange.info/resources/documents/MFRUnderwritingTemplate-Example.pdf"
         )
 
         ontology_link = st.text_input(
             label="Ontology Link", 
             key="ontology_link",
-            value="https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/ontologies/PropertyAppraisalOntology-v2.ttl"
+            value="https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/ontologies/ontology-uw-narrative.txt"
         )
         submit = st.form_submit_button("Submit")
         if submit:

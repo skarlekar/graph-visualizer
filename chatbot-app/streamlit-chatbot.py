@@ -4,7 +4,7 @@ from langchain_community.chat_models import BedrockChat
 from rdflib import Graph, Literal
 import boto3
 import importlib
-from rdf_extractor import extractor
+from rdf_extractor import extract
 
 ragchat = importlib.import_module('rag-chat-property')
 
@@ -23,7 +23,7 @@ def get_knowledge_graph_input_doc(file_link,ontology_link):
     loader = PyPDFLoader(file_link)
     texts = loader.load()"""
 
-    graph = extractor(file_link, ontology_link)
+    graph = extract(file_link, ontology_link)
     return graph
 
 example_graph = """<mf:Property1> a mf:Property ;

@@ -15,7 +15,7 @@ if 'kg_input_document' not in st.session_state:
 
 def get_knowledge_graph_input_doc(file_link,ontology_link):
     print("Call to llm!")
-	"""
+    """
     ontology_graph = Graph()
     ontology_graph.parse(ontology_link, format="ttl")
     ontology = ontology_graph.serialize(format="ttl")
@@ -23,7 +23,7 @@ def get_knowledge_graph_input_doc(file_link,ontology_link):
     loader = PyPDFLoader(file_link)
     texts = loader.load()"""
 
-	graph = extractor(file_link, ontology_link)
+    graph = extractor(file_link, ontology_link)
     return graph
 
 example_graph = """<mf:Property1> a mf:Property ;
@@ -118,8 +118,8 @@ if prompt := st.chat_input("Type your question here",disabled=not (st.session_st
     st.session_state.messages.append({"role":"user","content":prompt})
 
     # Call model using user prompt
-	print("kg_input_document **********")
-	print(st.session_state.kg_input_document)
+    print("kg_input_document **********")
+    print(st.session_state.kg_input_document)
     response = ragchat.main(prompt, st.session_state.kg_input_document)
     response = response.replace("<modelResponse>", "")
     response = response.replace("</modelResponse>", "")

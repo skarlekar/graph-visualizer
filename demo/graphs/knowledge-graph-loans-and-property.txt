@@ -26,6 +26,7 @@
 
 <mf:Loan_1> a mf:Loan ;
 	mf:hasProperty mf:PropertyAddress1 ;
+	mf:hasPropertyName "Sample Gardens" ;
 	mf:hasLender "Johnny Lender" ;
 	mf:hasBorrower "Mr. Sam Millions" ;
 	mf:hasKeyPrincipal "Mrs. Sally Principal" ;

@@ -4,7 +4,7 @@ from langchain_community.chat_models import BedrockChat
 from rdflib import Graph, Literal
 import boto3
 import importlib
-from rdf_extractor import extract
+from rdf_extractor_v2 import extract
 
 ragchat = importlib.import_module('rag-chat-property')
 

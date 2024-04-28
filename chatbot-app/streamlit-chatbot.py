@@ -15,39 +15,10 @@ if 'kg_input_document' not in st.session_state:
 
 def get_knowledge_graph_input_doc(file_link,ontology_link):
     print("Call to llm!")
-    """
-    ontology_graph = Graph()
-    ontology_graph.parse(ontology_link, format="ttl")
-    ontology = ontology_graph.serialize(format="ttl")
-
-    loader = PyPDFLoader(file_link)
-    texts = loader.load()"""
-
     graph = extract(file_link, ontology_link)
     return graph
 
-example_graph = """<mf:Property1> a mf:Property ;
-	mf:hasAddress <mf:PropertyAddress1> ;
-	mf:hasName "College Courtyard Apartments & Raider Housing" ;
-	mf:hasOwner "Northwest Florida State College Foundation" ;
-	mf:hasPCR "4" ;
-	mf:hasPropertyInspectionAgency "florida property inspection llc" ;
-	mf:hasPropertyInspector "john d. goodhouse" ;
-	mf:hasInspectionDate "01/03/2018" ;
-	mf:hasUnits "62"^^xsd:int .
-
-<mf:PropertyAddress1> a mf:PropertyAddress ;
-	mf:hasCity "niceville" ;
-	mf:hasState "fl" ;
-	mf:hasStreetName "garden lane" ;
-	mf:hasStreetNumber "28",
-	  "30" ;
-	mf:hasZip "32578" ;
-	mf:hasLowIncomeUnits "12" ;
-	mf:hasVeryLowIncomeUnits "5" ;
-	mf:isSmallMultifamilyUnitMeetingLowIncome "yes" ;
-	mf:hasMSA "" .
- """
+example_graph = ""
 
 def get_model_response(user_input):
     # Write code to call model here

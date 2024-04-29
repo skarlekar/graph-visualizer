@@ -184,7 +184,7 @@ There are 70 units in the property. The property has 25 low income units. As a r
 	mf:hasAssetManagementNotesDate "01/20/2018" .
 </otherPropertyContext>
 <userQuestion>
-Have we seen this property before?
+Have we seen this property before? If yes, what was the loan approval decision?
 </userQuestion>
 <modelResponse>
 Based on the information provided, such as the property name and property address, we have seen this property before and have found historical underwriting information on this property from our Loan and Property Knowledge Databse.

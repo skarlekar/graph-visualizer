@@ -65,6 +65,8 @@ if prompt := st.chat_input("Type your question here",disabled=not (st.session_st
     response = ragchat.main(prompt, st.session_state.kg_input_document)
     response = response.replace("<modelResponse>", "")
     response = response.replace("</modelResponse>", "")
+    response = response.replace("<newPropertyContext>", "Underwriting Narrative Document")
+    response = response.replace("<otherPropertyContext>", "Loan and Property Knowledgebase")
 
     # Display model response
     with st.chat_message("assistant"):

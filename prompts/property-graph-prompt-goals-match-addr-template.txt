@@ -187,7 +187,19 @@ There are 70 units in the property. The property has 25 low income units. As a r
 Have we seen this property before?
 </userQuestion>
 <modelResponse>
-The new property's address is 500 Joyce St., Bethesda, MD 20814. In the other properties, we see that one property also has the address of 500 Joyce St., Bethesda, MD 20814. As a result, we have seen this property before. The other property's approval decision was yes. The other property's approval date was 01/14/2018. The other property's approval notes were "This transaction is recommeded for approval based on it's properties.".
+Based on the information provided, such as the property name and property address, we have seen this property before and have found historical underwriting information on this property from our Loan and Property Knowledge Databse.
+
+The property's name is Edgeland Apartments.
+The property's address is 500 Joyce St., Bethesda, MD 20814.
+The loan approval decision for this property was "yes".
+The loan approval date is 02/08/2022
+The approval notes state:
+
+"This transaction is recommended for approval based on its properties."
+
+The asset management notes state:
+
+"Rentals for this property have met expectations."
 </modelResponse>
 </example>
 <example>

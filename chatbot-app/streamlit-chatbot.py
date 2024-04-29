@@ -20,35 +20,6 @@ def get_knowledge_graph_input_doc(file_link,ontology_link):
 
 example_graph = ""
 
-def get_model_response(user_input):
-    # Write code to call model here
-    response = bedrock_agent.retrieve_and_generate(
-                input={'text': user_input},
-                retrieveAndGenerateConfiguration={
-                    'type': 'KNOWLEDGE_BASE',
-                    'knowledgeBaseConfiguration': {
-                        'knowledgeBaseId': "PI1IJJBF84",
-                        'modelArn': 'arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-3-sonnet-20240229-v1:0',
-                        'generationConfiguration': {
-                            'promptTemplate': {
-                                'textPromptTemplate': f"""
-                                Instructions: Use only the provided search results to answer the question at the end. Do not include any explanations in your response.
-                                Search Results:
-                                $search_results$
-                                Question: 
-                                I am providing a property and its address in the <context> tags:
-                                <context>
-                                {example_graph}
-                                </context>
-                                $query$
-                                """
-                                }
-                            }
-                        },
-                    }
-                )
-    return response['output']['text']
-
 with st.sidebar:
     with st.form('document'):
         file_link = st.text_input(

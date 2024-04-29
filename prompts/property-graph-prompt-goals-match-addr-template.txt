@@ -278,7 +278,19 @@ The asset management notes state:
 Does this property qualify for a green loan?
 </userQuestion>
 <modelResponse>
-The property's green building certification is yes, and the green building certification agency is BREEAM USA. The green building certification is yes and the green building certification agency is one of the accepted green building certification agencies, so this property qualitifies as a green loan. This information is extracted from High-Performance Building Report.
+Based on the information provided, the Edgeland Apartments property qualifies for a green loan through the Building Upgrade Method.
+
+The key details are:
+
+1. The property has green building upgrades including "Energy Star Appliances" and "Energy efficient LED lighting", which are on the list of qualifying upgrades.
+
+2. The property has an annual energy consumption reduction commitment of 25%.
+
+3. The property has an annual water consumption reduction commitment of 30%.
+
+Since the property has qualifying green building upgrades and has committed to at least a 30% reduction in either energy or water consumption, it meets the Building Upgrade Method criteria for qualifying for a green loan.
+
+This information is extracted from the High-Performance Building Report details provided for the Edgeland Apartments property.
 </modelResponse>
 </example>
 Now given the following information about a property and user question, answer the following user question:

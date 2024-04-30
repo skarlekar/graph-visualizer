@@ -12,11 +12,67 @@ bedrock_agent = boto3.client('bedrock-agent-runtime', region_name='us-east-1')
 
 if 'kg_input_document' not in st.session_state:
     st.session_state.kg_input_document= None
+    
+pre_loaded_graph = """
+@prefix ns1: <http://example.org/multifamily#> .
+
+ns1:SampleGardens a ns1:Property ;
+  ns1:hasLender ns1:MidCityBank ;
+  ns1:hasLenderContact ns1:WallyLendor ;
+  ns1:hasLoanType ns1:ConventionalLoan ;
+  ns1:hasManagementAddress ns1:OwnerAddress ;
+  ns1:hasManagementAgent ns1:NSPManagementPartners ;
+  ns1:hasManagementContact ns1:SusanDeveloper ;
+  ns1:hasNonRevenueUnits ns1:1NonRevenueUnit ;
+  ns1:hasOwnerAddress ns1:OwnerAddress ;
+  ns1:hasOwnerContact ns1:SusanDeveloper ;
+  ns1:hasOwnerEntity ns1:NSPDevelopmentPartners ;
+  ns1:hasPropertyAddress ns1:SampleGardensAddress ;
+  ns1:hasPropertyName "Sample Gardens" ;
+  ns1:hasTotalRentalUnits ns1:100RentalUnits ;
+  ns1:hasTotalUnits ns1:101TotalUnits .
+
+ns1:100RentalUnits a ns1:TotalRentalUnits .
+
+ns1:101TotalUnits a ns1:TotalUnits .
+
+ns1:1NonRevenueUnit a ns1:NonRevenueUnits .
+
+ns1:ConventionalLoan a ns1:LoanType .
+
+ns1:MidCityBank a ns1:Lender .
+
+ns1:NSPDevelopmentPartners a ns1:OwnerEntity .
+
+ns1:NSPManagementPartners a ns1:ManagementAgent .
+
+ns1:SampleGardensAddress a ns1:PropertyAddress ;
+  ns1:hasCity "Mid City" ;
+  ns1:hasState "Ohio" ;
+  ns1:hasStreetAddress "123 Sample Street" ;
+  ns1:hasZipCode "23445" .
+
+ns1:WallyLendor a ns1:LenderContact ;
+  ns1:hasEmail "wlendor@MCB.com" ;
+  ns1:hasName "Wally Lendor" ;
+  ns1:hasPhone "(215) 555-1214" .
+
+ns1:SusanDeveloper a ns1:OwnerContact ;
+  ns1:hasEmail "susan@NSPDP.com" ;
+  ns1:hasName "Susan Developer" ;
+  ns1:hasPhone "(215) 555-1212" .
+
+ns1:OwnerAddress a ns1:OwnerAddress ;
+  ns1:hasCity "Mid City" ;
+  ns1:hasState "Ohio" ;
+  ns1:hasStreetAddress "600 Main Street" ;
+  ns1:hasZipCode "23445" .
+"""
 
 def get_knowledge_graph_input_doc(file_link,ontology_link):
     print("Call to llm!")
-    graph = extract(file_link, ontology_link)
-    return graph
+    #graph = extract(file_link, ontology_link)
+    return pre_loaded_graph
 
 example_graph = ""
 

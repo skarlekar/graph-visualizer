@@ -33,6 +33,11 @@ with st.sidebar:
             key="ontology_link",
             value="https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/ontologies/ontology-uw-narrative.txt"
         )
+
+        option = st.selectbox(
+        'Document Type',
+        ('Underwriting Narrative', 'High Performance Building Assesment',))
+        
         submit = st.form_submit_button("Submit")
         if submit:
             st.session_state.kg_input_document=get_knowledge_graph_input_doc(file_link,ontology_link)

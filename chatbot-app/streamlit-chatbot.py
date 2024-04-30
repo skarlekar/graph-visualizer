@@ -36,7 +36,7 @@ with st.sidebar:
 
         option = st.selectbox(
         'Document Type',
-        ('Underwriting Narrative', 'High Performance Building Assesment',))
+        ('Underwriting Narrative', 'High Performance Building Assesment', 'Appraisal Report', 'MAE data', 'PCA Report'))
         
         submit = st.form_submit_button("Submit")
         if submit:

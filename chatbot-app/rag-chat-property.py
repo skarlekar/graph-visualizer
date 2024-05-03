@@ -84,8 +84,8 @@ def get_user_answer(user_input,new_property,retrieval_rel_info):
     user_answer="\n".join([x["text"] for x in response_body["content"]])
     return user_answer
 
-def main(user_input):
-    new_property = open(os.path.abspath(os.path.join(os.getcwd(),"..","demo/graphs/loans & properties sample_5.txt")),"r").read()
+def main(user_input, new_property):
+    #new_property = open(os.path.abspath(os.path.join(os.getcwd(),"..","demo/graphs/loans & properties sample_5.txt")),"r").read()
     #user_input = "Have we seen this property before, if so, what is the lender name?"
     input_summary = get_summary_retrieval(user_input,new_property)
     print("summary")
@@ -96,4 +96,4 @@ def main(user_input):
     print(user_answer)
     return user_answer
 
-main()
+#main()

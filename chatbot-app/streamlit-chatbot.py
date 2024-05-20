@@ -30,7 +30,17 @@ ns1:SampleGardens a ns1:Property ;
   ns1:hasPropertyAddress ns1:SampleGardensAddress ;
   ns1:hasPropertyName "Sample Gardens" ;
   ns1:hasTotalRentalUnits ns1:100RentalUnits ;
-  ns1:hasTotalUnits ns1:101TotalUnits .
+  ns1:hasTotalUnits ns1:101TotalUnits;
+  mf:hasPCR "3" ;
+  mf:hasPropertyInspectionAgency "urgent inspection llc" ;
+  mf:hasPropertyInspector "Jane Jones" ;
+  mf:hasInspectionDate "03/07/2020" ;
+  mf:hasUnits "101"^^xsd:int;
+  mf:hasGreenBuildingCertification "yes";
+  mf:hasGreenBuildingCertificationAgency "BREEAM USA";
+  mf:hasGreenBuildingUpgrades "Energy Start Appliances", "Energy efficient LED lighting";
+  mf:annualEnergyConsumptionReductionCommitment "25%";
+  mf:annualWaterConsumptionReductionCommitment "30%".
 
 ns1:100RentalUnits a ns1:TotalRentalUnits .
 
@@ -50,7 +60,11 @@ ns1:SampleGardensAddress a ns1:PropertyAddress ;
   ns1:hasCity "Mid City" ;
   ns1:hasState "Ohio" ;
   ns1:hasStreetAddress "123 Sample Street" ;
-  ns1:hasZipCode "23445" .
+  ns1:hasZipCode "23445";
+  mf:hasLowIncomeUnits "20" ;
+  mf:hasVeryLowIncomeUnits "10" ;
+  mf:isSmallMultifamilyUnitMeetingLowIncome "yes" ;
+  mf:hasMSA "" .
 
 ns1:WallyLendor a ns1:LenderContact ;
   ns1:hasEmail "wlendor@MCB.com" ;

@@ -40,7 +40,13 @@ ns1:SampleGardens a ns1:Property ;
   mf:hasGreenBuildingCertificationAgency "BREEAM USA";
   mf:hasGreenBuildingUpgrades "Energy Start Appliances", "Energy efficient LED lighting";
   mf:annualEnergyConsumptionReductionCommitment "25%";
-  mf:annualWaterConsumptionReductionCommitment "30%".
+  mf:annualWaterConsumptionReductionCommitment "30%";
+  mf:hasApprovalDecision "yes" ;
+  mf:hasApprovalDate "01/04/2018" ;
+  mf:hasApprovalNotes "Based on the strength and experience of the sponsor including managing other seniors assets in the same market and state for many
+years as well as the financial improvement of the asset, this supplemental transaction is recommended for Loan Committee Approval." ;
+  mf:hasAssetManagementNotes "The property is maintained well and the rentals have met projected expectations." ;
+  mf:hasAssetManagementNotesDate "01/05/2021" .
 
 ns1:100RentalUnits a ns1:TotalRentalUnits .
 

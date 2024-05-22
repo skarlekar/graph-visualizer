@@ -83,7 +83,7 @@ cypher_qa_mod_template = CYPHER_QA_TEMPLATE.replace("Here is an example",prompt_
 qa_prompt = PromptTemplate(input_variables=["context","question"],template=cypher_qa_mod_template)
 chain = NeptuneOpenCypherQAChain.from_llm(llm=llm, graph=graph, verbose=True, qa_prompt=qa_prompt,extra_instructions=opencypher_examples)
 
-questions = ["Have we seen this property before? If yes, what was the loan approval decision?", "Does Sample Gardens advance housing goals?","Does Sample Gardens qualify for a green loan?"]
+questions = ["Have we seen Sample Gardens property before? If yes, what was the loan approval decision?", "Does Sample Gardens advance housing goals?","Does Sample Gardens qualify for a green loan?"]
 for q in questions:
     print(q)
     chain_response=chain.invoke(q)

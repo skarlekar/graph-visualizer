@@ -48,6 +48,20 @@ Who is the lender for Sample Gardens?
 MATCH (p:Property {hasPropertyName: 'Sample Gardens'})-[:hasLender]-> (d)
 RETURN d AS lender
 
+<question>
+Does Happy Apartments advance housing goals?
+</question>
+
+MATCH (p:Property {hasPropertyName: 'Happy Apartments'})-[:hasPropertyAddress]-> (a)
+RETURN p.hasUnits AS totalUnits, a.hasLowIncomeUnits AS lowIncomeUnits, a.hasVeryLowIncomeUnits AS veryLowIncomeUnits
+
+<question>
+Does Happy Apartments qualify for a green loan?
+</question>
+
+MATCH (p:Property {hasPropertyName: 'Happy Apartments'})
+RETURN p.hasGreenBuildingCertification AS greenBuildingCertification, p.hasGreenBuildingCertificationAgency AS greenBuildingCertificationAgency, p.hasGreenBuildingUpgrades AS greenBuildingUpgrades, p.annualEnergyConsumptionReductionCommitment AS annualEnergyConsumptionReductionCommitment, p.annualWaterConsumptionReductionCommitment AS annualWaterConsumptionReductionCommitment 
+
 </Examples>
 """
 

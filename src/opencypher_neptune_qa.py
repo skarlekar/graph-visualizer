@@ -23,10 +23,10 @@ llm = BedrockChat(model_id=modelId, client=bedrock_runtime, model_kwargs={"tempe
 
 opencypher_examples = """
 <question>
-Does Happy Apartments qualify for a green loan?
+Does Sample Gardens qualify for a green loan?
 </question>
 
-MATCH (p:Property {hasPropertyName: 'Happy Apartments'})
+MATCH (p:Property {hasPropertyName: 'Sample Gardens'})
 RETURN p.hasGreenBuildingCertification AS greenBuildingCertification, p.hasGreenBuildingCertificationAgency AS greenBuildingCertificationAgency, p.hasGreenBuildingUpgrades AS greenBuildingUpgrades, p.annualEnergyConsumptionReductionCommitment AS annualEnergyConsumptionReductionCommitment, p.annualWaterConsumptionReductionCommitment AS annualWaterConsumptionReductionCommitment 
 
 <question>

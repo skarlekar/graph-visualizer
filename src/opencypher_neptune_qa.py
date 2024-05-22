@@ -22,15 +22,6 @@ modelId = "anthropic.claude-3-sonnet-20240229-v1:0"
 llm = BedrockChat(model_id=modelId, client=bedrock_runtime, model_kwargs={"temperature": 0})
 
 opencypher_examples = """
-<Examples>
-<question>
-Have we seen Sample Gardens property before? If yes, what was the approval decision?
-</question>
-
-MATCH (p:Property {hasPropertyName: 'Sample Gardens'})-[:hasPropertyAddress]-> (a)
-WHERE exists(p.hasApprovalDecision)
-RETURN a.hasCity AS city, a.hasStreetAddress AS streetAddress, a.hasState AS state, a.hasZipCode AS zipCode, p.hasPropertyName AS propertyName, p.hasApprovalDecision AS approvalDecision, p:hasApprovalNotes AS approvalNotes, p:hasAssetManagementNotes AS assetManagementNotes
-
 <question>
 Who is the property inspector for Sample Gardens?
 </question>
@@ -91,7 +82,7 @@ cypher_qa_mod_template = CYPHER_QA_TEMPLATE.replace("Here is an example",prompt_
 qa_prompt = PromptTemplate(input_variables=["context","question"],template=cypher_qa_mod_template)
 chain = NeptuneOpenCypherQAChain.from_llm(llm=llm, graph=graph, verbose=True, qa_prompt=qa_prompt,extra_instructions=opencypher_examples)
 
-questions = ["Have we seen Sample Gardens property before? If yes, what was the loan approval decision?", "Does Sample Gardens advance housing goals?","Does Sample Gardens qualify for a green loan?"]
+questions = ["Have we seen Sample Gardens property and address before? If yes, what was the loan approval decision?", "Does Sample Gardens advance housing goals?","Does Sample Gardens qualify for a green loan?"]
 for q in questions:
     print(q)
     chain_response=chain.invoke(q)

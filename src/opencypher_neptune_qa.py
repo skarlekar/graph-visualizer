@@ -4,6 +4,9 @@ from langchain_community.chat_models import BedrockChat
 from langchain_core.prompts import PromptTemplate
 import boto3
 import os
+from langchain.chains.graph_qa.prompts import (
+        CYPHER_QA_TEMPLATE
+)
 
 
 host = os.getenv("NEPTUNE_HOST")
@@ -65,30 +68,17 @@ RETURN p.hasGreenBuildingCertification AS greenBuildingCertification, p.hasGreen
 </Examples>
 """
 
-# Prompt from Langchain
-qa_from_cypher_template = """You are an assistant that helps to form nice and human understandable answers.
-The information part contains the provided information that you must use to construct an answer.
-The provided information is authoritative, you must never doubt it or try to use your internal knowledge to correct it.
-Make the answer sound as a response to the question. Do not mention that you based the result on the given information.
-Here is an example:
+prompt_dir = os.path.abspath(os.path.join(os.getcwd(),"../","prompts"))
+prompt_file_name = "cypher-qa-context-examples.txt"
+prompt_ex=open(os.path.join(prompt_dir,prompt_file_name),"r").read()+"\nHere is another example\n"
+cypher_qa_mod_template = CYPHER_QA_TEMPLATE.replace("Here is an example",prompt_ex)
 
-Question: Which managers own Neo4j stocks?
-Context:[manager:CTL LLC, manager:JANE STREET GROUP LLC]
-Helpful Answer: CTL LLC, JANE STREET GROUP LLC owns Neo4j stocks.
-
-Follow this example when generating answers.
-If the provided information is empty, say that you don't know the answer.
-Information:
-{context}
-
-Question: {question}
-Helpful Answer:"""
-qa_mock_query="Always respond with this is a test response"
-
-#qa_prompt = PromptTemplate.from_template(qa_from_cypher_template)
-qa_prompt = PromptTemplate.from_template(template=qa_mock_query)
-print(qa_prompt)
+qa_prompt = PromptTemplate(input_variables=["context","question"],template=cypher_qa_mod_template)
 chain = NeptuneOpenCypherQAChain.from_llm(llm=llm, graph=graph, verbose=True, qa_prompt=qa_prompt,extra_instructions=opencypher_examples)
-chain2 = NeptuneOpenCypherQAChain.from_llm(llm=llm, graph=graph, verbose=True, extra_instructions=opencypher_examples)
-chain.invoke("how many properties do we have?")
-chain2.invoke("how many properties do we have?")
+
+questions = ["Does Sample Gardens advance housing goals?","Does Sample Gardens qualify for a green loan?"]
+for q in questions:
+    print(q)
+    chain_response=chain.invoke(q)
+    print(chain_response)
+#chain2.invoke("how many properties do we have?")

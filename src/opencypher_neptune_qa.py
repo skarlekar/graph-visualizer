@@ -1,6 +1,7 @@
 from langchain_community.graphs import NeptuneGraph
 from langchain.chains import NeptuneOpenCypherQAChain
 from langchain_community.chat_models import BedrockChat
+from langchain_core.prompts import PromptTemplate
 import boto3
 import os
 
@@ -50,6 +51,25 @@ RETURN d AS lender
 </Examples>
 """
 
-chain = NeptuneOpenCypherQAChain.from_llm(llm=llm, graph=graph, verbose=True)
+qa_from_cypher_template = """You are an assistant that helps to form nice and human understandable answers.
+The information part contains the provided information that you must use to construct an answer.
+The provided information is authoritative, you must never doubt it or try to use your internal knowledge to correct it.
+Make the answer sound as a response to the question. Do not mention that you based the result on the given information.
+Here is an example:
 
-chain.invoke("How many units does Sample Gardens property have?")
+Question: Which managers own Neo4j stocks?
+Context:[manager:CTL LLC, manager:JANE STREET GROUP LLC]
+Helpful Answer: CTL LLC, JANE STREET GROUP LLC owns Neo4j stocks.
+
+Follow this example when generating answers.
+If the provided information is empty, say that you don't know the answer.
+Information:
+{context}
+
+Question: {question}
+Helpful Answer:"""
+
+qa_prompt = PromptTemplate.from_template(qa_from_cypher_prompt)
+
+chain = NeptuneOpenCypherQAChain.from_llm(llm=llm, graph=graph, verbose=True, extra_instructions=opencypher_examples)
+chain2 = NeptuneOpenCypherQAChain.from_llm(llm=llm, graph=graph, verbose=True, extra_instructions=opencypher_examples, return_direct=True)

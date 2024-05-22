@@ -69,7 +69,7 @@ Information:
 Question: {question}
 Helpful Answer:"""
 
-qa_prompt = PromptTemplate.from_template(qa_from_cypher_prompt)
+qa_prompt = PromptTemplate.from_template(qa_from_cypher_template)
 
 chain = NeptuneOpenCypherQAChain.from_llm(llm=llm, graph=graph, verbose=True, extra_instructions=opencypher_examples)
 chain2 = NeptuneOpenCypherQAChain.from_llm(llm=llm, graph=graph, verbose=True, extra_instructions=opencypher_examples, return_direct=True)

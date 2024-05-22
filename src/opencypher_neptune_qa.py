@@ -51,6 +51,7 @@ RETURN d AS lender
 </Examples>
 """
 
+# Prompt from Langchain
 qa_from_cypher_template = """You are an assistant that helps to form nice and human understandable answers.
 The information part contains the provided information that you must use to construct an answer.
 The provided information is authoritative, you must never doubt it or try to use your internal knowledge to correct it.
@@ -68,8 +69,12 @@ Information:
 
 Question: {question}
 Helpful Answer:"""
+qa_mock_query="Always respond with this is a test response"
 
-qa_prompt = PromptTemplate.from_template(qa_from_cypher_template)
-
-chain = NeptuneOpenCypherQAChain.from_llm(llm=llm, graph=graph, verbose=True, extra_instructions=opencypher_examples)
-chain2 = NeptuneOpenCypherQAChain.from_llm(llm=llm, graph=graph, verbose=True, extra_instructions=opencypher_examples, return_direct=True)
+#qa_prompt = PromptTemplate.from_template(qa_from_cypher_template)
+qa_prompt = PromptTemplate.from_template(template=qa_mock_query)
+print(qa_prompt)
+chain = NeptuneOpenCypherQAChain.from_llm(llm=llm, graph=graph, verbose=True, qa_prompt=qa_prompt,extra_instructions=opencypher_examples)
+chain2 = NeptuneOpenCypherQAChain.from_llm(llm=llm, graph=graph, verbose=True, extra_instructions=opencypher_examples)
+chain.invoke("how many properties do we have?")
+chain2.invoke("how many properties do we have?")

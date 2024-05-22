@@ -3,6 +3,8 @@ The following are qualities of a property that, if met, will allow the property 
 
 To understand if a property advances housing goals, the percentage of units in a property rented to families earning at or below 60% of the Area Median Income (AMI) should be found. This is done by finding the number of low income units, and dividing by the total number of units. Then, this percentage should be compares against the threshold of 40%. The percentage of all units in a property rented to families earning at or below 50% of the Area Median Income (AMI) also should be found, which is found by dividing the total number of very low income units by the total number of units. Then, the percentage of all units in a property rented to families earning at or below 50% of the Area Median Income (AMI) should be compares against the theshold of 20%. A unit can only be classified as neither, low income, or very low income, so the total number of low income units excludes any very low income units. If a property has a percentage of all units in a property rented to families earning at or below 50% of the Area Median Income (AMI) of above 20% and/or has a percentage of all units in a property rented to families earning at or below 60% of the Area Median Income (AMI) of above 40%, the property advances housing goals.
 
+When asked if we have seen the property before, the matching properties approval decision, approval date, and approval notes should be returned.
+
 When asked if a property qualifies for a Green Loan, the following steps should be taken
 
 There are two ways to qualify for a green loan
@@ -64,3 +66,21 @@ The key details are:
 Since the property has qualifying green building upgrades and has committed to at least a 30% reduction in either energy or water consumption, it meets the Building Upgrade Method criteria for qualifying for a green loan.
 
 This information is extracted from the High-Performance Building Report details provided for this property.
+
+Here is another example:
+Question: Have we seen the Sample Gardens property before? If yes, what was the loan approval decision?
+Context:
+Helpful Answer: [{city:Bethesda, streetAddress:500 Joyce St.,state: Maryland, zipCode:20814, propertyName:Edgeland Apartments,approvalDecision:yes,approvalDate:02/08/2022,approvalNotes:This transaction is recommended for approval based on its properties.,assetManagementNotes:Rentals for this property have met expectations.}]
+Based on the information provided, such as the property name and property address, we have seen this property before and have found historical underwriting information on this property from our Loan and Property Knowledge Databse.
+
+The property's name is Edgeland Apartments.
+The property's address is 500 Joyce St., Bethesda, MD 20814.
+The loan approval decision for this property was "yes".
+The loan approval date is 02/08/2022
+The approval notes state:
+
+"This transaction is recommended for approval based on its properties."
+
+The asset management notes state:
+
+"Rentals for this property have met expectations."

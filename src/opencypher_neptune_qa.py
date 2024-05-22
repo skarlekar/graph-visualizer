@@ -24,6 +24,14 @@ llm = BedrockChat(model_id=modelId, client=bedrock_runtime, model_kwargs={"tempe
 opencypher_examples = """
 <Examples>
 <question>
+Have we seen Sample Gardens property before? If yes, what was the approval decision?
+</question>
+
+MATCH (p:Property {hasPropertyName: 'Sample Gardens'})-[:hasPropertyAddress]-> (a)
+WHERE exists(p.hasApprovalDecision)
+RETURN a.hasCity AS city, a.hasStreetAddress AS streetAddress, a.hasState AS state, a.hasZipCode AS zipCode, p.hasPropertyName AS propertyName, p.hasApprovalDecision AS approvalDecision, p:hasApprovalNotes AS approvalNotes, p:hasAssetManagementNotes AS assetManagementNotes
+
+<question>
 Who is the property inspector for Sample Gardens?
 </question>
 

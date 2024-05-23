@@ -28,7 +28,7 @@ prompt_ex=open(os.path.join(prompt_dir,prompt_file_name),"r").read()+"\nHere is 
 cypher_qa_mod_template = CYPHER_QA_TEMPLATE.replace("Here is an example",prompt_ex)
 qa_prompt = PromptTemplate(input_variables=["context","question"],template=cypher_qa_mod_template)
 
-opencypher_examples_prompt = open(os.path.join(prompt_dir,"cypher-generation-examples.txt"), "r").read()
+opencypher_examples = open(os.path.join(prompt_dir,"cypher-generation-examples.txt"), "r").read()
 
 chain = NeptuneOpenCypherQAChain.from_llm(llm=llm, graph=graph, verbose=True, qa_prompt=qa_prompt,extra_instructions=opencypher_examples)
 

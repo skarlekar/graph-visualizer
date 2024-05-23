@@ -112,9 +112,9 @@ def upload_to_s3(graph):
     s3.put_object(Body=graph, Bucket=bucket_name, Key=object_key)
 
 if __name__ == '__main__':
-    ontology_link = 'https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/ontologies/ontology-uw-narrative.txt'
+    ontology_link = 'https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/master/Knowledge_Base/ontologies/uw-narrative-ontology.ttl'
     doc_link = 'https://files.hudexchange.info/resources/documents/MFRUnderwritingTemplate-Example.pdf'
     graph = extract(doc_link=doc_link, ontology_link=ontology_link)
     print(graph)
     clean_up()
-    #upload_to_s3(graph)
+    upload_to_s3(graph)

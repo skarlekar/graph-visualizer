@@ -1,0 +1,59 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix mf: <http://example.org/multifamily#> .
+
+mf:SampleGardensProperty rdf:type mf:Property ;
+  mf:hasPropertyName "Sample Gardens" ;
+  mf:hasTotalRentalUnits 100 ;
+  mf:hasNonRevenueUnits 1 ;
+  mf:hasTotalUnits 101 ;
+  mf:hasPropertyAddress mf:SampleGardensAddress ;
+  mf:hasOwnerEntity mf:NSPDevelopmentPartners ;
+  mf:hasOwnerContact mf:SusanDeveloper ;
+  mf:hasOwnerAddress mf:NSPDevelopmentPartnersAddress ;
+  mf:hasManagementAgent mf:NSPManagementPartners ;
+  mf:hasManagementContact mf:SusanDeveloper ;
+  mf:hasManagementAddress mf:NSPManagementPartnersAddress ;
+  mf:hasLender mf:MidCityBank ;
+  mf:hasLoanType "Conventional" ;
+  mf:hasLenderContact mf:WallyLendor ;
+  mf:hasLowIncomeUnits "12" ;
+  mf:hasVeryLowIncomeUnits "5" ;
+  mf:isSmallMultifamilyUnitMeetingLowIncome "yes" ;
+  mf:hasMSA "" .
+
+mf:SampleGardensAddress rdf:type mf:PropertyAddress ;
+  mf:hasStreetAddress "123 Sample Street" ;
+  mf:hasCity "Mid City" ;
+  mf:hasState "Ohio" ;
+  mf:hasZipCode "23445" .
+
+mf:NSPDevelopmentPartners rdf:type mf:OwnerEntity ;
+  rdfs:label "NSP Development Partners, Inc." .
+
+mf:SusanDeveloper rdf:type mf:OwnerContact ;
+  mf:hasName "Susan Developer" ;
+  mf:hasPhone "(215) 555-1212" ;
+  mf:hasEmail "susan@NSPDP.com" .
+
+mf:NSPDevelopmentPartnersAddress rdf:type mf:OwnerAddress ;
+  mf:hasStreetAddress "600 Main Street" ;
+  mf:hasCity "Mid City" ;
+  mf:hasState "Ohio" ;
+  mf:hasZipCode "23445" .
+
+mf:NSPManagementPartners rdf:type mf:ManagementAgent ;
+  rdfs:label "NSP Management Partners, Inc." .
+
+mf:NSPManagementPartnersAddress rdf:type mf:ManagementAddress ;
+  mf:hasStreetAddress "600 Main Street" ;
+  mf:hasCity "Mid City" ;
+  mf:hasState "Ohio" ;
+  mf:hasZipCode "23445" .
+
+mf:MidCityBank rdf:type mf:Lender ;
+  rdfs:label "Mid City Bank" .
+
+mf:WallyLendor rdf:type mf:LenderContact ;
+  mf:hasName "Wally Lendor" ;
+  mf:hasPhone "(215) 555-1214" ;
+  mf:hasEmail "wlendor@MCB.com" .

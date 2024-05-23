@@ -14,13 +14,13 @@ import streamlit_authenticator as stauth
 import yaml
 from yaml.loader import SafeLoader
 
-from rdflib import Graph
+from rdflib import Graph, Literal
 
 
 def connect_to_bedrock():
     boto_session = boto3.Session()
     aws_region = boto_session.region_name
-    bedrock_runtime = boto_session.client("bedrock-runtime", region_name=aws_region)
+    bedrock_runtime = boto_session.client("bedrock-runtime", region_name="us-east-1")
     
     modelId = "anthropic.claude-3-sonnet-20240229-v1:0"
     
@@ -63,211 +63,81 @@ def main():
             value="https://raw.githubusercontent.com/skarlekar/graph-visualizer/1927533f5b79fd1fd529944d77462553e7fe9bde/content/Appraisal-Report.pdf"
         )
 
-        ontology = st.text_area(
+        #ontology = st.text_area(
+        #    label="Ontology TTL",
+        #    height=400,
+        #    value=get_ontology(),
+        #)
+        ontology = st.text_input(
             label="Ontology TTL",
-            height=400,
-            value=get_ontology(),
+            key="ontology_link",
+            value="https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/ontologies/PropertyAppraisalOntology-v2.ttl"
         )
 
     with col2:
         if st.button("Generate Graph"):
             if file_link and ontology:
-                #loader = PyPDFLoader(file_link)
-                #doc = loader.load()
+                loader = PyPDFLoader(file_link)
+                doc = loader.load()
                 #texts = split_documents(chunk_size=1000, document=doc)
+                texts = doc
+
+                o_graph = Graph()
+                o_graph.parse("https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/ontologies/PropertyAppraisalOntology-v2.ttl", format="ttl")
+                ontology = o_graph.serialize(format="ttl")
+                #ontology = ontology.replace("@prefix ns1: <https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/ontologies/> .", "@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n@prefix mf: <http://example.org/mf> .")
 
                 tab1, tab2, tab3, tab4 = st.tabs(["Graph 1", "Graph 2", "Graph3", "Merged Graph"])
 
                 with tab1:
-                    #prompt = construct_prompt(ontology=ontology, text=texts[0].page_content)
-                    #response = llm.invoke(input=prompt)
-                    #g1 = Graph()
-                    #g1.parse(data=response.content, format='turtle')
-                    st.text(f"""@prefix mf: <http://example.org/mf> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+                    prompt = construct_prompt(ontology=ontology, text=texts[0].page_content)
+                    response = llm.invoke(input=prompt)
+                    g1 = Graph()
+                    g1.parse(data=response.content, format='turtle')
+                    #st.text(g1.serialize(format='ttl'))
 
-<mf:PropertyAppraisal_1> a mf:PropertyAppraisal ;
-    mf:hasAppraisalNumber "190416" ;
-    mf:hasAppraiser <mf:PropertyAppraiser_1>,
-        <mf:PropertyAppraiser_2> ;
-    mf:hasTitle "APPRAISAL REPORT" .
-
-<mf:Property_1> a mf:Property ;
-    mf:hasAddress <mf:PropertyAddress_1> ;
-    mf:hasName "COLLEGE COURTYARD APARTMENTS & RAIDER HOUSING" ;
-    mf:hasOwner "NORTHWEST FLORIDA STATE COLLEGE FOUNDATION" ;
-    mf:hasUnits "62"^^xsd:int .
-
-<mf:PropertyAddress_1> a mf:PropertyAddress ;
-    mf:hasCity "NICEVILLE" ;
-    mf:hasState "FL" ;
-    mf:hasStreetName "GARDEN LANE" ;
-    mf:hasStreetNumber "28",
-        "30" ;
-    mf:hasZip "32578" .
-
-<mf:PropertyAppraiser_1> a mf:PropertyAppraiser ;
-    rdfs:label "Jason P. Shirey, MAI, CCIM, CPM" ;
-    mf:hasAppraisalLicense "RZ3186" .
-
-<mf:PropertyAppraiser_2> a mf:PropertyAppraiser ;
-    rdfs:label "Josette D. Jackson, CCIM" ;
-    mf:hasAppraisalLicense "RZ3275" .""")
-                
+                    g1_l = Graph()
+                    for s, p, o in g1:
+                        if 'mf:' not in o:
+                            g1_l.add((s, p, Literal(o.lower())))
+                        else:
+                            g1_l.add((s,  p, o))
+                    st.text("**********************")
+                    st.text(g1_l.serialize(format='ttl'))
                 with tab2:
-                    #prompt2 = construct_prompt(ontology=ontology, text=texts[1].page_content)
-                    #response2 = llm.invoke(input=prompt2)
-                    #g2 = Graph()
-                    #g2.parse(data=response2.content, format='turtle')
-                    #st.text(f"""{g2.serialize(format='turtle')}""")
-                    st.text(f"""@prefix mf: <http://example.org/mf> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+                    prompt2 = construct_prompt(ontology=ontology, text=texts[1].page_content)
+                    response2 = llm.invoke(input=prompt2)
+                    g2 = Graph()
+                    g2.parse(data=response2.content, format='turtle')
+                    #st.text(g2.serialize(format='ttl'))
 
-<mf:Property1> a mf:Property ;
-    mf:hasAddress <mf:PropertyAddress1> ;
-    mf:hasAppraisal <mf:PropertyAppraisal1> ;
-    mf:hasName "College Courtyard Apartments & Raider Housing" ;
-    mf:hasOwner "Northwest Florida State College Foundation" ;
-    mf:hasUnits "62"^^xsd:int .
-
-<mf:PropertyInspectionDate1> a mf:PropertyInspectionDate ;
-    mf:hasDay "N/A" ;
-    mf:hasMonth "N/A" ;
-    mf:hasYear "N/A" .
-
-<mf:PropertyAddress1> a mf:PropertyAddress ;
-    mf:hasCity "Niceville" ;
-    mf:hasState "FL" ;
-    mf:hasStreetName "Garden Lane" ;
-    mf:hasStreetNumber "28",
-        "30" ;
-    mf:hasZip "32578" .
-
-<mf:PropertyAppraisal1> a mf:PropertyAppraisal ;
-    mf:hasAppraisedValue "N/A" ;
-    mf:hasAppraiser "Jason P. Shirey, MAI, CCIM",
-        "Josette D. Jackson, CCIM" ;
-    mf:hasDate <mf:PropertyAppraisalDate1> ;
-    mf:hasRemarks "Of Existing Multi-Family Property" ;
-    mf:hasTitle "APPRAISAL REPORT" .
-
-<mf:PropertyAppraisalDate1> a mf:PropertyAppraisalDate ;
-    mf:hasDay 13 ;
-    mf:hasMonth "December" ;
-    mf:hasYear 2019 .""")
-                
+                    g2_l = Graph()
+                    for s, p, o in g2:
+                        if 'mf:' not in o:
+                            g2_l.add((s, p, Literal(o.lower())))
+                        else:
+                            g2_l.add((s, p, o))
+                    st.text("************************")
+                    st.text(g2_l.serialize(format='ttl'))
                 with tab3:
-                    #prompt3 = construct_prompt(ontology=ontology, text=texts[2].page_content)
-                    #response3 = llm.invoke(input=prompt3)
-                    #g3 = Graph()
-                    #g3.parse(data=response3.content, format='turtle')
-                    #st.text(f"""{g3.serialize(format='turtle')}""")
-                    st.text(f"""@prefix mf: <http://example.org/mf> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-
-<mf:Property1> a mf:Property ;
-    mf:hasAddress <mf:PropertyAddress1> ;
-    mf:hasAppraisal <mf:PropertyAppraisal1> ;
-    mf:hasName "College Courtyard Apartments & Raider Housing" ;
-    mf:hasOwner "Northwest Florida State College Foundation" ;
-    mf:hasUnits "62"^^xsd:int .
-
-<mf:PropertyAddress1> a mf:PropertyAddress ;
-    mf:hasCity "Niceville" ;
-    mf:hasState "FL" ;
-    mf:hasStreetName "Garden Lane" ;
-    mf:hasStreetNumber "28"^^xsd:string,
-        "30"^^xsd:string ;
-    mf:hasZip "32578" .
-
-<mf:PropertyAppraisal1> a mf:PropertyAppraisal ;
-    mf:hasAppraisedValue "Current Market Value" ;
-    mf:hasAppraiser "EquiValue Appraisal LLC" ;
-    mf:hasDate <mf:PropertyAppraisalDate1> ;
-    mf:hasRemarks "File No. EQ 190416" ;
-    mf:hasTitle "Appraisal of College Courtyard Apartments & Raider Housing" .
-
-<mf:PropertyAppraisalDate1> a mf:PropertyAppraisalDate ;
-    mf:hasDay "13"^^xsd:int ;
-    mf:hasMonth "December" ;
-    mf:hasYear "2019"^^xsd:int .""")
-                
+                    prompt3 = construct_prompt(ontology=ontology, text=texts[3].page_content)
+                    response3 = llm.invoke(input=prompt3)
+                    g3 = Graph()
+                    g3.parse(data=response3.content, format='turtle')
+                    st.text(f"""{g3.serialize(format='turtle')}""")
                 with tab4:
-                    #g4 = g1 + g2 + g3
-                    #st.text(f"""{g4.serialize(format='turtle')}""")
-                    st.text(f"""@prefix mf: <http://example.org/mf> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+                    g4 = g1 + g2
+                    #g4.serialize(destination='merged-graph.ttl')
 
-<mf:Property1> a mf:Property ;
-    mf:hasAddress <mf:PropertyAddress1> ;
-    mf:hasAppraisal <mf:PropertyAppraisal1> ;
-    mf:hasName "College Courtyard Apartments & Raider Housing" ;
-    mf:hasOwner "Northwest Florida State College Foundation" ;
-    mf:hasUnits "62"^^xsd:int .
+                    g4_l = g1_l|g2_l
+                    g4_l.serialize(destination='merged-graph.ttl')
+                    st.text(g4_l.serialize(format='ttl'))
+                    st.text('***************')
 
-<mf:PropertyAppraisal_1> a mf:PropertyAppraisal ;
-    mf:hasAppraisalNumber "190416" ;
-    mf:hasAppraiser <mf:PropertyAppraiser_1>,
-        <mf:PropertyAppraiser_2> ;
-    mf:hasTitle "APPRAISAL REPORT" .
+                    s3 = boto3.client('s3')
+                    #response = s3.upload_file('merged-graph.ttl', 'kg-merged-rdf', 'merged-graph.ttl')
 
-<mf:PropertyInspectionDate1> a mf:PropertyInspectionDate ;
-    mf:hasDay "N/A" ;
-    mf:hasMonth "N/A" ;
-    mf:hasYear "N/A" .
-
-<mf:Property_1> a mf:Property ;
-    mf:hasAddress <mf:PropertyAddress_1> ;
-    mf:hasName "COLLEGE COURTYARD APARTMENTS & RAIDER HOUSING" ;
-    mf:hasOwner "NORTHWEST FLORIDA STATE COLLEGE FOUNDATION" ;
-    mf:hasUnits "62"^^xsd:int .
-
-<mf:PropertyAddress1> a mf:PropertyAddress ;
-    mf:hasCity "Niceville" ;
-    mf:hasState "FL" ;
-    mf:hasStreetName "Garden Lane" ;
-    mf:hasStreetNumber "28",
-        "28"^^xsd:string,
-        "30",
-        "30"^^xsd:string ;
-    mf:hasZip "32578" .
-
-<mf:PropertyAddress_1> a mf:PropertyAddress ;
-    mf:hasCity "NICEVILLE" ;
-    mf:hasState "FL" ;
-    mf:hasStreetName "GARDEN LANE" ;
-    mf:hasStreetNumber "28",
-        "30" ;
-    mf:hasZip "32578" .
-
-<mf:PropertyAppraisal1> a mf:PropertyAppraisal ;
-    mf:hasAppraisedValue "Current Market Value",
-        "N/A" ;
-    mf:hasAppraiser "EquiValue Appraisal LLC",
-        "Jason P. Shirey, MAI, CCIM",
-        "Josette D. Jackson, CCIM" ;
-    mf:hasDate <mf:PropertyAppraisalDate1> ;
-    mf:hasRemarks "File No. EQ 190416",
-        "Of Existing Multi-Family Property" ;
-    mf:hasTitle "APPRAISAL REPORT",
-        "Appraisal of College Courtyard Apartments & Raider Housing" .
-
-<mf:PropertyAppraisalDate1> a mf:PropertyAppraisalDate ;
-    mf:hasDay 13,
-        "13"^^xsd:int ;
-    mf:hasMonth "December" ;
-    mf:hasYear 2019,
-        "2019"^^xsd:int .
-
-<mf:PropertyAppraiser_1> a mf:PropertyAppraiser ;
-    rdfs:label "Jason P. Shirey, MAI, CCIM, CPM" ;
-    mf:hasAppraisalLicense "RZ3186" .
-
-<mf:PropertyAppraiser_2> a mf:PropertyAppraiser ;
-    rdfs:label "Josette D. Jackson, CCIM" ;
-    mf:hasAppraisalLicense "RZ3275" .""")
+                    #st.text(g4.serialize(format='turtle'))
             else:
                 st.error('Document or ontology is missing', icon="🚨")
 

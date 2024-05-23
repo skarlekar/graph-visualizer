@@ -1,0 +1,98 @@
+<mf:Property1> a mf:Property ;
+	mf:hasAddress <mf:PropertyAddress1> ;
+	mf:hasName "Sample Gardens" ;
+	mf:hasOwner "NSP Development Partners" ;
+	mf:hasPCR "3" ;
+	mf:hasPropertyInspectionAgency "urgent inspection llc" ;
+	mf:hasPropertyInspector "Jane Jones" ;
+	mf:hasInspectionDate "03/07/2020" ;
+	mf:hasUnits "101"^^xsd:int .
+    	mf:hasGreenBuildingCertification "yes";
+    	mf:hasGreenBuildingCertificationAgency "BREEAM USA";
+    	mf:hasGreenBuildingUpgrades "Energy Start Appliances", "Energy efficient LED lighting";
+    	mf:annualEnergyConsumptionReductionCommitment "25%";
+    	mf:annualWaterConsumptionReductionCommitment "30%";
+
+<mf:PropertyAddress1> a mf:PropertyAddress ;
+	mf:hasCity "Mid City" ;
+	mf:hasState "Ohio" ;
+	mf:hasStreetName "Sample Street" ;
+	mf:hasStreetNumber "123" ;
+	mf:hasZip "23445" ;
+	mf:hasLowIncomeUnits "20" ;
+	mf:hasVeryLowIncomeUnits "10" ;
+	mf:isSmallMultifamilyUnitMeetingLowIncome "yes" ;
+	mf:hasMSA "" .
+
+<mf:Loan_1> a mf:Loan ;
+	mf:hasProperty mf:PropertyAddress1 ;
+	mf:hasPropertyName "Sample Gardens" ;
+	mf:hasLender "Johnny Lender" ;
+	mf:hasBorrower "Mr. Sam Millions" ;
+	mf:hasKeyPrincipal "Mrs. Sally Principal" ;
+	mf:hasApprovalDecision "yes" ;
+	mf:hasApprovalDate "01/04/2018" ;
+	mf:hasApprovalNotes "Based on the strength and experience of the sponsor including managing other seniors assets in the same market and state for many
+years as well as the financial improvement of the asset, this supplemental transaction is recommended for Loan Committee Approval." ;
+	mf:hasAssetManagementNotes "The property is maintained well and the rentals have met projected expectations." ;
+	mf:hasAssetManagementNotesDate "01/05/2021" .
+
+<mf:Property2> a mf:Property ;
+  mf:hasAddress <mf:PropertyAddress_2> ;
+  mf:hasName "Beachview Apartments" ;
+  mf:hasOwner "Norfolk Housing Partners LLC" ;
+  mf:hasPCR "1" ;
+  mf:hasPropertyInspectionAgency "Virigina Housing Inspectors llc" ;
+  mf:hasPropertyInspector "Mary Newcomb" ;
+  mf:hasInspectionDate "01/03/2020" ;
+  mf:hasUnits "200"^^xsd:int .
+
+<mf:PropertyAddress_2> a mf:PropertyAddress ;
+  mf:hasCity "norfolk" ;
+  mf:hasState "va" ;
+  mf:hasStreetName "winding lane" ;
+  mf:hasStreetNumber "1";
+  mf:hasZip "22024" ;
+  mf:hasLowIncomeUnits "20" ;
+  mf:hasVeryLowIncomeUnits "10" ;
+  mf:isSmallMultifamilyUnitMeetingLowIncome "no" ;
+  mf:hasMSA "Rural" .
+
+<mf:Loan_2> a mf:Loan ;
+    mf:hasProperty mf:PropertyAddress_2 ;
+    mf:hasLender "Kelly Hernandez" ;
+    mf:hasBorrower "Santosh Ray" ;
+    mf:hasKeyPrincipal "Alicia Keys" ;
+    mf:hasApprovalDecision "no" ;
+    mf:hasApprovalDate "01/04/2020" ;
+    mf:hasApprovalNotes "Based on the condition of the property and history of the maintenance records, loan is not recommended." .
+
+<mf:Property3> a mf:Property ;
+  mf:hasAddress <mf:PropertyAddress_3> ;
+  mf:hasName "MountainView Lodge" ;
+  mf:hasOwner "Denver Housing Partners LLC" ;
+  mf:hasPCR "3" ;
+  mf:hasPropertyInspectionAgency "Denver Housing Inspectors llc" ;
+  mf:hasPropertyInspector "John Denver" ;
+  mf:hasInspectionDate "01/03/2022" ;
+  mf:hasUnits "150"^^xsd:int .
+
+<mf:PropertyAddress_3> a mf:PropertyAddress ;
+  mf:hasCity "Denver" ;
+  mf:hasState "CO" ;
+  mf:hasStreetName "Rocky Mountain" ;
+  mf:hasStreetNumber "100";
+  mf:hasZip "60502" ;
+  mf:hasLowIncomeUnits "25" ;
+  mf:hasVeryLowIncomeUnits "15" ;
+  mf:isSmallMultifamilyUnitMeetingLowIncome "no" ;
+  mf:hasMSA "Denver Aurora CSA" .
+
+<mf:Loan_3> a mf:Loan ;
+    mf:hasProperty mf:PropertyAddress_3 ;
+    mf:hasLender "Patty Smith" ;
+    mf:hasBorrower "Elvis Presley" ;
+    mf:hasKeyPrincipal "John Lenon" ;
+    mf:hasApprovalDecision "yes" ;
+    mf:hasApprovalDate "01/04/2022" ;
+    mf:hasApprovalNotes "Based on the condition of the property and financial strength of the borrower and the lender, loan approval is recommended." .

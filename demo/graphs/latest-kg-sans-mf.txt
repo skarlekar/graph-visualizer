@@ -1,0 +1,71 @@
+<100RentalUnits> a TotalRentalUnits .
+
+<101TotalUnits> a TotalUnits .
+
+<1NonRevenueUnit> a NonRevenueUnits .
+
+<ConventionalLoan> a LoanType .
+
+<MidCityBank> a Lender .
+
+<NSPDevelopmentPartners> a OwnerEntity .
+
+<NSPManagementPartners> a ManagementAgent .
+
+<OwnerAddress> a OwnerAddress ;
+    hasCity "Mid City" ;
+    hasState "Ohio" ;
+    hasStreetAddress "600 Main Street" ;
+    hasZipCode "23445" .
+
+<SampleGardens> a Property ;
+    annualEnergyConsumptionReductionCommitment "25%" ;
+    annualWaterConsumptionReductionCommitment "30%" ;
+    hasApprovalDate "01/04/2018" ;
+    hasApprovalDecision "yes" ;
+    hasApprovalNotes "Based on the strength and experience of the sponsor including managing other seniors assets in the same market and state for many years as well as the financial improvement of the asset, this supplemental transaction is recommended for Loan Committee Approval." ;
+    hasAssetManagementNotes "The property is maintained well and the rentals have met projected expectations." ;
+    hasAssetManagementNotesDate "01/05/2021" ;
+    hasGreenBuildingCertification "yes" ;
+    hasGreenBuildingCertificationAgency "BREEAM USA" ;
+    hasGreenBuildingUpgrades "Energy Start Appliances",
+        "Energy efficient LED lighting" ;
+    hasInspectionDate "03/07/2020" ;
+    hasLender MidCityBank ;
+    hasLenderContact WallyLendor ;
+    hasLoanType ConventionalLoan ;
+    hasManagementAddress OwnerAddress ;
+    hasManagementAgent NSPManagementPartners ;
+    hasManagementContact SusanDeveloper ;
+    hasNonRevenueUnits 1NonRevenueUnit ;
+    hasOwnerAddress OwnerAddress ;
+    hasOwnerContact SusanDeveloper ;
+    hasOwnerEntity NSPDevelopmentPartners ;
+    hasPCR "3" ;
+    hasPropertyAddress SampleGardensAddress ;
+    hasPropertyInspectionAgency "urgent inspection llc" ;
+    hasPropertyInspector "Jane Jones" ;
+    hasPropertyName "Sample Gardens" ;
+    hasTotalRentalUnits 100RentalUnits ;
+    hasTotalUnits 101TotalUnits ;
+    hasUnits "101"^^xsd:int .
+
+<SampleGardensAddress> a PropertyAddress ;
+    hasCity "Mid City" ;
+    hasLowIncomeUnits "20" ;
+    hasMSA "" ;
+    hasState "Ohio" ;
+    hasStreetAddress "123 Sample Street" ;
+    hasVeryLowIncomeUnits "10" ;
+    hasZipCode "23445" ;
+    isSmallMultifamilyUnitMeetingLowIncome "yes" .
+
+<SusanDeveloper> a OwnerContact ;
+    hasEmail "susan@NSPDP.com" ;
+    hasName "Susan Developer" ;
+    hasPhone "(215) 555-1212" .
+
+<WallyLendor> a LenderContact ;
+    hasEmail "wlendor@MCB.com" ;
+    hasName "Wally Lendor" ;
+    hasPhone "(215) 555-1214" .

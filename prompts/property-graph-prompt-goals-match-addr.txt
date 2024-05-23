@@ -1,0 +1,350 @@
+Given the following property in the <newPropertyContext> tags, relevant information about other properties within the <otherPropertyContext> tags, and the user question provided in the <userQuestion> tags, answer the user question.
+
+The following are qualities of a property that, if met, will allow the property to advance housing goals:
+- 20% of all units in a property rented to families earning at or below 50% of the Area Median Income (AMI)
+- 40% of all units in a property rented to families earning at or below 60% of the Area Median Income (AMI)
+
+To understand if a property advances housing goals, the percentage of units in a property rented to families earning at or below 60% of the Area Median Income (AMI) should be found. This is done by finding the number of low income units, and dividing by the total number of units. Then, this percentage should be compares against the threshold of 40%. The percentage of all units in a property rented to families earning at or below 50% of the Area Median Income (AMI) also should be found, which is found by dividing the total number of very low income units by the total number of units. Then, the percentage of all units in a property rented to families earning at or below 50% of the Area Median Income (AMI) should be compares against the theshold of 20%. A unit can only be classified as neither, low income, or very low income, so the total number of low income units excludes any very low income units. If a property has a percentage of all units in a property rented to families earning at or below 50% of the Area Median Income (AMI) of above 20% and/or has a percentage of all units in a property rented to families earning at or below 60% of the Area Median Income (AMI) of above 40%, the property advances housing goals.
+
+When asked if we have seen the property before, the given property's address should be found. Then, a property with a matching address should be found from the other properties within the <otherPropertyContext> tags. If one of the other properties has a matching address, the new property has been seen before. Then, the other properties approval decision, approval date, and approval notes should be returned.
+
+When asked if a property qualifies for a Green Loan, the following steps should be taken
+
+There are two ways to qualify for a green loan
+Certification Method:
+1. Find the property has a green building certification and the green building certification agency
+2. If the green building certification is yes and the green building certification agency is one of the following, the property qualifies for a Green Loan
+Green Building Certification Agencies:
+- BREEAM USA
+- Build It Green
+- Enterprise Community Partners
+- Green Building Initiative
+- Home Innovation Research Labs
+- International Living Future Institute
+- Passive House Institute
+- Phius (Passive House Institute US)
+- U.S. Department of Energy
+- International Finance Corporation
+- U.S. Environmental Protection Agency
+- U.S. Green Building Council
+Building Upgrade Method:
+1. Find the properties green building upgrades, if any are in the following list, continue to step 2.
+- Upgrading to ENERGY STAR® appliances
+- Upgrading boiler
+- Replacing inefficient lighting
+- Installing solar systems
+- Installing water-saving irrigation systems
+- Improving insulation
+- Making other energy- & water-saving improvements
+2. Find the property's annual energy consumption reduction commitment and the property's annual water consumption reduction commitment, if either value is at or above 30%, the building qualifies for a Green Loan
+Finally, return if property is a green loan and justification, and mention that this information is extracted from High-Performance Building Report.
+
+Here is are examples of an expected response, with the model response within the <modelResponse> tags. Each examples is within <example> tags.
+
+
+<example>
+<newPropertyContext>
+<mf:Property1> a mf:Property ;
+	mf:hasAddress <mf:PropertyAddress1> ;
+	mf:hasName "McCloud Housing" ;
+	mf:hasOwner "Virginia Housing Foundation" ;
+	mf:hasPCR "6" ;
+	mf:hasPropertyInspectionAgency "virginia property inspection llc" ;
+	mf:hasPropertyInspector "James Brunson" ;
+	mf:hasInspectionDate "11/07/2020" ;
+	mf:hasUnits "70"^^xsd:int .
+
+<mf:PropertyAddress1> a mf:PropertyAddress ;
+	mf:hasCity "charlottesville" ;
+	mf:hasState "va" ;
+	mf:hasStreetName "10th" ;
+	mf:hasStreetNumber "430" ;
+	mf:hasZip "22902" ;
+	mf:hasLowIncomeUnits "35" ;
+	mf:hasVeryLowIncomeUnits "10" ;
+	mf:isSmallMultifamilyUnitMeetingLowIncome "yes" ;
+	mf:hasMSA "" .
+
+<mf:Loan_1> a mf:Loan ;
+	mf:hasProperty mf:PropertyAddress_1 ;
+	mf:hasLender "John Hart" ;
+	mf:hasBorrower "Mr. Keith Guy" ;
+	mf:hasKeyPrincipal "Mr. Anthony Ware" ;
+	mf:hasApprovalDecision "yes" ;
+	mf:hasApprovalDate "02/01/2021" ;
+	mf:hasApprovalNotes "This transaction is recommeded for approval based on it's properties." ;
+	mf:hasAssetManagementNotes "Rentals for this property have met expectations." ;
+	mf:hasAssetManagementNotesDate "01/05/2021" .
+</newPropertyContext>
+<otherPropertyContext>
+<mf:Property1> a mf:Property ;
+	mf:hasAddress <mf:PropertyAddress1> ;
+	mf:hasName "Edgeland Apartments" ;
+	mf:hasOwner "Montgumery Housing" ;
+	mf:hasPCR "3" ;
+	mf:hasPropertyInspectionAgency "innovation inspection llc" ;
+	mf:hasPropertyInspector "Anne Farrah" ;
+	mf:hasInspectionDate "10/20/2021" ;
+	mf:hasUnits "51"^^xsd:int .
+
+<mf:PropertyAddress1> a mf:PropertyAddress ;
+	mf:hasCity "bethesda" ;
+	mf:hasState "md" ;
+	mf:hasStreetName "joyce" ;
+	mf:hasStreetNumber "500" ;
+	mf:hasZip "20814" ;
+	mf:hasLowIncomeUnits "3" ;
+	mf:hasVeryLowIncomeUnits "1" ;
+	mf:isSmallMultifamilyUnitMeetingLowIncome "no" ;
+	mf:hasMSA "" .
+
+<mf:Loan_1> a mf:Loan ;
+	mf:hasProperty mf:PropertyAddress_1 ;
+	mf:hasLender "David Smith" ;
+	mf:hasBorrower "Mr. Dean Holmes" ;
+	mf:hasKeyPrincipal "Mr. Derek Fischer" ;
+	mf:hasApprovalDecision "yes" ;
+	mf:hasApprovalDate "02/08/2022" ;
+	mf:hasApprovalNotes "This transaction is recommeded for approval based on it's properties." ;
+	mf:hasAssetManagementNotes "Rentals for this property have met expectations." ;
+	mf:hasAssetManagementNotesDate "03/10/2022" .
+</otherPropertyContext>
+<userQuestion>
+Does the property advance housing goals?
+</userQuestion>
+<modelResponse>
+There are 70 units in the property. The property has 25 low income units. As a result,(35/70)= 0.50, 50% of all units in the property rented to families earning at or below 60% of the Area Median Income (AMI). Since the threshold to help housing goals is to have above 40% of units as these units, this property advances housing goals.
+</modelResponse>
+</example>
+<example>
+<newPropertyContext>
+<mf:Property1> a mf:Property ;
+	mf:hasAddress <mf:PropertyAddress1> ;
+	mf:hasName "Edgeland Apartments" ;
+	mf:hasOwner "Montgumery Housing" ;
+	mf:hasPCR "3" ;
+	mf:hasPropertyInspectionAgency "innovation inspection llc" ;
+	mf:hasPropertyInspector "Anne Farrah" ;
+	mf:hasInspectionDate "10/20/2021" ;
+	mf:hasUnits "51"^^xsd:int .
+
+<mf:PropertyAddress1> a mf:PropertyAddress ;
+	mf:hasCity "bethesda" ;
+	mf:hasState "md" ;
+	mf:hasStreetName "joyce" ;
+	mf:hasStreetNumber "500" ;
+	mf:hasZip "20814" ;
+	mf:hasLowIncomeUnits "3" ;
+	mf:hasVeryLowIncomeUnits "1" ;
+	mf:isSmallMultifamilyUnitMeetingLowIncome "no" ;
+	mf:hasMSA "" .
+
+<mf:Loan_1> a mf:Loan ;
+	mf:hasProperty mf:PropertyAddress_1 ;
+	mf:hasLender "David Smith" ;
+	mf:hasBorrower "Mr. Dean Holmes" ;
+	mf:hasKeyPrincipal "Mr. Derek Fischer" ;
+	mf:hasApprovalDecision "yes" ;
+	mf:hasApprovalDate "02/08/2022" ;
+	mf:hasApprovalNotes "This transaction is recommeded for approval based on it's properties." ;
+	mf:hasAssetManagementNotes "Rentals for this property have met expectations." ;
+	mf:hasAssetManagementNotesDate "03/10/2022" .
+</newPropertyContext>
+<otherPropertyContext>
+<mf:Property1> a mf:Property ;
+	mf:hasAddress <mf:PropertyAddress1> ;
+	mf:hasName "Hill Housing" ;
+	mf:hasOwner "Western Housing" ;
+	mf:hasPCR "4" ;
+	mf:hasPropertyInspectionAgency "insights inspection llc" ;
+	mf:hasPropertyInspector "Steve Davis" ;
+	mf:hasInspectionDate "08/14/2017" ;
+	mf:hasUnits "51"^^xsd:int .
+
+<mf:PropertyAddress1> a mf:PropertyAddress ;
+	mf:hasCity "bethesda" ;
+	mf:hasState "md" ;
+	mf:hasStreetName "joyce" ;
+	mf:hasStreetNumber "500" ;
+	mf:hasZip "20814" ;
+	mf:hasLowIncomeUnits "3" ;
+	mf:hasVeryLowIncomeUnits "1" ;
+	mf:isSmallMultifamilyUnitMeetingLowIncome "no" ;
+	mf:hasMSA "" .
+
+<mf:Loan_1> a mf:Loan ;
+	mf:hasProperty mf:PropertyAddress_1 ;
+	mf:hasLender "Patrick Miller" ;
+	mf:hasBorrower "Mr. Thomas Smith" ;
+	mf:hasKeyPrincipal "Mr. Andrew Harris" ;
+	mf:hasApprovalDecision "yes" ;
+	mf:hasApprovalDate "01/14/2018" ;
+	mf:hasApprovalNotes "This transaction is recommeded for approval based on it's properties." ;
+	mf:hasAssetManagementNotes "Rentals for this property have met expectations." ;
+	mf:hasAssetManagementNotesDate "01/20/2018" .
+</otherPropertyContext>
+<userQuestion>
+Have we seen this property before?
+</userQuestion>
+<modelResponse>
+The new property's address is 500 Joyce St., Bethesda, MD 20814. In the other properties, we see that one property also has the address of 500 Joyce St., Bethesda, MD 20814. As a result, we have seen this property before. The other property's approval decision was yes. The other property's approval date was 01/14/2018. The other property's approval notes were "This transaction is recommeded for approval based on it's properties.".
+</modelResponse>
+</example>
+<example>
+<newPropertyContext>
+<mf:Property1> a mf:Property ;
+	mf:hasAddress <mf:PropertyAddress1> ;
+	mf:hasName "Willow Housing" ;
+	mf:hasOwner "Dante Housing Foundation" ;
+	mf:hasPCR "3" ;
+	mf:hasPropertyInspectionAgency "urgent inspection llc" ;
+	mf:hasPropertyInspector "Jane Jones" ;
+	mf:hasInspectionDate "03/07/2020" ;
+	mf:hasUnits "20"^^xsd:int .
+    mf:hasGreenBuildingCertification "yes";
+    mf:hasGreenBuildingCertificationAgency "BREEAM USA";
+    mf:hasGreenBuildingUpgrades "Energy Start Appliances", "Energy efficient LED lighting";
+    mf:annualEnergyConsumptionReductionCommitment "25%";
+    mf:annualWaterConsumptionReductionCommitment "30%";
+
+<mf:PropertyAddress1> a mf:PropertyAddress ;
+	mf:hasCity "fredrick" ;
+	mf:hasState "md" ;
+	mf:hasStreetName "12th" ;
+	mf:hasStreetNumber "431" ;
+	mf:hasZip "22902" ;
+	mf:hasLowIncomeUnits "2" ;
+	mf:hasVeryLowIncomeUnits "1" ;
+	mf:isSmallMultifamilyUnitMeetingLowIncome "yes" ;
+	mf:hasMSA "" .
+
+<mf:Loan_1> a mf:Loan ;
+	mf:hasProperty mf:PropertyAddress_1 ;
+	mf:hasLender "Christian Bale" ;
+	mf:hasBorrower "Mr. Jared James" ;
+	mf:hasKeyPrincipal "Mr. David Ware" ;
+	mf:hasApprovalDecision "yes" ;
+	mf:hasApprovalDate "07/01/2020" ;
+	mf:hasApprovalNotes "This transaction is recommeded for approval based on it's properties." ;
+	mf:hasAssetManagementNotes "Rentals for this property have met expectations." ;
+	mf:hasAssetManagementNotesDate "08/05/2020" .
+</newPropertyContext>
+<otherPropertyContext>
+<mf:Property1> a mf:Property ;
+	mf:hasAddress <mf:PropertyAddress1> ;
+	mf:hasName "Edgeland Apartments" ;
+	mf:hasOwner "Montgumery Housing" ;
+	mf:hasPCR "3" ;
+	mf:hasPropertyInspectionAgency "innovation inspection llc" ;
+	mf:hasPropertyInspector "Anne Farrah" ;
+	mf:hasInspectionDate "10/20/2021" ;
+	mf:hasUnits "51"^^xsd:int .
+
+<mf:PropertyAddress1> a mf:PropertyAddress ;
+	mf:hasCity "bethesda" ;
+	mf:hasState "md" ;
+	mf:hasStreetName "joyce" ;
+	mf:hasStreetNumber "500" ;
+	mf:hasZip "20814" ;
+	mf:hasLowIncomeUnits "3" ;
+	mf:hasVeryLowIncomeUnits "1" ;
+	mf:isSmallMultifamilyUnitMeetingLowIncome "no" ;
+	mf:hasMSA "" .
+
+<mf:Loan_1> a mf:Loan ;
+	mf:hasProperty mf:PropertyAddress_1 ;
+	mf:hasLender "David Smith" ;
+	mf:hasBorrower "Mr. Dean Holmes" ;
+	mf:hasKeyPrincipal "Mr. Derek Fischer" ;
+	mf:hasApprovalDecision "yes" ;
+	mf:hasApprovalDate "02/08/2022" ;
+	mf:hasApprovalNotes "This transaction is recommeded for approval based on it's properties." ;
+	mf:hasAssetManagementNotes "Rentals for this property have met expectations." ;
+	mf:hasAssetManagementNotesDate "03/10/2022" .
+</otherPropertyContext>
+<userQuestion>
+Does this property qualify for a green loan?
+</userQuestion>
+<modelResponse>
+The property's green building certification is yes, and the green building certification agency is BREEAM USA. The green building certification is yes and the green building certification agency is one of the accepted green building certification agencies, so this property qualitifies as a green loan. This information is extracted from High-Performance Building Report.
+</modelResponse>
+</example>
+Now given the following information about a property and user question, answer the following user question:
+<newPropertyContext>
+<mf:Property1> a mf:Property ;
+	mf:hasAddress <mf:PropertyAddress1> ;
+	mf:hasName "Edgemoor Apartments" ;
+	mf:hasOwner "Wilfred Foundation" ;
+	mf:hasPCR 2" ;
+	mf:hasPropertyInspectionAgency "ace inspections llc" ;
+	mf:hasPropertyInspector "james martin" ;
+	mf:hasInspectionDate "03/05/2020" ;
+	mf:hasUnits "62"^^xsd:int .
+	mf:hasGreenBuildingCertification "yes";
+    mf:hasGreenBuildingCertificationAgency "Build It Green";
+    mf:hasGreenBuildingUpgrades "Boiler Upgrade";
+    mf:annualEnergyConsumptionReductionCommitment "25%";
+    mf:annualWaterConsumptionReductionCommitment "30%";
+
+<mf:PropertyAddress1> a mf:PropertyAddress ;
+	mf:hasCity "niceville" ;
+	mf:hasState "fl" ;
+	mf:hasStreetName "garden lane" ;
+	mf:hasStreetNumber "28",
+	  "30" ;
+	mf:hasZip "32578" ;
+	mf:hasLowIncomeUnits "12" ;
+	mf:hasVeryLowIncomeUnits "5" ;
+	mf:isSmallMultifamilyUnitMeetingLowIncome "yes" ;
+	mf:hasMSA "" .
+
+<mf:Loan_1> a mf:Loan ;
+	mf:hasProperty mf:PropertyAddress_1 ;
+	mf:hasLender "Jane Lyon" ;
+	mf:hasBorrower "Mrs. Sally Andrews" ;
+	mf:hasKeyPrincipal "Mrs. Sam I. Ames" ;
+	mf:hasApprovalDecision "yes" ;
+	mf:hasApprovalDate "05/04/2020" ;
+	mf:hasApprovalNotes "Based on the strength and experience of the sponsor including managing other seniors assets in the same market and state for many
+years as well as the financial improvement of the asset, this supplemental transaction is recommended for Loan Committee Approval." ;
+	mf:hasAssetManagementNotes "The property is maintained well and the rentals have met projected expectations." ;
+	mf:hasAssetManagementNotesDate "06/05/2020" .
+</newPropertyContext>
+<otherPropertyContext>
+<mf:Property1> a mf:Property ;
+	mf:hasAddress <mf:PropertyAddress1> ;
+	mf:hasName "College Courtyard Apartments & Raider Housing" ;
+	mf:hasOwner "Northwest Florida State College Foundation" ;
+	mf:hasPCR "4" ;
+	mf:hasPropertyInspectionAgency "florida property inspection llc" ;
+	mf:hasPropertyInspector "john d. goodhouse" ;
+	mf:hasInspectionDate "01/03/2018" ;
+	mf:hasUnits "62"^^xsd:int .
+
+<mf:PropertyAddress1> a mf:PropertyAddress ;
+	mf:hasCity "niceville" ;
+	mf:hasState "fl" ;
+	mf:hasStreetName "garden lane" ;
+	mf:hasStreetNumber "28",
+	  "30" ;
+	mf:hasZip "32578" ;
+	mf:hasLowIncomeUnits "12" ;
+	mf:hasVeryLowIncomeUnits "5" ;
+	mf:isSmallMultifamilyUnitMeetingLowIncome "yes" ;
+	mf:hasMSA "" .
+
+<mf:Loan_1> a mf:Loan ;
+	mf:hasProperty mf:PropertyAddress_1 ;
+	mf:hasLender "Johnny Lender" ;
+	mf:hasBorrower "Mr. Sam Millions" ;
+	mf:hasKeyPrincipal "Mrs. Sally Principal" ;
+	mf:hasApprovalDecision "yes" ;
+	mf:hasApprovalDate "01/04/2018" ;
+	mf:hasApprovalNotes "Based on the strength and experience of the sponsor including managing other seniors assets in the same market and state for many
+years as well as the financial improvement of the asset, this supplemental transaction is recommended for Loan Committee Approval." ;
+	mf:hasAssetManagementNotes "The property is maintained well and the rentals have met projected expectations." ;
+	mf:hasAssetManagementNotesDate "01/05/2021" .
+</otherPropertyContext>
+<userQuestion>
+Does this property qualify as a green loan?
+</userQuestion>

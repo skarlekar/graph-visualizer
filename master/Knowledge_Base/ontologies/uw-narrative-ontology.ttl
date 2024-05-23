@@ -1,0 +1,100 @@
+@prefix mf: <http://example.org/multifamily#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+mf:Lender a rdfs:Class ;
+    rdfs:label "Lender" ;
+    rdfs:subClassOf mf:NamedEntity .
+
+mf:LenderContact a rdfs:Class ;
+    rdfs:label "Lender Contact" ;
+    mf:hasEmail rdfs:Datatype ;
+    mf:hasName rdfs:Datatype ;
+    mf:hasPhone rdfs:Datatype ;
+    rdfs:subClassOf mf:NamedEntity .
+
+mf:LoanType a rdfs:Class ;
+    rdfs:label "Loan Type" ;
+    rdfs:subClassOf mf:NamedEntity .
+
+mf:ManagementAddress a rdfs:Class ;
+    rdfs:label "Management Address" ;
+    mf:hasCity rdfs:Datatype ;
+    mf:hasState rdfs:Datatype ;
+    mf:hasStreetAddress rdfs:Datatype ;
+    mf:hasZipCode rdfs:Datatype ;
+    rdfs:subClassOf mf:NamedEntity .
+
+mf:ManagementAgent a rdfs:Class ;
+    rdfs:label "Management Agent" ;
+    rdfs:subClassOf mf:NamedEntity .
+
+mf:ManagementContact a rdfs:Class ;
+    rdfs:label "Management Contact" ;
+    mf:hasEmail rdfs:Datatype ;
+    mf:hasName rdfs:Datatype ;
+    mf:hasPhone rdfs:Datatype ;
+    rdfs:subClassOf mf:NamedEntity .
+
+mf:NamedEntity a rdfs:Class ;
+    rdfs:label "Named Entity" .
+
+mf:NonRevenueUnits a rdfs:Class ;
+    rdfs:label "Non-Revenue Units" ;
+    rdfs:subClassOf mf:NamedEntity .
+
+mf:OwnerAddress a rdfs:Class ;
+    rdfs:label "Owner Address" ;
+    mf:hasCity rdfs:Datatype ;
+    mf:hasState rdfs:Datatype ;
+    mf:hasStreetAddress rdfs:Datatype ;
+    mf:hasZipCode rdfs:Datatype ;
+    rdfs:subClassOf mf:NamedEntity .
+
+mf:OwnerContact a rdfs:Class ;
+    rdfs:label "Owner Contact" ;
+    mf:hasEmail rdfs:Datatype ;
+    mf:hasName rdfs:Datatype ;
+    mf:hasPhone rdfs:Datatype ;
+    rdfs:subClassOf mf:NamedEntity .
+
+mf:OwnerEntity a rdfs:Class ;
+    rdfs:label "Owner Entity" ;
+    rdfs:subClassOf mf:NamedEntity .
+
+mf:Property a rdfs:Class ;
+    rdfs:label "Multifamily Property" ;
+    mf:hasLender mf:Lender ;
+    mf:hasLenderContact mf:LenderContact ;
+    mf:hasLoanType mf:LoanType ;
+    mf:hasManagementAddress mf:ManagementAddress ;
+    mf:hasManagementAgent mf:ManagementAgent ;
+    mf:hasManagementContact mf:ManagementContact ;
+    mf:hasNonRevenueUnits mf:NonRevenueUnits ;
+    mf:hasOwnerAddress mf:OwnerAddress ;
+    mf:hasOwnerContact mf:OwnerContact ;
+    mf:hasOwnerEntity mf:OwnerEntity ;
+    mf:hasPropertyAddress mf:PropertyAddress ;
+    mf:hasPropertyName mf:PropertyName ;
+    mf:hasTotalRentalUnits mf:TotalRentalUnits ;
+    mf:hasTotalUnits mf:TotalUnits ;
+    rdfs:subClassOf mf:NamedEntity .
+
+mf:PropertyAddress a rdfs:Class ;
+    rdfs:label "Property Address" ;
+    mf:hasCity rdfs:Datatype ;
+    mf:hasState rdfs:Datatype ;
+    mf:hasStreetAddress rdfs:Datatype ;
+    mf:hasZipCode rdfs:Datatype .
+
+mf:PropertyName a rdfs:Class ;
+    rdfs:label "Property Name" ;
+    rdfs:subClassOf mf:NamedEntity .
+
+mf:TotalRentalUnits a rdfs:Class ;
+    rdfs:label "Total Rental Units" ;
+    rdfs:subClassOf mf:NamedEntity .
+
+mf:TotalUnits a rdfs:Class ;
+    rdfs:label "Total Units" ;
+    rdfs:subClassOf mf:NamedEntity .
+

@@ -1,0 +1,4 @@
+Underwriting ID,Loan ID,Underwriting Date,Underwriting Result,Underwriter Comments
+6001,3001,1/2/2015,Approved,"Based on the strength and experience of the sponsor including managing other seniors assets in the same market and state for many years as well as the financial improvement of the asset, this supplemental transaction is recommended for Loan Committee Approval"
+6002,3003,2/3/2017,Denied,"Based on the property condition, this loan is denied"
+6003,3002,4/5/2008,Approved,"Based on the strength and experience of the sponsor including managing other seniors assets in the same market and state for manyyears as well as the financial improvement of the asset, this supplemental transaction is recommended for Loan Committee Approval"

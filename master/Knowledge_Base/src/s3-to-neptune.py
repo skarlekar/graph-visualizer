@@ -94,7 +94,8 @@ def convert_rdf_dict():
     neptune_data = {}
     links = []
     for s,p,o in result:
-        s,p,o=str(s).replace("mf:", ""),str(p),str(o)
+        s,p,o=str(s),str(p),str(o)
+        s = s.split(":", 1)[1] # removes prefixes, i.e. 'mf:', 'n1:'
         if s not in neptune_data:
             neptune_data[s]={}
         if "#" in o and p.split("#")[1] !="type":

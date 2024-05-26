@@ -9,3 +9,34 @@ Instructions: Use only the context provided in the <context> tags and ontology p
 </ontology>
 
 Task: Generate an RDF Graph using the provided context and ontology. Do not provide any explanation or description.
+
+Here are some examples of proper RDF Graphs:
+<example>
+@prefix mf: <http://example.org/multifamily#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<mf:SampleGardens> a mf:Property ;
+    mf:annualEnergyConsumptionReductionCommitment "25%" ;
+    mf:annualWaterConsumptionReductionCommitment "30%" ;
+    mf:hasApprovalDate "01/04/2018" ;
+    mf:hasApprovalDecision "yes" ;
+    mf:hasApprovalNotes "Based on the strength and experience of the sponsor including managing other seniors assets in the same market and state for many years as well as the financial improvement of the asset, this supplemental transaction is recommended for Loan Committee Approval." ;
+    mf:hasAssetManagementNotes "The property is maintained well and the rentals have met projected expectations." ;
+    mf:hasAssetManagementNotesDate "01/05/2021" ;
+    mf:hasGreenBuildingCertification "yes" ;
+    mf:hasGreenBuildingCertificationAgency "BREEAM USA" ;
+    mf:hasGreenBuildingUpgrades "Energy Start Appliances",
+        "Energy efficient LED lighting" ;
+    mf:hasInspectionDate "03/07/2020" ;
+    mf:hasPropertyAddress mf:SampleGardensAddress ;
+
+<mf:SampleGardensAddress> a mf:PropertyAddress ;
+    mf:hasCity "Mid City" ;
+    mf:hasLowIncomeUnits "20" ;
+    mf:hasMSA "" ;
+    mf:hasState "Ohio" ;
+    mf:hasStreetAddress "123 Sample Street" ;
+    mf:hasVeryLowIncomeUnits "10" ;
+    mf:hasZipCode "23445" ;
+    mf:isSmallMultifamilyUnitMeetingLowIncome "yes" .
+</example>

@@ -15,6 +15,12 @@ Here are some examples of proper RDF Graphs:
 @prefix mf: <http://example.org/multifamily#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
+<mf:OwnerAddress> a mf:OwnerAddress ;
+    mf:hasCity "Mid City" ;
+    mf:hasState "Ohio" ;
+    mf:hasStreetAddress "600 Main Street" ;
+    mf:hasZipCode "23445" .
+
 <mf:SampleGardens> a mf:Property ;
     mf:annualEnergyConsumptionReductionCommitment "25%" ;
     mf:annualWaterConsumptionReductionCommitment "30%" ;
@@ -28,7 +34,17 @@ Here are some examples of proper RDF Graphs:
     mf:hasGreenBuildingUpgrades "Energy Start Appliances",
         "Energy efficient LED lighting" ;
     mf:hasInspectionDate "03/07/2020" ;
+    mf:hasLenderContact mf:WallyLendor ;
+    mf:hasManagementAddress mf:OwnerAddress ;
+    mf:hasManagementContact mf:SusanDeveloper ;
+    mf:hasOwnerAddress mf:OwnerAddress ;
+    mf:hasOwnerContact mf:SusanDeveloper ;
+    mf:hasPCR "3" ;
     mf:hasPropertyAddress mf:SampleGardensAddress ;
+    mf:hasPropertyInspectionAgency "urgent inspection llc" ;
+    mf:hasPropertyInspector "Jane Jones" ;
+    mf:hasPropertyName "Sample Gardens" ;
+    mf:hasUnits "101"^^xsd:int .
 
 <mf:SampleGardensAddress> a mf:PropertyAddress ;
     mf:hasCity "Mid City" ;
@@ -39,4 +55,14 @@ Here are some examples of proper RDF Graphs:
     mf:hasVeryLowIncomeUnits "10" ;
     mf:hasZipCode "23445" ;
     mf:isSmallMultifamilyUnitMeetingLowIncome "yes" .
+
+<mf:SusanDeveloper> a mf:OwnerContact ;
+    mf:hasEmail "susan@NSPDP.com" ;
+    mf:hasName "Susan Developer" ;
+    mf:hasPhone "(215) 555-1212" .
+
+<mf:WallyLendor> a mf:LenderContact ;
+    mf:hasEmail "wlendor@MCB.com" ;
+    mf:hasName "Wally Lendor" ;
+    mf:hasPhone "(215) 555-1214" .
 </example>

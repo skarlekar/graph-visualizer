@@ -100,6 +100,8 @@ def convert_rdf_dict():
             neptune_data[s]={}
         if "#" in o and p.split("#")[1] !="type":
             links.append([s,p.split("#")[1],o.split("#")[1]])
+        if ":" in o and "http" not in o:
+            links.append([s,p.split("#")[1],o.split(":")[1]])
         else:
             neptune_data[s][p.split("#")[1]]=o if "#" not in o else o.split("#")[1]
     return neptune_data,links

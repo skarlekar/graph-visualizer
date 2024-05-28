@@ -23,12 +23,13 @@ def bulk_load_csv_to_neptune(file_name):
 def main(file_name):
     response = bulk_load_csv_to_neptune(file_name=file_name)
     if response.status_code == 200:
-        print("Bulk load completed.")
+        print(f"Bulk load for {file_name} completed.")
     else:
-        print(f"Request failed with status code {response.status_code}")
-
+        print(f"Request failed for {file_name} with status code {response.status_code}")
+"""
 if __name__ == '__main__':
-    file_names_to_upload = ['property_vertex.csv', 'loan_vertext.csv', 'property_loan_edges.csv']
+    file_names_to_upload = ['property_vertex.csv', 'loan_vertex.csv', 'property_loan_edges.csv']
     for file_name in file_names_to_upload:
         main(file_name=file_name)
     print("Completed")
+"""

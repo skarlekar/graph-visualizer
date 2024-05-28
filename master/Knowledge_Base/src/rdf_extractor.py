@@ -6,7 +6,7 @@ import boto3
 from langchain_community.document_loaders import AmazonTextractPDFLoader
 from langchain_community.chat_models import BedrockChat
 from langchain_core.prompts import PromptTemplate
-from rdflib import Graph
+from rdflib import Graph, Namespace
 import os
 
 
@@ -73,6 +73,7 @@ def get_rdf_graph(content, ontology):
 
 def create_and_combine_graphs(content_list, ontology):
     final_graph = Graph()
+    final_graph.bind('mf', Namespace("http://example.org/multifamily#"))
 
     for content in content_list:
         rdf_graph_string = get_rdf_graph(content, ontology)

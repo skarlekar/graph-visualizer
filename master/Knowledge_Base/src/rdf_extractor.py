@@ -76,9 +76,8 @@ def create_and_combine_graphs(content_list, ontology):
 
     for content in content_list:
         rdf_graph_string = get_rdf_graph(content, ontology)
-        rdf_graph_string = "@prefix rdfs: <http://www.w3.org/1999/02/22-rdf-syntax-ns2#> .\n" + rdf_graph_string
         graph = Graph()
-        graph.parse(data=rdf_graph_string, format="turtle")  # Parse each string as Turtle format
+        graph.parse(data=rdf_graph_string, format='ttl')  # Parse each string as Turtle format
         final_graph += graph  # Combine the graphs
 
     return final_graph

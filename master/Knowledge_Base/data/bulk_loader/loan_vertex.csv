@@ -1,0 +1,4 @@
+~id,Loan Lifecycle State:String,Loan Origination Date:String,IsGreenLoanEligible:String,IsAffordableHousingEligible:String,Loan Manutrity Date:String,Original Loan Amount:String,Loan UPB:String,Loan Prooduct ID:String,~label
+l-3001,Acquired,1001,2/2/2006,Y,N,,,,,Loan
+l-3002,Liquidated,1003,3/4/2007,N,N,,,,,Loan
+l-3003,Performing,1002,5/6/2008,Y,Y,,,,,Loan

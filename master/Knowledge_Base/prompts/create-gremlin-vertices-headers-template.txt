@@ -1,0 +1,8 @@
+Given the following SQL create table statements within the <sql> tags, create a list of headers for loading Apache TinkerPop Gremlin data using a CSV. Include Gremlin Data Types within the headers. The primary key for each table should become the ~id header. Do not include foreign keys.
+Return the results as JSON in the following format:
+[{"table_name":,"mapped_headers":[{"sql_attribute_name":,"gremlin_header":]}]
+Where the sql attribute name to gremlin headers are defined in the mapped_headers list for a given table.
+Only include the JSON in the response, and nothing else.
+<sql>
+{{ddl}}
+</sql>

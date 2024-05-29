@@ -39,6 +39,18 @@ def main():
     filtered_tables = {}
     for k,v in name_table.items():
         filtered_tables[k]=v[expected_columns[k]]
+
+    column_name_mapping = {}
+    for table in vertices_mapping:
+        column_name_mapping[table["table_name"]]={x["sql_attribute_name"]:x["gremlin_header"] for x in table["mapped_headers"]}
+
+    for k,v in filtered_tables.items():
+        filtered_tables[k]=v.rename(columns=column_name_mapping[k])
+
+    for k,v in filtered_tables.items():
+        v["~id"]=k+"-"+v["~id"].astype(str)
+
     print(filtered_tables["Loan"])
+    
 if __name__ == '__main__':
     main()

@@ -1,4 +1,4 @@
-Property ID,Property Name,Property Address,Number of Units,Property Built Date
+property_id,property_name,property_address,number_of_units,property_build_date
 1001,College Courtyard Apartments & Raider Housing,"28-30 Garden Lane, Niceville, FL 32578",62,3/1/2000
 1002,Sample Gardens,"123 Sample Street, Ashley, OH 43003",101,1/1/1995
 1003,Breeze Apartments,"111 Miami Street, Raleigh , NC 27513",75,2/2/2002

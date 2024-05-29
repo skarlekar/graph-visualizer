@@ -1,5 +1,6 @@
 import pandas as pd
 import boto3
+from jinja2 import Environment, FileSystemLoader
 from langchain_community.chat_models import BedrockChat
 import json
 

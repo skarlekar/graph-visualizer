@@ -4,16 +4,21 @@ Return the results as JSON in the following format:
 Where the sql attribute name to gremlin headers are defined in the mapped_headers list for a given table.
 Only include the JSON in the response, and nothing else.
 <sql>
-CREATE TABLE "Addresses" (
-	"ID" INT, PRIMARY KEY("ID"), 
-	"city" CHAR(10), 
-	"state" CHAR(2)
+CREATE TABLE "Property" (
+	"property_id" INT, PRIMARY KEY("property_id"), 
+	"property_name" CHAR(30), 
+	"property_address" CHAR(50), 
+	"number_of_units" INT,
+	"property_build_date" DATE
 )
 
-CREATE TABLE "People" (
-	"ID" INT, PRIMARY KEY("ID"), 
-	"fname" CHAR(10), 
-	"addr" INT, 
-	FOREIGN KEY("addr") REFERENCES "Addresses"("ID")
+CREATE TABLE "Inspection" (
+	"inspection_id" INT, PRIMARY KEY("inspection_id"), 
+	"inspection_date" DATE,
+	"inspection_score" INT,
+	"inspector_name" CHAR(50),
+	"inspector_comments" CHAR(100),
+	"property_id" INT,
+	FOREIGN KEY("property_id") REFERENCES "Property"("property_id")
 )
 </sql>

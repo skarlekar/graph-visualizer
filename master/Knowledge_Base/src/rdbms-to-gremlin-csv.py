@@ -3,6 +3,8 @@ import boto3
 from jinja2 import Environment, FileSystemLoader
 from langchain_community.chat_models import BedrockChat
 import json
+import os
+from io import StringIO
 
 def connect_to_bedrock():
     boto_session = boto3.Session()
@@ -18,26 +20,26 @@ def main():
     template_dir = "../prompts/"
     ddl="""
     CREATE TABLE "Property" (
-	"property_id" INT, PRIMARY KEY("property_id"), 
-	"property_name" CHAR(30), 
-	"property_address" CHAR(50), 
-	"number_of_units" INT,
-	"property_build_date" DATE
+        "property_id" INT, PRIMARY KEY("property_id"),
+        "property_name" CHAR(30),
+        "property_address" CHAR(50),
+        "number_of_units" INT,
+        "property_build_date" DATE
     )
-    
+
     CREATE TABLE "Inspection" (
-    	"inspection_id" INT, PRIMARY KEY("inspection_id"), 
-    	"inspection_date" DATE,
-    	"inspection_score" INT,
-    	"inspector_name" CHAR(50),
-    	"inspector_comments" CHAR(100),
-    	"property_id" INT,
-    	FOREIGN KEY("property_id") REFERENCES "Property"("property_id")
+        "inspection_id" INT, PRIMARY KEY("inspection_id"),
+        "inspection_date" DATE,
+        "inspection_score" INT,
+        "inspector_name" CHAR(50),
+        "inspector_comments" CHAR(100),
+        "property_id" INT,
+        FOREIGN KEY("property_id") REFERENCES "Property"("property_id")
     )
-    
+
     CREATE TABLE "Loan" (
-    	"loan_id" INT, PRIMARY KEY("loan_id"), 
-    	"loan_lifecycle_state" CHAR(50),
+        "loan_id" INT, PRIMARY KEY("loan_id"),
+        "loan_lifecycle_state" CHAR(50),
          "loan_origination_date" DATE,
          "IsGreenLoanEligible" CHAR(10),
          "isAffordableHousingEligible" CHAR(10),
@@ -45,23 +47,23 @@ def main():
          "original_loan_amount" INT,
          "loan_upb" INT,
          "loan_proodct_id" INT,
-    	"property_id" INT,
-    	FOREIGN KEY("property_id") REFERENCES "Property"("property_id")
+        "property_id" INT,
+        FOREIGN KEY("property_id") REFERENCES "Property"("property_id")
     )
-    
+
     CREATE TABLE "Underwriting" (
-    	"underwriting_id" INT, PRIMARY KEY("underwriting_id"), 
+        "underwriting_id" INT, PRIMARY KEY("underwriting_id"),
          "underwriting_date" DATE,
          "underwriting_result" CHAR(30),
-    	"underwriter_comments" CHAR(50),
-    	"loan_id" INT,
-    	FOREIGN KEY("loan_id") REFERENCES "Loan"("loan_id")
+        "underwriter_comments" CHAR(50),
+        "loan_id" INT,
+        FOREIGN KEY("loan_id") REFERENCES "Loan"("loan_id")
     )
     """
     environment=Environment(loader=FileSystemLoader(template_dir))
-    template=environment.get_template("create-gremlin-vertices-header-template.txt")
+    template=environment.get_template("create-gremlin-vertices-headers-template.txt")
     vertices_prompt=template.render(ddl=ddl)
-    template=environment.get_template("create-gremlin-edges-header-template.txt")
+    template=environment.get_template("create-gremlin-edges-headers-template.txt")
     edges_prompt=template.render(ddl=ddl)
 
     table_locations={
@@ -74,7 +76,7 @@ def main():
     for k,v in table_locations.items():
         name_table[k]=pd.read_csv(v)
     llm = connect_to_bedrock()
-    
+
     # Creating Gremlin vertices csv files
     response = llm.invoke(input=vertices_prompt)
     with open("test-resp.json","w+") as f:
@@ -99,8 +101,6 @@ def main():
     for k,v in filtered_tables.items():
         v["~id"]=k+v["~id"].astype(str)
 
-    print(filtered_tables["Loan"])
-
     # Creating Gremlin edges csv files
     response = llm.invoke(input=edges_prompt)
     edges_mapping = json.loads(response.content)
@@ -113,18 +113,30 @@ def main():
 
     for i in range(len(edges_mapping)):
         e=edges_mapping[i]
-        print(e)
         temp_table = edges_tables[i]
         rename_columns = {e["from"]["primary_key"]:"~from",e["from"]["foreign_key"]:"~to"}
         temp_table=temp_table.rename(columns=rename_columns)
-        print(temp_table)
         temp_table=temp_table[["~from","~to"]]
         temp_table["~from"]=e["from"]["table_name"]+temp_table["~from"].astype(str)
         temp_table["~to"]=e["to"]["table_name"]+temp_table["~to"].astype(str)
         temp_table["~id"]=temp_table["~from"].astype(str)+"-"+temp_table["~to"].astype(str)
         temp_table["~label"]=e["~label"]
         edges_tables[i]=temp_table
-    print(edges_tables[0])
-    
+
+    # write to s3
+    s3_bucket_name = os.environ["rdbms-bucket-name"]
+    s3_resource = boto3.resource("s3")
+    for k,v in filtered_tables.items():
+        csv_buffer=StringIO()
+        v.to_csv(csv_buffer,index=False)
+        s3_resource.Object(s3_bucket_name,f"{k}_vertices.csv").put(Body=csv_buffer.getvalue())
+
+    for i in range(len(edges_mapping)):
+        e=edges_mapping[i]
+        output_name = e["from"]["table_name"]+"_"+e["to"]["table_name"]+"_edges.csv"
+        csv_buffer=StringIO()
+        edges_tables[i].to_csv(csv_buffer,index=False)
+        s3_resource.Object(s3_bucket_name,output_name).put(Body=csv_buffer.getvalue())
+
 if __name__ == '__main__':
     main()

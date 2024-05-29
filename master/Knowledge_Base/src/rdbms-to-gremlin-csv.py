@@ -15,16 +15,25 @@ def connect_to_bedrock():
 
 def main():
     table_locations={
-            "Loan":"../data/structured-data/Loan-data.csv",
-            "Property":"../data/structured-data/Property-data.csv",
-            "Underwriting":"../data/structured-data/Underwriting-data.csv",
-            "Inspection":"../data/structured-data/Inspection-data.csv"
+            "Loan":"../data/structured_data/Loan-data.csv",
+            "Property":"../data/structured_data/Property-data.csv",
+            "Underwriting":"../data/structured_data/Underwriting-data.csv",
+            "Inspection":"../data/structured_data/Inspection-data.csv"
     }
+    name_table = {}
+    for k,v in table_locations.items():
+        name_table[k]=pd.read_csv(v)
     llm = connect_to_bedrock()
     vertices_prompt = open("../prompts/gremlin-vertices-headers-from-sql","r").read()
     response = llm.invoke(input=vertices_prompt)
-    vertices_mapping = json.dumps(response.content)
-    print(vertices_mapping)
+    vertices_mapping = json.loads(response.content)
+    expected_columns={}
+    for table in vertices_mapping:
+        expected_columns[table["table_name"]]=[x["sql_attribute_name"] for x in table["mapped_headers"]]
 
+    filtered_tables = {}
+    for k,v in name_table.items():
+        filtered_tables[k]=v[expected_columns[k]]
+    print(filtered_tables["Loan"])
 if __name__ == '__main__':
     main()

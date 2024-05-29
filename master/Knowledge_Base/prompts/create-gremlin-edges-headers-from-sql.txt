@@ -1,6 +1,7 @@
 Given the following SQL create table statements within the <sql> tags, return information about relationships between tables as a JSON using primary and foreign keys defined in the sql statement. Deduce a descriptor for the relationship between the tables and add as a ~label attribute in the JSON. For example, for edges linking a student table to a class table, the ~label would be "enrolledIn".
 Return the results as JSON in the following format:
-      [{"from":{"table_name":,"foreign_key":,},"to":{"table_name":,"primary_key":,},"~label":}]
+[{"from":{"table_name":,"foreign_key":,"primary_key":},"to":{"table_name":,"primary_key":,},"~label":}]
+Include the primary key of the respective table under the "primary_key" attribute.
 Only include the JSON in the response, and nothing else.
 <sql>
 CREATE TABLE "Property" (

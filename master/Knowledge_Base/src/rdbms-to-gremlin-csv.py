@@ -59,9 +59,9 @@ def main():
     )
     """
     environment=Environment(loader=FileSystemLoader(template_dir))
-    template=environment.get_template("create-gremlin-vertices-template.txt")
+    template=environment.get_template("create-gremlin-vertices-header-template.txt")
     vertices_prompt=template.render(ddl=ddl)
-    template=environment.get_template("create-gremlin-edges-template.txt")
+    template=environment.get_template("create-gremlin-edges-header-template.txt")
     edges_prompt=template.render(ddl=ddl)
 
     table_locations={
@@ -76,11 +76,9 @@ def main():
     llm = connect_to_bedrock()
     
     # Creating Gremlin vertices csv files
-    '''
     response = llm.invoke(input=vertices_prompt)
     with open("test-resp.json","w+") as f:
         json.dump(json.loads(response.content),f)
-    '''
     vertices_mapping=json.loads(open("test-resp.json","r").read())
     #vertices_mapping = json.loads(response.content)
     expected_columns={}
@@ -104,12 +102,10 @@ def main():
     print(filtered_tables["Loan"])
 
     # Creating Gremlin edges csv files
-    '''
     response = llm.invoke(input=edges_prompt)
     edges_mapping = json.loads(response.content)
     with open("test-edges-resp.json","w+") as f:
         json.dump(json.loads(response.content),f)
-    '''
     edges_mapping=json.loads(open("test-edges-resp.json","r").read())
     edges_tables = []
     for f in [x["from"]["table_name"] for x in edges_mapping]:

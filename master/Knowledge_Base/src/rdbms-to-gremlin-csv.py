@@ -124,7 +124,7 @@ def main():
         edges_tables[i]=temp_table
 
     # write to s3
-    s3_bucket_name = os.environ["rdbms-bucket-name"]
+    s3_bucket_name = os.environ["RDBMS_BUCKET_NAME"]
     s3_resource = boto3.resource("s3")
     for k,v in filtered_tables.items():
         csv_buffer=StringIO()

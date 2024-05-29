@@ -1,38 +1,47 @@
-Given the following SQL create table statements within the <sql> tags, create a list of headers for loading Apache TinkerPop Gremlin data using a CSV. Include Gremlin Data Types within the headers. The primary key for each table should become the ~id header. Do not include foreign keys.
+Given the following SQL create table statements within the <sql> tags, create a list of headers for loading Apache TinkerPop Gremlin data using a CSV. Include Gremlin Data Types as well as the property name within the headers. Only include a single colon within the header in the format {data type}:{property name}. Do not include the data type if the header is "~id". The primary key for each table should become the ~id header. Do not include foreign keys.
 Return the results as JSON in the following format:
 [{"table_name":,"mapped_headers":[{"sql_attribute_name":,"gremlin_header":]}]
 Where the sql attribute name to gremlin headers are defined in the mapped_headers list for a given table.
 Only include the JSON in the response, and nothing else.
 <sql>
-CREATE TABLE "Property" (
+    CREATE TABLE "Property" (
 	"property_id" INT, PRIMARY KEY("property_id"), 
 	"property_name" CHAR(30), 
 	"property_address" CHAR(50), 
 	"number_of_units" INT,
 	"property_build_date" DATE
-)
-
-CREATE TABLE "Inspection" (
-	"inspection_id" INT, PRIMARY KEY("inspection_id"), 
-	"inspection_date" DATE,
-	"inspection_score" INT,
-	"inspector_name" CHAR(50),
-	"inspector_comments" CHAR(100),
-	"property_id" INT,
-	FOREIGN KEY("property_id") REFERENCES "Property"("property_id")
-)
-
-CREATE TABLE "Loan" (
-	"loan_id" INT, PRIMARY KEY("loan_id"), 
-	"loan_lifecycle_state" CHAR(50),
-	"property_id" INT,
-	FOREIGN KEY("property_id") REFERENCES "Property"("property_id")
-)
-
-CREATE TABLE "Underwriting" (
-	"underwriting_id" INT, PRIMARY KEY("underwriting_id"), 
-	"underwriter_comments" CHAR(50),
-	"loan_id" INT,
-	FOREIGN KEY("loan_id") REFERENCES "Loan"("loan_id")
-)
+    )
+    
+    CREATE TABLE "Inspection" (
+    	"inspection_id" INT, PRIMARY KEY("inspection_id"), 
+    	"inspection_date" DATE,
+    	"inspection_score" INT,
+    	"inspector_name" CHAR(50),
+    	"inspector_comments" CHAR(100),
+    	"property_id" INT,
+    	FOREIGN KEY("property_id") REFERENCES "Property"("property_id")
+    )
+    
+    CREATE TABLE "Loan" (
+    	"loan_id" INT, PRIMARY KEY("loan_id"), 
+    	"loan_lifecycle_state" CHAR(50),
+         "loan_origination_date" DATE,
+         "IsGreenLoanEligible" CHAR(10),
+         "isAffordableHousingEligible" CHAR(10),
+         "loan_maturity_date" DATE,
+         "original_loan_amount" INT,
+         "loan_upb" INT,
+         "loan_proodct_id" INT,
+    	"property_id" INT,
+    	FOREIGN KEY("property_id") REFERENCES "Property"("property_id")
+    )
+    
+    CREATE TABLE "Underwriting" (
+    	"underwriting_id" INT, PRIMARY KEY("underwriting_id"), 
+         "underwriting_date" DATE,
+         "underwriting_result" CHAR(30),
+    	"underwriter_comments" CHAR(50),
+    	"loan_id" INT,
+    	FOREIGN KEY("loan_id") REFERENCES "Loan"("loan_id")
+    )
 </sql>

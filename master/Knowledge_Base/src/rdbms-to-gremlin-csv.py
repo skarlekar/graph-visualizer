@@ -71,7 +71,7 @@ def main():
         e=edges_mapping[i]
         print(e)
         temp_table = edges_tables[i]
-        rename_columns = {e["from"]["foreign_key"]:"~from",e["to"]["primary_key"]:"~to"}
+        rename_columns = {e["from"]["primary_key"]:"~from",e["from"]["foreign_key"]:"~to"}
         temp_table=temp_table.rename(columns=rename_columns)
         print(temp_table)
         temp_table=temp_table[["~from","~to"]]

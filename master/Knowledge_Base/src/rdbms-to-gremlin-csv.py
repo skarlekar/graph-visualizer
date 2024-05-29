@@ -25,8 +25,13 @@ def main():
         name_table[k]=pd.read_csv(v)
     llm = connect_to_bedrock()
     vertices_prompt = open("../prompts/gremlin-vertices-headers-from-sql","r").read()
+    '''
     response = llm.invoke(input=vertices_prompt)
-    vertices_mapping = json.loads(response.content)
+    with open("test-resp.json","w+") as f:
+        json.dump(json.loads(response.content),f)
+    '''
+    vertices_mapping=json.loads(open("test-resp.json","r").read())
+    #vertices_mapping = json.loads(response.content)
     expected_columns={}
     for table in vertices_mapping:
         expected_columns[table["table_name"]]=[x["sql_attribute_name"] for x in table["mapped_headers"]]

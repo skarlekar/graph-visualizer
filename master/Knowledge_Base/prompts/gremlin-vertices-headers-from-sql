@@ -24,7 +24,7 @@ CREATE TABLE "Inspection" (
 
 CREATE TABLE "Loan" (
 	"loan_id" INT, PRIMARY KEY("loan_id"), 
-	"loan_state" CHAR(50),
+	"loan_lifecycle_state" CHAR(50),
 	"property_id" INT,
 	FOREIGN KEY("property_id") REFERENCES "Property"("property_id")
 )

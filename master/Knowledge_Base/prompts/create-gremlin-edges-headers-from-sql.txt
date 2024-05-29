@@ -20,4 +20,18 @@ CREATE TABLE "Inspection" (
 	"property_id" INT,
 	FOREIGN KEY("property_id") REFERENCES "Property"("property_id")
 )
+
+CREATE TABLE "Loan" (
+	"loan_id" INT, PRIMARY KEY("loan_id"), 
+	"loan_state" CHAR(50),
+	"property_id" INT,
+	FOREIGN KEY("property_id") REFERENCES "Property"("property_id")
+)
+
+CREATE TABLE "Underwriting" (
+	"underwriting_id" INT, PRIMARY KEY("underwriting_id"), 
+	"underwriter_comments" CHAR(50),
+	"loan_id" INT,
+	FOREIGN KEY("loan_id") REFERENCES "Loan"("loan_id")
+)
 </sql>

@@ -24,6 +24,8 @@ def main():
     for k,v in table_locations.items():
         name_table[k]=pd.read_csv(v)
     llm = connect_to_bedrock()
+    
+    # Creating Gremlin vertices csv files
     vertices_prompt = open("../prompts/gremlin-vertices-headers-from-sql","r").read()
     '''
     response = llm.invoke(input=vertices_prompt)
@@ -48,9 +50,37 @@ def main():
         filtered_tables[k]=v.rename(columns=column_name_mapping[k])
 
     for k,v in filtered_tables.items():
-        v["~id"]=k+"-"+v["~id"].astype(str)
+        v["~id"]=k+v["~id"].astype(str)
 
     print(filtered_tables["Loan"])
+
+    # Creating Gremlin edges csv files
+    edges_prompt = open("../prompts/create-gremlin-edges-headers-from-sql.txt","r").read()
+    '''
+    response = llm.invoke(input=edges_prompt)
+    edges_mapping = json.loads(response.content)
+    with open("test-edges-resp.json","w+") as f:
+        json.dump(json.loads(response.content),f)
+    '''
+    edges_mapping=json.loads(open("test-edges-resp.json","r").read())
+    edges_tables = []
+    for f in [x["from"]["table_name"] for x in edges_mapping]:
+        edges_tables.append(name_table[f])
+
+    for i in range(len(edges_mapping)):
+        e=edges_mapping[i]
+        print(e)
+        temp_table = edges_tables[i]
+        rename_columns = {e["from"]["foreign_key"]:"~from",e["to"]["primary_key"]:"~to"}
+        temp_table=temp_table.rename(columns=rename_columns)
+        print(temp_table)
+        temp_table=temp_table[["~from","~to"]]
+        temp_table["~from"]=e["from"]["table_name"]+temp_table["~from"].astype(str)
+        temp_table["~to"]=e["to"]["table_name"]+temp_table["~to"].astype(str)
+        temp_table["~id"]=temp_table["~from"].astype(str)+"-"+temp_table["~to"].astype(str)
+        temp_table["~label"]=e["~label"]
+        edges_tables[i]=temp_table
+    print(edges_tables[0])
     
 if __name__ == '__main__':
     main()

@@ -14,6 +14,55 @@ def connect_to_bedrock():
     return llm
 
 def main():
+    template_dir = "../prompts/"
+    ddl="""
+    CREATE TABLE "Property" (
+	"property_id" INT, PRIMARY KEY("property_id"), 
+	"property_name" CHAR(30), 
+	"property_address" CHAR(50), 
+	"number_of_units" INT,
+	"property_build_date" DATE
+    )
+    
+    CREATE TABLE "Inspection" (
+    	"inspection_id" INT, PRIMARY KEY("inspection_id"), 
+    	"inspection_date" DATE,
+    	"inspection_score" INT,
+    	"inspector_name" CHAR(50),
+    	"inspector_comments" CHAR(100),
+    	"property_id" INT,
+    	FOREIGN KEY("property_id") REFERENCES "Property"("property_id")
+    )
+    
+    CREATE TABLE "Loan" (
+    	"loan_id" INT, PRIMARY KEY("loan_id"), 
+    	"loan_lifecycle_state" CHAR(50),
+         "loan_origination_date" DATE,
+         "IsGreenLoanEligible" CHAR(10),
+         "isAffordableHousingEligible" CHAR(10),
+         "loan_maturity_date" DATE,
+         "original_loan_amount" INT,
+         "loan_upb" INT,
+         "loan_proodct_id" INT,
+    	"property_id" INT,
+    	FOREIGN KEY("property_id") REFERENCES "Property"("property_id")
+    )
+    
+    CREATE TABLE "Underwriting" (
+    	"underwriting_id" INT, PRIMARY KEY("underwriting_id"), 
+         "underwriting_date" DATE,
+         "underwriting_result" CHAR(30),
+    	"underwriter_comments" CHAR(50),
+    	"loan_id" INT,
+    	FOREIGN KEY("loan_id") REFERENCES "Loan"("loan_id")
+    )
+    """
+    environment=Environment(loader=FileSystemLoader(template_dir))
+    template=environment.get_template("create-gremlin-vertices-template.txt")
+    vertices_prompt=template.render(ddl=ddl)
+    template=environment.get_template("create-gremlin-edges-template.txt")
+    edges_prompt=template.render(ddl=ddl)
+
     table_locations={
             "Loan":"../data/structured_data/Loan-data.csv",
             "Property":"../data/structured_data/Property-data.csv",
@@ -26,7 +75,6 @@ def main():
     llm = connect_to_bedrock()
     
     # Creating Gremlin vertices csv files
-    vertices_prompt = open("../prompts/gremlin-vertices-headers-from-sql","r").read()
     '''
     response = llm.invoke(input=vertices_prompt)
     with open("test-resp.json","w+") as f:
@@ -55,7 +103,6 @@ def main():
     print(filtered_tables["Loan"])
 
     # Creating Gremlin edges csv files
-    edges_prompt = open("../prompts/create-gremlin-edges-headers-from-sql.txt","r").read()
     '''
     response = llm.invoke(input=edges_prompt)
     edges_mapping = json.loads(response.content)

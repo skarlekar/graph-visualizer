@@ -1,4 +1,4 @@
-Loan ID,Loan Lifecycle State,Property ID,Loan Origination Date,IsGreenLoanEligible,isAffordableHousingEligible,Loan Maturity Date,Original Loan Amount,Loan UPB,Loan Proodct ID
+loan_id,loan_lifecycle_state,property_id,loan_origination_date,IsGreenLoanEligible,isAffordableHousingEligible,loan_maturity_date,original_loan_amount,loan_upb,loan_proodct_id
 3001,Acquired,1001,2/2/2006,Y,N,,,,
 3002,Liquidated,1003,3/4/2007,N,N,,,,
 3003,Performing,1002,5/6/2008,Y,Y,,,,

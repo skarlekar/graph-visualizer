@@ -1,4 +1,4 @@
-inspection_id,property_id,inspection_date,inspection_score,inspector_name,inspector_columns
+inspection_id,property_id,inspection_date,inspection_score,inspector_name,inspector_comments
 8001,1001,3/3/2002,4,Mary Shelter,"Property conditions meet or exceed requirements"
 8002,1002,4/4/2004,2,John Goodhouse,"Property conditions do not meet requirements"
 8003,1003,5/5/2005,4,Mary Shelter,"Property conditions meet or exceed requirements"

@@ -101,6 +101,12 @@ def main():
     for k,v in filtered_tables.items():
         v["~id"]=k+v["~id"].astype(str)
 
+    for k,v in filtered_tables.items():
+        for c in v.columns:
+            if ":Date" in c:
+                v[c]=pd.to_datetime(v[c])
+                v[c]=v[c].dt.strftime("%Y-%m-%d")
+
     # Creating Gremlin edges csv files
     response = llm.invoke(input=edges_prompt)
     edges_mapping = json.loads(response.content)
@@ -127,6 +133,8 @@ def main():
     s3_bucket_name = os.environ["RDBMS_BUCKET_NAME"]
     s3_resource = boto3.resource("s3")
     for k,v in filtered_tables.items():
+        print(k)
+        print(v)
         csv_buffer=StringIO()
         v.to_csv(csv_buffer,index=False)
         s3_resource.Object(s3_bucket_name,f"{k}_vertices.csv").put(Body=csv_buffer.getvalue())
@@ -134,6 +142,8 @@ def main():
     for i in range(len(edges_mapping)):
         e=edges_mapping[i]
         output_name = e["from"]["table_name"]+"_"+e["to"]["table_name"]+"_edges.csv"
+        print(output_name)
+        print(edges_tables[i])
         csv_buffer=StringIO()
         edges_tables[i].to_csv(csv_buffer,index=False)
         s3_resource.Object(s3_bucket_name,output_name).put(Body=csv_buffer.getvalue())

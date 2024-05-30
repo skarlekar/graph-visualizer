@@ -10,7 +10,7 @@ def bulk_load_csv_to_neptune(file_name):
     url = f"https://{host}:{port}/loader"
 
     payload = {
-        "source": f"s3://kg-input-data/{file_name}",
+        "source": f"s3://kg-rdbms-data/{file_name}",
         "format": "csv",
         "iamRoleArn": iamRoleArn,
         "region": region,
@@ -23,7 +23,10 @@ def bulk_load_csv_to_neptune(file_name):
 def main(file_name):
     response = bulk_load_csv_to_neptune(file_name=file_name)
     if response.status_code == 200:
-        print(f"Bulk load for {file_name} completed.")
+        #print(f"Bulk load for {file_name} completed.")
+        loadId = response.json()['Payload']['loadId']
+        status = requests.get(f'https://{os.getenv('NEPTUNE_HOST')}:8182/loader/{loadId}?details=true&errors=true')
+        print(status.json())
     else:
         print(f"Request failed for {file_name} with status code {response.status_code}")
 """

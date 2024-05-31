@@ -1,0 +1,39 @@
+Using following RDF data:
+@prefix mf: <http://example.org/multifamily#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+<mf:SampleGardens> a mf:Property ;
+    mf:annualEnergyConsumptionReductionCommitment "25%" ;
+    mf:annualWaterConsumptionReductionCommitment "30%" ;
+    mf:hasApprovalDate "01/04/2018" ;
+    mf:hasApprovalDecision "yes" ;
+    mf:hasApprovalNotes "Based on the strength and experience of the sponsor including managing other seniors assets in the same market and state for many years as well as the financial improvement of the asset, this supplemental transaction is recommended for Loan Committee Approval." ;
+    mf:hasAssetManagementNotes "The property is maintained well and the rentals have met projected expectations." ;
+    mf:hasAssetManagementNotesDate "01/05/2021" ;
+    mf:hasGreenBuildingCertification "yes" ;
+    mf:hasGreenBuildingCertificationAgency "BREEAM USA" ;
+    mf:hasGreenBuildingUpgrades "Energy Start Appliances",
+        "Energy efficient LED lighting" ;
+    mf:hasInspectionDate "03/07/2020" ;
+    mf:hasNonRevenueUnits mf:1NonRevenueUnit ;
+    mf:hasPCR "3" ;
+    mf:hasPropertyInspectionAgency "urgent inspection llc" ;
+    mf:hasPropertyInspector "Jane Jones" ;
+    mf:hasPropertyName "Sample Gardens" ;
+    mf:hasTotalRentalUnits mf:100RentalUnits ;
+    mf:hasOwnerContact mf:SusanDeveloper ;
+    mf:hasTotalUnits mf:101TotalUnits ;
+    mf:hasUnits "101"^^xsd:int .
+
+<mf:SusanDeveloper> a mf:OwnerContact ;
+    mf:hasEmail "susan@NSPDP.com" ;
+    mf:hasName "Susan Developer" ;
+    mf:hasPhone "(215) 555-1212" .
+    
+And schema of neptune graph:
+        Node properties are the following:
+        [{'properties': [{'property': 'IsGreenLoanEligible', 'type': 'STRING'}, {'property': 'isAffordableHousingEligible', 'type': 'STRING'}, {'property': 'loan_origination_date', 'type': 'STRING'}, {'property': 'loan_lifecycle_state', 'type': 'STRING'}], 'labels': 'Loan'}, {'properties': [{'property': 'underwriter_comments', 'type': 'STRING'}, {'property': 'underwriting_result', 'type': 'STRING'}, {'property': 'underwriting_date', 'type': 'STRING'}], 'labels': 'Underwriting'}, {'properties': [{'property': 'inspector_name', 'type': 'STRING'}, {'property': 'inspection_date', 'type': 'STRING'}, {'property': 'inspection_score', 'type': 'INTEGER'}, {'property': 'inspector_comments', 'type': 'STRING'}], 'labels': 'Inspection'}, {'properties': [{'property': 'property_name', 'type': 'STRING'}, {'property': 'property_build_date', 'type': 'STRING'}, {'property': 'property_address', 'type': 'STRING'}, {'property': 'number_of_units', 'type': 'INTEGER'}], 'labels': 'Property'}]
+        Relationship properties are the following:
+        [{'type': 'inspectedAt', 'properties': []}, {'type': 'underwrittenFor', 'properties': []}, {'type': 'securedBy', 'properties': []}]
+        The relationships are the following:
+        ['(:`Inspection`)-[:`inspectedAt`]->(:`Property`)', '(:`Underwriting`)-[:`underwrittenFor`]->(:`Loan`)', '(:`Loan`)-[:`securedBy`]->(:`Property`)']
+Create cypher queries to insert data from RDF into neptune database. The property node should merge into the property node with matching name. All connecting nodes to this node should have their properties updated if properties are referenced in the RDF. If other nodes are not referenced in the RDF, do not perform updates on those nodes. Only return the cypher query.

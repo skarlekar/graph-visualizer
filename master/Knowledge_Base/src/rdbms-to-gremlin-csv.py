@@ -24,17 +24,14 @@ def main():
         "property_name" CHAR(30),
         "property_address" CHAR(50),
         "number_of_units" INT,
-        "property_build_date" DATE
-    )
-
-    CREATE TABLE "Inspection" (
-        "inspection_id" INT, PRIMARY KEY("inspection_id"),
+        "property_build_date" DATE,
         "inspection_date" DATE,
-        "inspection_score" INT,
+        "inspection_score" CHAR(30),
         "inspector_name" CHAR(50),
+        "underwriting_date" DATE,
+        "underwriting_result" CHAR(30),
+        "underwriter_comments" CHAR(50),
         "inspector_comments" CHAR(100),
-        "property_id" INT,
-        FOREIGN KEY("property_id") REFERENCES "Property"("property_id")
     )
 
     CREATE TABLE "Loan" (
@@ -49,15 +46,6 @@ def main():
          "loan_proodct_id" INT,
         "property_id" INT,
         FOREIGN KEY("property_id") REFERENCES "Property"("property_id")
-    )
-
-    CREATE TABLE "Underwriting" (
-        "underwriting_id" INT, PRIMARY KEY("underwriting_id"),
-         "underwriting_date" DATE,
-         "underwriting_result" CHAR(30),
-        "underwriter_comments" CHAR(50),
-        "loan_id" INT,
-        FOREIGN KEY("loan_id") REFERENCES "Loan"("loan_id")
     )
     """
     environment=Environment(loader=FileSystemLoader(template_dir))

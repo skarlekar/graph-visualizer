@@ -1,0 +1,45 @@
+MERGE (p:Property {property_name: "Sample Gardens"})
+ON CREATE SET
+  p.number_of_units = 101,
+  p.green_building_certification = "yes",
+  p.green_building_certification_agency = "BREEAM USA",
+  p.annual_energy_consumption_reduction_commitment = "25%",
+  p.annual_water_consumption_reduction_commitment = "30%",
+  p.approval_date = "01/04/2018",
+  p.approval_decision = "yes",
+  p.approval_notes = "Based on the strength and experience of the sponsor including managing other seniors assets in the same market and state for many years as well as the financial improvement of the asset, this supplemental transaction is recommended for Loan Committee Approval.",
+  p.asset_management_notes = "The property is maintained well and the rentals have met projected expectations.",
+  p.asset_management_notes_date = "01/05/2021",
+  p.inspection_date = "03/07/2020",
+  p.non_revenue_units = 1,
+  p.pcr = 3,
+  p.property_inspection_agency = "urgent inspection llc",
+  p.property_inspector = "Jane Jones",
+  p.total_rental_units = 100,
+  p.total_units = 101
+ON MATCH SET
+  p.number_of_units = 101,
+  p.green_building_certification = "yes",
+  p.green_building_certification_agency = "BREEAM USA",
+  p.annual_energy_consumption_reduction_commitment = "25%",
+  p.annual_water_consumption_reduction_commitment = "30%",
+  p.approval_date = "01/04/2018",
+  p.approval_decision = "yes",
+  p.approval_notes = "Based on the strength and experience of the sponsor including managing other seniors assets in the same market and state for many years as well as the financial improvement of the asset, this supplemental transaction is recommended for Loan Committee Approval.",
+  p.asset_management_notes = "The property is maintained well and the rentals have met projected expectations.",
+  p.asset_management_notes_date = "01/05/2021",
+  p.inspection_date = "03/07/2020",
+  p.non_revenue_units = 1,
+  p.pcr = 3,
+  p.property_inspection_agency = "urgent inspection llc",
+  p.property_inspector = "Jane Jones",
+  p.total_rental_units = 100,
+  p.total_units = 101
+MERGE (o:OwnerContact {name: "Susan Developer"})
+ON CREATE SET
+  o.email = "susan@NSPDP.com",
+  o.phone = "(215) 555-1212"
+ON MATCH SET
+  o.email = "susan@NSPDP.com",
+  o.phone = "(215) 555-1212"
+MERGE (p)-[:has_owner_contact]->(o)

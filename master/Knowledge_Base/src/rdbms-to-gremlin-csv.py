@@ -17,6 +17,7 @@ def connect_to_bedrock():
     return llm
 
 def main():
+    pd.set_option("display.max_columns",None)
     template_dir = "../prompts/"
     ddl="""
     CREATE TABLE "Property" (

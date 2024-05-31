@@ -22,7 +22,7 @@ Using following RDF data:
     mf:hasTotalRentalUnits mf:100RentalUnits ;
     mf:hasOwnerContact mf:SusanDeveloper ;
     mf:hasTotalUnits mf:101TotalUnits ;
-    mf:hasUnits "101"^^xsd:int .
+    mf:number_of_units "101"^^xsd:int .
 
 <mf:SusanDeveloper> a mf:OwnerContact ;
     mf:hasEmail "susan@NSPDP.com" ;
@@ -31,9 +31,9 @@ Using following RDF data:
     
 And schema of neptune graph:
         Node properties are the following:
-        [{'properties': [{'property': 'IsGreenLoanEligible', 'type': 'STRING'}, {'property': 'isAffordableHousingEligible', 'type': 'STRING'}, {'property': 'loan_origination_date', 'type': 'STRING'}, {'property': 'loan_lifecycle_state', 'type': 'STRING'}], 'labels': 'Loan'}, {'properties': [{'property': 'underwriter_comments', 'type': 'STRING'}, {'property': 'underwriting_result', 'type': 'STRING'}, {'property': 'underwriting_date', 'type': 'STRING'}], 'labels': 'Underwriting'}, {'properties': [{'property': 'inspector_name', 'type': 'STRING'}, {'property': 'inspection_date', 'type': 'STRING'}, {'property': 'inspection_score', 'type': 'INTEGER'}, {'property': 'inspector_comments', 'type': 'STRING'}], 'labels': 'Inspection'}, {'properties': [{'property': 'property_name', 'type': 'STRING'}, {'property': 'property_build_date', 'type': 'STRING'}, {'property': 'property_address', 'type': 'STRING'}, {'property': 'number_of_units', 'type': 'INTEGER'}], 'labels': 'Property'}]
+        [{'properties': [{'property': 'loan_lifecycle_state', 'type': 'STRING'}, {'property': 'isAffordableHousingEligible', 'type': 'STRING'}, {'property': 'IsGreenLoanEligible', 'type': 'STRING'}, {'property': 'loan_origination_date', 'type': 'STRING'}], 'labels': 'Loan'}, {'properties': [{'property': 'underwriting_result', 'type': 'STRING'}, {'property': 'underwriting_date', 'type': 'STRING'}, {'property': 'underwriter_comments', 'type': 'STRING'}, {'property': 'inspector_comments', 'type': 'STRING'}, {'property': 'number_of_units', 'type': 'INTEGER'}, {'property': 'inspection_score', 'type': 'STRING'}, {'property':'inspector_name', 'type': 'STRING'}, {'property': 'inspection_date', 'type': 'STRING'}, {'property': 'property_address', 'type': 'STRING'}, {'property': 'property_build_date', 'type': 'STRING'}, {'property': 'property_name', 'type': 'STRING'}], 'labels': 'Property'}]
         Relationship properties are the following:
-        [{'type': 'inspectedAt', 'properties': []}, {'type': 'underwrittenFor', 'properties': []}, {'type': 'securedBy', 'properties': []}]
+        [{'type': 'securedBy', 'properties': []}]
         The relationships are the following:
-        ['(:`Inspection`)-[:`inspectedAt`]->(:`Property`)', '(:`Underwriting`)-[:`underwrittenFor`]->(:`Loan`)', '(:`Loan`)-[:`securedBy`]->(:`Property`)']
-Create cypher queries to insert data from RDF into neptune database. The property node should merge into the property node with matching name. All connecting nodes to this node should have their properties updated if properties are referenced in the RDF. If other nodes are not referenced in the RDF, do not perform updates on those nodes. Only return the cypher query.
+        ['(:`Loan`)-[:`securedBy`]->(:`Property`)']
+Create cypher queries to insert data from RDF into neptune database. The property node should merge into the property node with matching name. All connecting nodes to this node should have their properties updated if properties are referenced in the RDF. If other nodes are not referenced in the RDF, do not perform updates on those nodes. If the property of a node is not referenced in the RDF, do not update the property. The name of the property should exactly match what is found in the neptune graph schema, if it does not, a new property should be created. Only return the cypher query. Do not return an explanation of the cypher query.

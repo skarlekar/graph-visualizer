@@ -57,8 +57,6 @@ def main():
     table_locations={
             "Loan":"../data/structured_data/Loan-data.csv",
             "Property":"../data/structured_data/Property-data.csv",
-            "Underwriting":"../data/structured_data/Underwriting-data.csv",
-            "Inspection":"../data/structured_data/Inspection-data.csv"
     }
     name_table = {}
     for k,v in table_locations.items():

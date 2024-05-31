@@ -86,6 +86,7 @@ def main():
 
     for k,v in filtered_tables.items():
         v["~id"]=k+v["~id"].astype(str)
+        v["~label"]=k
 
     for k,v in filtered_tables.items():
         for c in v.columns:

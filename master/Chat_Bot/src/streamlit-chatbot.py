@@ -22,6 +22,9 @@ def query_neptune(query):
     )
     return json.load(response['Payload'])
 
+
+st.header('DeepInsight', divider='blue')
+
 # Init chatbot history
 if "messages" not in st.session_state:
     st.session_state.messages=[]

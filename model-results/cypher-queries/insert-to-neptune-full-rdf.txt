@@ -1,0 +1,16 @@
+MERGE (p:Property {property_name: "Sample Gardens"})
+ON CREATE SET p.number_of_units = 101, p.property_address = "123 Sample Street, Mid City, Ohio 23445", p.inspection_date = "03/07/2020", p.inspector_name = "Jane Jones", p.inspector_comments = "The property is maintained well and the rentals have met projected expectations."
+ON MATCH SET p.number_of_units = 101, p.property_address = "123 Sample Street, Mid City, Ohio 23445", p.inspection_date = "03/07/2020", p.inspector_name = "Jane Jones", p.inspector_comments = "The property is maintained well and the rentals have met projected expectations."
+MERGE (o:OwnerEntity {name: "NSPDevelopmentPartners"})
+MERGE (m:ManagementAgent {name: "NSPManagementPartners"})
+MERGE (l:Lender {name: "MidCityBank"})
+MERGE (oc:OwnerContact {name: "Susan Developer", email: "susan@NSPDP.com", phone: "(215) 555-1212"})
+MERGE (lc:LenderContact {name: "Wally Lendor", email: "wlendor@MCB.com", phone: "(215) 555-1214"})
+MERGE (p)-[:OWNED_BY]->(o)
+MERGE (p)-[:MANAGED_BY]->(m)
+MERGE (p)-[:LENDER]->(l)
+MERGE (o)-[:CONTACT]->(oc)
+MERGE (l)-[:CONTACT]->(lc)
+MERGE (p)-[:HAS_ADDRESS]->(a:Address {street: "600 Main Street", city: "Mid City", state: "Ohio", zip: "23445"})
+MERGE (p)-[:HAS_PROPERTY_ADDRESS]->(pa:PropertyAddress {street: "123 Sample Street", city: "Mid City", state: "Ohio", zip: "23445", low_income_units: "20", very_low_income_units: "10", is_small_multifamily_unit_meeting_low_income: "yes"})
+SET p.annualEnergyConsumptionReductionCommitment = "25%", p.annualWaterConsumptionReductionCommitment = "30%", p.hasApprovalDate = "01/04/2018", p.hasApprovalDecision = "yes", p.hasApprovalNotes = "Based on the strength and experience of the sponsor including managing other seniors assets in the same market and state for many years as well as the financial improvement of the asset, this supplemental transaction is recommended for Loan Committee Approval.", p.hasAssetManagementNotesDate = "01/05/2021", p.hasGreenBuildingCertification = "yes", p.hasGreenBuildingCertificationAgency = "BREEAM USA", p.hasGreenBuildingUpgrades = "Energy Start Appliances,Energy efficient LED lighting", p.hasPropertyInspectionAgency = "urgent inspection llc", p.hasPCR = "3", p.hasTotalRentalUnits = 100, p.hasNonRevenueUnits = 1

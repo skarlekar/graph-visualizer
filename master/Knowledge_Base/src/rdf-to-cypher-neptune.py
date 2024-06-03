@@ -22,7 +22,7 @@ def connect_to_bedrock():
 
   modelId = "anthropic.claude-3-sonnet-20240229-v1:0"
 
-  llm = BedrockChat(model_id=modelId, client=bedrock_runtime, model_kwargs={"temperature": 0})
+  llm = BedrockChat(model_id=modelId, client=bedrock_runtime, model_kwargs={"temperature": 0,"max_tokens":3000})
   return llm
 
 def get_cypher_query(rdf_data):
@@ -30,7 +30,7 @@ def get_cypher_query(rdf_data):
   environment=Environment(loader=FileSystemLoader(template_dir))
   template=environment.get_template("cypher-merge-rdf-template.txt")
   cypher_gen_prompt=template.render(rdf_data=rdf_data,neptune_schema=graph.get_schema)
-
+  print(cypher_gen_prompt)
   llm = connect_to_bedrock()
   response = llm.invoke(input=cypher_gen_prompt)
   return response
@@ -117,8 +117,10 @@ set, this supplemental transaction is recommended for Loan Committee Approval." 
       mf:hasPhone "(215) 555-1214" .
   """
   cypher_query = get_cypher_query(rdf_data)
+  print("\n\n\n\n\n")
+  print(cypher_query)
   print(cypher_query.content)
-  #execute_cypher_query(cypher_query)
+  execute_cypher_query(cypher_query.content)
 
 if __name__ == '__main__':
   main()

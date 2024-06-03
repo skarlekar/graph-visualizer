@@ -16,7 +16,7 @@ client = boto3.client('lambda', region_name='us-east-1', config=lambda_config)
 # define call to lambda function
 def query_neptune(query):
     response = client.invoke(
-        FunctionName='kg-1',
+        FunctionName='kg-chatbot-function',
         InvocationType='RequestResponse',
         Payload=json.dumps({'query': query})
     )

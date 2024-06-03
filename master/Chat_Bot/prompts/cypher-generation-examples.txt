@@ -53,8 +53,8 @@ RETURN p.hasGreenBuildingCertification AS greenBuildingCertification, p.hasGreen
 Have we seen Happy Apartments property before? If yes, what was the approval decision?
 </question>
 
-MATCH (p:Property {hasPropertyName: 'Happy Apartments'})-[:hasPropertyAddress]-> (a)
+MATCH (p:Property {hasPropertyName: 'Happy Apartments'})-[:HAS_PROPERTY_ADDRESS]-> (a)
 WHERE exists(p.hasApprovalDecision)
-RETURN a.hasCity AS city, a.hasStreetAddress AS streetAddress, a.hasState AS state, a.hasZipCode AS zipCode, p.hasPropertyName AS propertyName, p.hasApprovalDecision AS approvalDecision, p:hasApprovalNotes AS approvalNotes, p:hasAssetManagementNotes AS assetManagementNotes
+RETURN a.city AS city, a.street AS streetAddress, a.state AS state, a.zip AS zipCode, p.property_name AS propertyName, p.hasApprovalDecision AS approvalDecision, p:hasApprovalNotes AS approvalNotes, p:asset_management_notes AS assetManagementNotes
 
 </examples>

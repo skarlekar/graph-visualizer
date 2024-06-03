@@ -1,0 +1,6 @@
+Using following RDF data:
+{{rdf_data}}
+ 
+And schema of neptune graph:
+{{neptune_schema}}
+Create cypher queries to insert data from RDF into neptune database. The property node should merge into the property node with matching name. All connecting nodes to this node should have their properties updated if properties are referenced in the RDF. If other nodes are not referenced in the RDF, do not perform updates on those nodes. If the property of a node is not referenced in the RDF, do not update the property. The name of the property should exactly match what is found in the neptune graph schema, if it does not, a new property should be created. Only return the cypher query. Do not return an explanation of the cypher query. Convert all lists in the RDF to strings with the list data.

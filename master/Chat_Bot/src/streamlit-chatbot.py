@@ -20,7 +20,8 @@ def query_neptune(query):
         InvocationType='RequestResponse',
         Payload=json.dumps({'query': query})
     )
-    return json.load(response['Payload'])
+    result = json.load(response['Payload'])
+    return result['body']
 
 
 st.header('DeepInsight', divider='blue')

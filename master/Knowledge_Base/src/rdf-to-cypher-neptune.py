@@ -28,7 +28,7 @@ def get_cypher_query(rdf_data):
   template_dir = "../prompts/"
   environment=Environment(loader=FileSystemLoader(template_dir))
   template=environment.get_template("cypher-merge-rdf-template.txt")
-  cypher_gen_prompt=template.render(rdf-data=rdf_data,neptune-schema=graph.get_schema)
+  cypher_gen_prompt=template.render(rdf_data=rdf_data,neptune_schema=graph.get_schema)
   print(cypher_gen_prompt)
 
   llm = connect_to_bedrock()
@@ -118,7 +118,7 @@ def main():
   """
   cypher_query = get_cypher_query(rdf_data)
   print(cypher_query)
-  execute_cypher_query(cypher_query)
+  #execute_cypher_query(cypher_query)
 
 if __name__ == '__main__':
   main()

@@ -2,6 +2,7 @@ import pandas as pd
 import boto3
 from jinja2 import Environment, FileSystemLoader
 from langchain_community.chat_models import BedrockChat
+from langchain_community.graphs import NeptuneGraph
 import json
 import os
 from io import StringIO
@@ -32,15 +33,14 @@ def get_cypher_query(rdf_data):
   print(cypher_gen_prompt)
 
   llm = connect_to_bedrock()
-  response = llm.invoke(input=vertices_prompt)
-  return response
+  #response = llm.invoke(input=vertices_prompt)
+  #return response
 
 def execute_cypher_query(cypher_query):
   graph.query(cypher_query)
   
 def main():
-  rdf_data=
-  """
+  rdf_data="""
   @prefix mf: <http://example.org/multifamily#> .
   @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
   

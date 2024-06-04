@@ -96,4 +96,8 @@ Node properties are the following:
         ['(:`Property`)-[:`OWNED_BY`]->(:`OwnerEntity`)', '(:`OwnerEntity`)-[:`CONTACT`]->(:`OwnerContact`)', '(:`Lender`)-[:`CONTACT`]->(:`LenderContact`)', '(:`Property`)-[:`HAS_ADDRESS`]->(:`Address`)', '(:`Property`)-[:`has_owner_contact`]->(:`OwnerContact`)', '(:`Property`)-[:`HAS_PROPERTY_ADDRESS`]->(:`PropertyAddress`)', '(:`Property`)-[:`MANAGED_BY`]->(:`ManagementAgent`)', '(:`Property`)-[:`LENDER`]->(:`Lender`)', '(:`Loan`)-[:`securedBy`]->(:`Property`)']
 </schema>
 
-Task: Generate cypher queries to load data from the provided context with the schema provided. Nodes should be merged into the graph, a match to a previously added node is found when the previously added node matches the new node's name. Only the name should be used to match nodes, all other properties should not be used to match nodes. If a match is found, properties should still be updated. Do not provide any explanation or description. Only return the cypher query.
+Task: Generate cypher queries to load data from the provided context with the schema provided. The following principles should be followed:
+1. Nodes should follow the schema provided above extactly. All properties, node labels, and relationship labels should be found in the schema.
+2. Merge queries should be used to find matches to nodes previously added to the databases. The merge queries should match a node based on the name of the node. Address nodes should instead use the full address to find a match. 
+3. Each merge query should either create a new node with properties extracted from the content, or update an existing node with properties extracted from the content.
+Do not provide any explanation or description. Only return the cypher query.

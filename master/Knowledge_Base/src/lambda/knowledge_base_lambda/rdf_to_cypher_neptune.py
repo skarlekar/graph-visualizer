@@ -1,8 +1,7 @@
-import pandas as pd
 import boto3
-from jinja2 import Environment, FileSystemLoader
 from langchain_community.chat_models import BedrockChat
 from langchain_community.graphs import NeptuneGraph
+from langchain_core.prompts import PromptTemplate
 import json
 import os
 from io import StringIO
@@ -26,10 +25,9 @@ def connect_to_bedrock():
   return llm
 
 def get_cypher_query(rdf_data):
-  template_dir = "../prompts/"
-  environment=Environment(loader=FileSystemLoader(template_dir))
-  template=environment.get_template("cypher-merge-rdf-template.txt")
-  cypher_gen_prompt=template.render(rdf_data=rdf_data,neptune_schema=graph.get_schema)
+  template = open("cypher-merge-rdf-template.txt", "r").read()
+  prompt_template = PromptTemplate(input_variables=['rdf_data', 'neptune_schema'], template=template)
+  cypher_gen_prompt=prompt_template.format(rdf_data=rdf_data,neptune_schema=graph.get_schema)
   print(cypher_gen_prompt)
   llm = connect_to_bedrock()
   response = llm.invoke(input=cypher_gen_prompt)

@@ -22,7 +22,7 @@ def query_neptune(query):
     )
     result = json.load(response['Payload'])
     text = result['body'].strip('\"')
-    text = text.replace('\n', '  ')
+    text = text.replace('\\n','\n')
     return text
 
 

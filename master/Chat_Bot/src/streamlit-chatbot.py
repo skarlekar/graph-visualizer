@@ -23,7 +23,7 @@ def query_neptune(query):
     result = json.load(response['Payload'])
     text = result['body'].strip('\"')
     text = text.replace('\n', '  ')
-    return 
+    return text
 
 
 st.header('DeepInsight', divider='blue')

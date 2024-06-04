@@ -22,7 +22,7 @@ def connect_to_bedrock():
 
   modelId = "anthropic.claude-3-sonnet-20240229-v1:0"
 
-  llm = BedrockChat(model_id=modelId, client=bedrock_runtime, model_kwargs={"temperature": 0,"max_tokens":3000})
+  llm = BedrockChat(model_id=modelId, client=bedrock_runtime, model_kwargs={"temperature": 0,"top_k":250,"max_tokens":3000})
   return llm
 
 graph = NeptuneGraph(host=host, port=port, use_https=use_https, region_name=region)
@@ -33,5 +33,7 @@ pages = loader.load_and_split()
 content = pages[5].page_content
 
 prompt =template.invoke({"neptune_schema":graph.get_schema,"content":content})
+print(prompt)
+print("\n\n\n")
 response = llm.invoke(input=prompt)
-print(response)
+print(response.content)

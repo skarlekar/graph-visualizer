@@ -1,11 +1,11 @@
 Instructions: Use only the context provided in the <context> tags and schema of a graph database provided in the <schema> tags to perform your task.
 
 <context>
-{{content}}
+{content}
 </content>
 
 <schema>
-{{neptune_schema}}
+{neptune_schema}
 </schema>
 
 Task: Generate cypher queries to load data from the provided context with the schema provided. Nodes should be merged into the graph, a match to a previously added node is found when the previously added node matches the new node's name. Only the name should be used to match nodes, all other properties should not be used to match nodes. If a match is found, properties should still be updated. Do not provide any explanation or description. Only return the cypher query.

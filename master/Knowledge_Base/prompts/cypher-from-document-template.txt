@@ -8,4 +8,9 @@ Instructions: Use only the context provided in the <context> tags and schema of 
 {neptune_schema}
 </schema>
 
-Task: Generate cypher queries to load data from the provided context with the schema provided. Nodes should be merged into the graph, a match to a previously added node is found when the previously added node matches the new node's name. Only the name should be used to match nodes, all other properties should not be used to match nodes. If a match is found, properties should still be updated, if a match is not found, a new node should be created. Double check that only the name is used to match nodes in MERGE queries, unless the node represents an address. Do not provide any explanation or description. Only return the cypher query.
+Task: Generate cypher queries to load data from the provided context with the schema provided. The following principles should be followed:
+1. Nodes should follow the schema provided above exactly. All properties, node labels, and relationship labels should be found in the schema.
+2. Merge queries should be used to find matches to nodes previously added to the databases. The merge queries should match a node based on the name of the node. Address nodes should instead use the full address to find a match. 
+3. Each merge query should either create a new node with properties extracted from the content, or update an existing node with properties extracted from the content.
+Do not provide any explanation or description. Only return the cypher query.
+

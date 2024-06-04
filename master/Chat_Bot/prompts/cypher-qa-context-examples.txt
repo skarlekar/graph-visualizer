@@ -1,7 +1,7 @@
 The following are qualities of a property that, if met, will allow the property to advance housing goals:- 20% of all units in a property rented to families earning at or below 50% of the Area Median Income (AMI)
 - 40% of all units in a property rented to families earning at or below 60% of the Area Median Income (AMI)
 
-To understand if a property advances housing goals, the percentage of units in a property rented to families earning at or below 60% of the Area Median Income (AMI) should be found. This is done by finding the number of low income units, and dividing by the total number of units. Then, this percentage should be compares against the threshold of 40%. The percentage of all units in a property rented to families earning at or below 50% of the Area Median Income (AMI) also should be found, which is found by dividing the total number of very low income units by the total number of units. Then, the percentage of all units in a property rented to families earning at or below 50% of the Area Median Income (AMI) should be compares against the theshold of 20%. A unit can only be classified as neither, low income, or very low income, so the total number of low income units excludes any very low income units. If a property has a percentage of all units in a property rented to families earning at or below 50% of the Area Median Income (AMI) of above 20% and/or has a percentage of all units in a property rented to families earning at or below 60% of the Area Median Income (AMI) of above 40%, the property advances housing goals.
+To understand if a property advances housing goals, the percentage of units in a property rented to families earning at or below 60% of the Area Median Income (AMI) should be found. This is done by finding the number of low income units, and dividing by the total number of units. Then, this percentage should be compared against the threshold of 40%. The percentage of all units in a property rented to families earning at or below 50% of the Area Median Income (AMI) also should be found, which is found by dividing the total number of very low income units by the total number of units. Then, the percentage of all units in a property rented to families earning at or below 50% of the Area Median Income (AMI) should be compared against the theshold of 20%. A unit can only be classified as either, low income, or very low income, so the total number of low income units excludes any very low income units. If a property has a percentage of all units in a property rented to families earning at or below 50% of the Area Median Income (AMI) of above 20% and/or has a percentage of all units in a property rented to families earning at or below 60% of the Area Median Income (AMI) of above 40%, the property advances housing goals.
 
 When asked if we have seen the property before, the matching properties approval decision, approval date, and approval notes should be returned.
 
@@ -44,9 +44,24 @@ Helpful Answer: CTL LLC, JANE STREET GROUP LLC owns Neo4j stocks.
 
 Here is another example:
 
-Question: Does the Sample Gardens Property advance housing goals?
+Question: Does the Happy Apartments Property advance housing goals?
 Context: [lowIncomeUnits: 25, veryLowIncomeUnits: 10, totalUnits: 70]
 Helpful Answer: There are 70 units in the property. The property has 25 low income units. As a result,(35/70)= 0.50, 50% of all units in the property rented to families earning at or below 60% of the Area Median Income (AMI). Since the threshold to help housing goals is to have above 40% of units as these units, this property advances housing goals.
+
+Here is another example:
+
+Question: Does the Fairfax Units property advance housing goals?
+Context: [lowIncomeUnits: 20, veryLowIncomeUnits: 10, totalUnits: 100]
+Helpful Answer:
+Based on the provided information, the Fairfax Units property does not advance housing goals.
+
+There are 100 total units in the property. Out of these, 20 units are classified as low income units (rented to families earning at or below 60% of the Area Median Income) and 10 units are classified as very low income units (rented to families earning at or below 50% of the Area Median Income).
+
+The percentage of units rented to families earning at or below 60% of AMI is (20 + 10) / 100 = 30%, which is below the 40% threshold required to advance housing goals.
+
+Additionally, the percentage of units rented to families earning at or below 50% of AMI is 10 / 100 = 10%, which is below the 20% threshold required to advance housing goals.
+
+Therefore, since the property is below both the 40% threshold for units at or below 60% AMI and the 20% threshold for units at or below 50% AMI, it does not advance housing goals.
 
 Here is another example:
 

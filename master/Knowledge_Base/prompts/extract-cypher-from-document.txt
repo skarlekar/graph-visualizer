@@ -1,0 +1,99 @@
+Instructions: Use only the context provided in the <context> tags and schema of a graph database provided in the <schema> tags to perform your task.
+
+<context>
+NSP Multifamily Toolkit Model v.1.0
+Multifamily Property Underwriting Template
+Assumptions/Key Data Worksheet
+Bold, Green Highlight Cells Denote USER INPUT
+Bold, Yellow Highlight Cells Denote USER INPUT OVERRIDES
+White Cells Denote CALCULATED RESULTS
+Inputs Related to Property/Sponsor Identity Sample Gardens
+100
+1
+101
+Notes/Instructions
+Property Name Enter the 'marketing name' of the proposed property
+Total Rental Units Input unit mix on 'Rents and Mix' Worksheet
+Manager's Unit / Other Non-Revenue Units Enter number of non-revenue units; otherwise enter '0'
+Total Units
+Property Street Address
+Property Suite/Unit
+Property City
+Property ST
+Property Zip
+4907 West Elm St
+Attn: Rental Office
+Mid City
+Ohio
+23445
+Owner/Managing GP Entity Name
+Owner/Managing GP Contact Name
+Owner/GP Street Address
+Owner/GP Suite/Unit
+Owner/GP City
+Owner/GP ST
+Owner/GP Zip
+Owner/GP Contact Phone
+NSP Development Partners, Inc.
+Cheryl Kane
+600 Main Street
+Suite 450
+Mid City
+Ohio
+23445
+(215) 555-1212
+cheryl@NSPDP.com
+Enter as 10 digits without spaces
+Owner/GP Contact Email
+Management Agent Company Name
+Management Agent Contact Name
+Management Agent Street Address
+Management Agent Suite/Unit
+Management Agent City
+Management Agent ST
+Management Agent Zip
+Management Agent Contact Phone
+NSP Management Partners, Inc.
+Cheryl Kane
+600 Main Street
+Suite 450
+Mid City
+Ohio
+23445
+(215) 555-1212
+cheryl@NSPDP.com
+Enter as 10 digits without spaces
+Management Agent Contact Email
+Proposed 1st Mortgage Lender Name
+Proposed 1st Mortgage Loan Type
+Proposed 1st Mortgage Lender Contact Name
+Proposed 1st Mortgage Lender Contact Phone
+Mid City Bank
+Conventional
+David Lee
+(215) 555-1214
+dl4jad@MCB.com
+Enter as 10 digits without spaces
+Proposed 1st Mortgage Lender Contact Email
+See 'Hard Debt Sizing' Worksheet for additional inputs related to 1st Mortgage Loan
+Proposed Must-Pay 2nd Mortgage Lender Name
+Proposed Must-Pay 2nd Mortgage Loan Type
+Proposed Must-Pay 2nd Mortgage Lender Contact Name
+Proposed Must-Pay 2nd Mortgage Lender Contact Phone
+Proposed Must-Pay 2nd Mortgage Lender Contact Email
+n/a
+Filename NSP UWT v6.1 SAMPLE
+Worksheet: 2. Assumptions
+NSP Underwriting Template Page 3 of 16
+</content>
+
+<schema>
+Node properties are the following:
+        [{'properties': [{'property': 'name', 'type': 'STRING'}], 'labels': 'ManagementAgent'}, {'properties': [{'property': 'phone', 'type': 'STRING'}, {'property': 'email', 'type': 'STRING'}, {'property': 'name', 'type': 'STRING'}], 'labels': 'LenderContact'}, {'properties': [{'property': 'low_income_units', 'type': 'STRING'}, {'property': 'is_small_multifamily_unit_meeting_low_income', 'type': 'STRING'}, {'property': 'very_low_income_units', 'type': 'STRING'}, {'property': 'city', 'type': 'STRING'}, {'property': 'state', 'type': 'STRING'}, {'property': 'street', 'type': 'STRING'}, {'property': 'zip', 'type': 'STRING'}], 'labels': 'PropertyAddress'}, {'properties': [{'property': 'isAffordableHousingEligible', 'type': 'STRING'}, {'property': 'IsGreenLoanEligible', 'type': 'STRING'}, {'property': 'loan_origination_date', 'type': 'STRING'}, {'property': 'loan_lifecycle_state', 'type': 'STRING'}], 'labels': 'Loan'}, {'properties': [{'property': 'street', 'type': 'STRING'}, {'property': 'state', 'type': 'STRING'}, {'property': 'city', 'type': 'STRING'}, {'property': 'zip', 'type': 'STRING'}], 'labels': 'Address'}, {'properties': [{'property': 'name', 'type': 'STRING'}], 'labels': 'OwnerEntity'}, {'properties': [{'property': 'phone', 'type': 'STRING'}, {'property': 'email', 'type': 'STRING'}, {'property': 'name', 'type': 'STRING'}], 'labels': 'OwnerContact'}, {'properties': [{'property': 'number_of_units', 'type': 'INTEGER'}, {'property': 'property_name', 'type': 'STRING'}, {'property': 'has_green_building_upgrades', 'type': 'STRING'}, {'property': 'annual_water_consumption_reduction_commitment', 'type': 'STRING'}, {'property': 'approval_decision', 'type': 'STRING'}, {'property': 'hasApprovalDecision', 'type': 'STRING'}, {'property': 'annualEnergyConsumptionReductionCommitment', 'type': 'STRING'}, {'property': 'annual_energy_consumption_reduction_commitment', 'type': 'STRING'}, {'property': 'non_revenue_units', 'type': 'INTEGER'}, {'property': 'inspection_score', 'type': 'STRING'}, {'property': 'inspection_date', 'type': 'STRING'}, {'property': 'underwriting_result', 'type': 'STRING'}, {'property': 'hasApprovalDate', 'type': 'STRING'}, {'property': 'hasGreenBuildingCertificationAgency', 'type': 'STRING'}, {'property': 'total_units', 'type': 'INTEGER'}, {'property': 'asset_management_notes', 'type': 'STRING'}, {'property': 'property_inspection_agency', 'type': 'STRING'}, {'property': 'hasTotalRentalUnits', 'type': 'INTEGER'}, {'property': 'annualWaterConsumptionReductionCommitment', 'type': 'STRING'}, {'property': 'property_inspector', 'type': 'STRING'}, {'property': 'pcr', 'type': 'INTEGER'}, {'property': 'hasPropertyInspectionAgency', 'type':'STRING'}, {'property': 'property_build_date', 'type': 'STRING'}, {'property': 'underwriter_comments', 'type': 'STRING'}, {'property': 'hasNonRevenueUnits', 'type': 'INTEGER'}, {'property': 'approval_notes', 'type': 'STRING'}, {'property': 'hasPCR', 'type': 'STRING'}, {'property': 'hasGreenBuildingUpgrades', 'type': 'STRING'}, {'property': 'hasAssetManagementNotesDate', 'type': 'STRING'}, {'property': 'asset_management_notes_date', 'type': 'STRING'}, {'property': 'inspector_comments', 'type': 'STRING'}, {'property': 'property_address', 'type': 'STRING'}, {'property': 'hasApprovalNotes', 'type': 'STRING'}, {'property': 'underwriting_date', 'type': 'STRING'}, {'property': 'green_building_certification_agency', 'type': 'STRING'}, {'property': 'total_rental_units', 'type': 'INTEGER'}, {'property': 'green_building_certification', 'type': 'STRING'}, {'property': 'inspector_name', 'type': 'STRING'}, {'property': 'hasGreenBuildingCertification', 'type': 'STRING'}, {'property': 'approval_date', 'type': 'STRING'}], 'labels': 'Property'}, {'properties': [{'property': 'name', 'type': 'STRING'}], 'labels': 'Lender'}]
+        Relationship properties are the following:
+        [{'type': 'OWNED_BY', 'properties': []}, {'type': 'CONTACT', 'properties': []}, {'type': 'HAS_ADDRESS', 'properties': []}, {'type': 'has_owner_contact', 'properties': []}, {'type': 'HAS_PROPERTY_ADDRESS', 'properties': []}, {'type': 'MANAGED_BY', 'properties': []}, {'type': 'LENDER', 'properties': []}, {'type': 'securedBy', 'properties': []}]
+        The relationships are the following:
+        ['(:`Property`)-[:`OWNED_BY`]->(:`OwnerEntity`)', '(:`OwnerEntity`)-[:`CONTACT`]->(:`OwnerContact`)', '(:`Lender`)-[:`CONTACT`]->(:`LenderContact`)', '(:`Property`)-[:`HAS_ADDRESS`]->(:`Address`)', '(:`Property`)-[:`has_owner_contact`]->(:`OwnerContact`)', '(:`Property`)-[:`HAS_PROPERTY_ADDRESS`]->(:`PropertyAddress`)', '(:`Property`)-[:`MANAGED_BY`]->(:`ManagementAgent`)', '(:`Property`)-[:`LENDER`]->(:`Lender`)', '(:`Loan`)-[:`securedBy`]->(:`Property`)']
+</schema>
+
+Task: Generate cypher queries to load data from the provided context with the schema provided. Nodes should be merged into the graph, a match to a previously added node is found when the previously added node matches the new node's name. Only the name should be used to match nodes, all other properties should not be used to match nodes. If a match is found, properties should still be updated. Do not provide any explanation or description. Only return the cypher query.

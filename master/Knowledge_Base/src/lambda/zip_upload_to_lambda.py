@@ -1,14 +1,18 @@
 import boto3
 from botocore.config import Config
 import shutil
-import sys
+import argparse
 
 def main():
-    dir_name = sys.argv[1]
-    lambda_function_name = sys.argv[2]
+    parser = argparse.ArgumentParser()
     
-    # zip directory
-    shutil.make_archive(dir_name, 'zip', dir_name)
+    parser.add_argument("-d", "--dir_name", help="Directory name")
+    parser.add_argument("-l", "--lambda_name", help="Lambda function name")
+
+    args = parser.parse_args()
+
+    dir_name = args.dir_name
+    lambda_function_name = args.lambda_name
     
     # upload zip to lambda function
     lambda_config = Config(

@@ -24,7 +24,6 @@ def main():
     response = client.update_function_code(
         FunctionName=lambda_function_name,
         ZipFile=zip_bytes,
-        ImageUri='string',
         Publish=False,
         Architectures=[
             'x86_64',

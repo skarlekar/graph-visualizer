@@ -5,6 +5,7 @@ from botocore.config import Config
 
 
 def lambda_handler(event, context):
+    # TESTING UPLOAD TO LAMBDA
     # TODO implement
     s3 = boto3.client('s3', region_name='us-east-1')
     # Get the bucket name, key, and metadata ontology value from the event

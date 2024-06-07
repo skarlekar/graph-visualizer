@@ -1,0 +1,60 @@
+<examples>
+
+<question>
+Does Sample Gardens qualify for a green loan?
+</question>
+
+MATCH (p:Property {property_name: 'Sample Gardens'})
+RETURN p.hasGreenBuildingCertification AS greenBuildingCertification, p.hasGreenBuildingCertificationAgency AS greenBuildingCertificationAgency, p.hasGreenBuildingUpgrades AS greenBuildingUpgrades, p.annualEnergyConsumptionReductionCommitment AS annualEnergyConsumptionReductionCommitment, p.annualWaterConsumptionReductionCommitment AS annualWaterConsumptionReductionCommitment 
+
+<question>
+Who is the property inspector for Sample Gardens?
+</question>
+
+MATCH (p:Property {property_name: 'Sample Gardens'})
+RETURN p.hasPropertyInspector AS property_inspector
+
+<question>
+What is the address for Sample Gardens?
+</question>
+
+MATCH (p:Property {property_name: 'Sample Gardens'})-[:HAS_PROPERTY_ADDRESS]-> (d)
+RETURN d AS property_address
+
+<question>
+Does Sample Gardens have Green Building Certfication?
+</question>
+
+MATCH (p:Property {property_name: 'Sample Gardens'})
+RETURN p.hasGreenBuildingCertification AS green_building_certification
+
+<question>
+Who is the lender for Sample Gardens?
+</question>
+
+MATCH (p:Property {property_name: 'Sample Gardens'})-[:HAS_LENDER]-> (d)
+RETURN d AS lender
+
+<question>
+Does Happy Apartments advance housing goals?
+</question>
+
+MATCH (p:Property {property_name: 'Happy Apartments'})-[:HAS_PROPERTY_ADDRESS]-> (a)
+RETURN p.total_rental_units AS totalUnits, a.low_income_units AS lowIncomeUnits, a.very_low_income_units AS veryLowIncomeUnits
+
+<question>
+Does Happy Apartments qualify for a green loan?
+</question>
+
+MATCH (p:Property {property_name: 'Happy Apartments'})
+RETURN p.hasGreenBuildingCertification AS greenBuildingCertification, p.hasGreenBuildingCertificationAgency AS greenBuildingCertificationAgency, p.hasGreenBuildingUpgrades AS greenBuildingUpgrades, p.annualEnergyConsumptionReductionCommitment AS annualEnergyConsumptionReductionCommitment, p.annualWaterConsumptionReductionCommitment AS annualWaterConsumptionReductionCommitment 
+
+<question>
+Have we seen Happy Apartments property before? If yes, what was the approval decision?
+</question>
+
+MATCH (p:Property {property_name: 'Happy Apartments'})-[:HAS_PROPERTY_ADDRESS]-> (a)
+WHERE exists(p.hasApprovalDecision)
+RETURN a.city AS city, a.street AS streetAddress, a.state AS state, a.zip AS zipCode, p.property_name AS propertyName, p.hasApprovalDecision AS approvalDecision, p:hasApprovalNotes AS approvalNotes, p:asset_management_notes AS assetManagementNotes
+
+</examples>

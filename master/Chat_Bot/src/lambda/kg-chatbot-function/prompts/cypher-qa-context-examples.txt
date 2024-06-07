@@ -1,0 +1,101 @@
+The following are qualities of a property that, if met, will allow the property to advance housing goals:- 20% of all units in a property rented to families earning at or below 50% of the Area Median Income (AMI)
+- 40% of all units in a property rented to families earning at or below 60% of the Area Median Income (AMI)
+
+To understand if a property advances housing goals, the percentage of units in a property rented to families earning at or below 60% of the Area Median Income (AMI) should be found. This is done by finding the number of low income units, and dividing by the total number of units. Then, this percentage should be compared against the threshold of 40%. The percentage of all units in a property rented to families earning at or below 50% of the Area Median Income (AMI) also should be found, which is found by dividing the total number of very low income units by the total number of units. Then, the percentage of all units in a property rented to families earning at or below 50% of the Area Median Income (AMI) should be compared against the theshold of 20%. A unit can only be classified as either, low income, or very low income, so the total number of low income units excludes any very low income units. If a property has a percentage of all units in a property rented to families earning at or below 50% of the Area Median Income (AMI) of above 20% and/or has a percentage of all units in a property rented to families earning at or below 60% of the Area Median Income (AMI) of above 40%, the property advances housing goals.
+
+When asked if we have seen the property before, the matching properties approval decision, approval date, and approval notes should be returned.
+
+When asked if a property qualifies for a Green Loan, the following steps should be taken
+
+There are two ways to qualify for a green loan
+Certification Method:
+1. Find the property has a green building certification and the green building certification agency
+2. If the green building certification is yes and the green building certification agency is one of the following, the property qualifies for a Green Loan
+Green Building Certification Agencies:
+- BREEAM USA
+- Build It Green
+- Enterprise Community Partners
+- Green Building Initiative
+- Home Innovation Research Labs
+- International Living Future Institute
+- Passive House Institute
+- Phius (Passive House Institute US)
+- U.S. Department of Energy
+- International Finance Corporation
+- U.S. Environmental Protection Agency
+- U.S. Green Building Council
+Building Upgrade Method:
+1. Find the properties green building upgrades, if any are in the following list, continue to step 2.
+- Upgrading to ENERGY STAR® appliances
+- Upgrading boiler
+- Replacing inefficient lighting
+- Installing solar systems
+- Installing water-saving irrigation systems
+- Improving insulation
+- Making other energy- & water-saving improvements
+2. Find the property's annual energy consumption reduction commitment and the property's annual water consumption reduction commitment, if either value is at or above 30%, the building qualifies for a Green Loan
+Finally, return if property is a green loan and justification, and mention that this information is extracted from High-Performance Building Report.
+
+Here is an example:
+
+Question: Which managers own Neo4j stocks?
+Context:[manager:CTL LLC, manager:JANE STREET GROUP LLC]
+Helpful Answer: CTL LLC, JANE STREET GROUP LLC owns Neo4j stocks.
+
+Here is another example:
+
+Question: Does the Happy Apartments Property advance housing goals?
+Context: [lowIncomeUnits: 25, veryLowIncomeUnits: 10, totalUnits: 70]
+Helpful Answer: There are 70 units in the property. The property has 25 low income units. As a result,(35/70)= 0.50, 50% of all units in the property rented to families earning at or below 60% of the Area Median Income (AMI). Since the threshold to help housing goals is to have above 40% of units as these units, this property advances housing goals.
+
+Here is another example:
+
+Question: Does the Fairfax Units property advance housing goals?
+Context: [lowIncomeUnits: 20, veryLowIncomeUnits: 10, totalUnits: 100]
+Helpful Answer:
+Based on the provided information, the Fairfax Units property does not advance housing goals.
+
+There are 100 total units in the property. Out of these, 20 units are classified as low income units (rented to families earning at or below 60% of the Area Median Income) and 10 units are classified as very low income units (rented to families earning at or below 50% of the Area Median Income).
+
+The percentage of units rented to families earning at or below 60% of AMI is (20 + 10) / 100 = 30%, which is below the 40% threshold required to advance housing goals.
+
+Additionally, the percentage of units rented to families earning at or below 50% of AMI is 10 / 100 = 10%, which is below the 20% threshold required to advance housing goals.
+
+Therefore, since the property is below both the 40% threshold for units at or below 60% AMI and the 20% threshold for units at or below 50% AMI, it does not advance housing goals.
+
+Here is another example:
+
+Question: Does Fairfax Units property quality for a green loan?
+Context:[annualEnergyConsumptionReductionCommitment:25%,annualWaterConsumptionReductionCommitment:30%,greenBuildingCertification:,greenBuildingCertificationAgency:"tester",greenBuildingUpgrades:"Energy Star Appliances","Energy efficient LED lighting"]
+Helpful Answer: 
+Based on the information provided, this property qualifies for a green loan through the Building Upgrade Method.
+
+The key details are:
+
+1. The property has green building upgrades including "Energy Star Appliances" and "Energy efficient LED lighting", which are on the list of qualifying upgrades.
+
+2. The property has an annual energy consumption reduction commitment of 25%.
+
+3. The property has an annual water consumption reduction commitment of 30%.
+
+Since the property has qualifying green building upgrades and has committed to at least a 30% reduction in either energy or water consumption, it meets the Building Upgrade Method criteria for qualifying for a green loan.
+
+This information is extracted from the High-Performance Building Report details provided for this property.
+
+Here is another example:
+Question: Have we seen the Sample Gardens property before? If yes, what was the loan approval decision?
+Context:
+Helpful Answer: [city:Bethesda, streetAddress:500 Joyce St.,state: Maryland, zipCode:20814, propertyName:Edgeland Apartments,approvalDecision:yes,approvalDate:02/08/2022,approvalNotes:This transaction is recommended for approval based on its properties.,assetManagementNotes:Rentals for this property have met expectations.]
+Based on the information provided, such as the property name and property address, we have seen this property before and have found historical underwriting information on this property from our Loan and Property Knowledge Databse.
+
+The property's name is Edgeland Apartments.
+The property's address is 500 Joyce St., Bethesda, MD 20814.
+The loan approval decision for this property was "yes".
+The loan approval date is 02/08/2022
+The approval notes state:
+
+"This transaction is recommended for approval based on its properties."
+
+The asset management notes state:
+
+"Rentals for this property have met expectations."

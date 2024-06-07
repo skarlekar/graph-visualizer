@@ -14,6 +14,9 @@ def main():
     dir_name = args.dir_name
     lambda_function_name = args.lambda_name
     
+    # zip directory
+    shutil.make_archive(dir_name, 'zip', dir_name)
+    
     # upload zip to lambda function
     lambda_config = Config(
         read_timeout=900,

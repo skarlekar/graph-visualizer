@@ -1,5 +1,5 @@
-from knowledge_base_lambda.rdf_extractor import extract
-from knowledge_base_lambda.rdf_to_cypher_neptune import main as upload_to_neptune
+from rdf_extractor import extract
+from rdf_to_cypher_neptune import main as upload_to_neptune
 import json
 
 

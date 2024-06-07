@@ -25,7 +25,7 @@ def connect_to_bedrock():
   return llm
 
 def get_cypher_query(rdf_data):
-  template = open("knowledge_base_lambda/cypher-merge-rdf-template.txt", "r").read()
+  template = open("cypher-merge-rdf-template.txt", "r").read()
   prompt_template = PromptTemplate(input_variables=['rdf_data', 'neptune_schema'], template=template)
   cypher_gen_prompt=prompt_template.format(rdf_data=rdf_data,neptune_schema=graph.get_schema)
   #print(cypher_gen_prompt)

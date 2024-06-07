@@ -68,7 +68,7 @@ def extract_text(doc):
 
 def get_rdf_graph(content, ontology):
     #prompt_dir = os.path.abspath(os.path.join(os.getcwd(),"../","prompts"))
-    prompt_template = open("knowledge_base_lambda/rdf-extraction-prompt.txt", "r").read()
+    prompt_template = open("rdf-extraction-prompt.txt", "r").read()
     prompt = PromptTemplate(input_variables=["context","ontology"],template=prompt_template)
     
     

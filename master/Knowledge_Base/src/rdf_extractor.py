@@ -8,6 +8,9 @@ from langchain_community.chat_models import BedrockChat
 from langchain_core.prompts import PromptTemplate
 from rdflib import Graph, Namespace
 import os
+import importlib
+
+rdf_to_cypher_neptune = importlib.import_module('rdf-to-cypher-neptune')
 
 
 def loader(doc_link, ontology_link):
@@ -115,6 +118,7 @@ if __name__ == '__main__':
     ontology_link = 'https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/master/Knowledge_Base/ontologies/uw-narrative-ontology.ttl'
     doc_link = 'https://files.hudexchange.info/resources/documents/MFRUnderwritingTemplate-Example.pdf'
     graph = extract(doc_link=doc_link, ontology_link=ontology_link)
-    print(graph)
+    #print(graph)
     clean_up()
-    upload_to_s3(graph)
+    #upload_to_s3(graph)
+    rdf_to_cypher_neptune.main(graph)

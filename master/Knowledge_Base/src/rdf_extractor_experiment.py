@@ -43,6 +43,7 @@ def extract_text(doc):
         section_header_suffix='\n\n</SECTION>'
     )
     
+    text = response.get_text()
     num_pages = response.document.num_pages
     
     for i in range(num_pages):
@@ -53,9 +54,9 @@ def extract_text(doc):
             content = "\\n".join(documents)
             content_ls.append(content)
             documents = [] # reset the documents list
-        if documents:
-            content = "\\n".join(documents)
-            content_ls.append(content)
+    if documents:
+        content = "\\n".join(documents)
+        content_ls.append(content)
     
     return content_ls
 
@@ -94,5 +95,5 @@ def extract(doc_link, ontology_link):
 if __name__ == '__main__':
     ontology_key = 'underwriting-narrative.ttl'
     doc_key = 'MFRUnderwritingTemplate-Example.pdf'
-    graph = extract(doc_link=doc_key, ontology_link=ontology_key)
-    print(graph)
+    #graph = extract(doc_link=doc_key, ontology_link=ontology_key)
+    #print(graph)

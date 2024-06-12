@@ -43,7 +43,9 @@ def extract_text(doc):
         section_header_suffix='\n\n</SECTION>'
     )
     
-    for i in range(response.document.num_pages):
+    num_pages = response.document.num_pages
+    
+    for i in range(num_pages):
         text = response.document.page(i).get_text(config)
         documents.append(text)
 

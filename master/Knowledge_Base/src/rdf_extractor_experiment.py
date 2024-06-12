@@ -7,7 +7,7 @@ from rdflib import Graph, Namespace
 import os
 
 from textractor import Textractor
-from textract.data.text_linearization_config import TextLinearizationConfig
+from textractor.data.text_linearization_config import TextLinearizationConfig
 from textractcaller.t_call import Textract_Features
 
 

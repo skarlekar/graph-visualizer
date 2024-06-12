@@ -26,7 +26,7 @@ def connect_to_bedrock():
   return llm
 
 def get_cypher_query(rdf_data):
-  template_dir = "../prompts/"
+  template_dir = "../../prompts/"
   environment=Environment(loader=FileSystemLoader(template_dir))
   template=environment.get_template("cypher-merge-rdf-template.txt")
   cypher_gen_prompt=template.render(rdf_data=rdf_data,neptune_schema=graph.get_schema)

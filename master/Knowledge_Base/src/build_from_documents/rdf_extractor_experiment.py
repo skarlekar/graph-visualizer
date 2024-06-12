@@ -61,7 +61,7 @@ def extract_text(doc):
     return content_ls
 
 def get_rdf_graph(content, ontology):
-    prompt_dir = os.path.abspath(os.path.join(os.getcwd(),"../","prompts"))
+    prompt_dir = os.path.abspath(os.path.join(os.getcwd(),"../../","prompts"))
     prompt_template = open(os.path.join(prompt_dir,"rdf-extraction-prompt.txt"), "r").read()
     prompt = PromptTemplate(input_variables=["context","ontology"],template=prompt_template)
     
@@ -90,7 +90,7 @@ def extract(doc_link, ontology_link):
     content_ls = extract_text(doc_link)
     rdf_graph = create_and_combine_graphs(content_list=content_ls, ontology=ontology)
     result = rdf_graph.serialize(format='ttl')
-    return rdf_graph
+    return result
 
 if __name__ == '__main__':
     ontology_key = 'underwriting-narrative.ttl'

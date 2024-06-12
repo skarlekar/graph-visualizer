@@ -11,7 +11,7 @@ from textract.data.text_linearization_config import TextLinearizationConfig
 from textractcaller.t_call import Textract_Features
 
 
-def loader(doc_link, ontology_link):
+def loader(ontology_link):
     s3 = boto3.resource("s3", region_name='us-east-1')
     
     bucket = "kg-ontologies"
@@ -22,7 +22,7 @@ def loader(doc_link, ontology_link):
     ontology_graph = Graph()
     ontology_graph.parse(data=ontology_txt, format='ttl')
     ontology = ontology_graph.serialize(format='ttl')
-    return doc_link, ontology
+    return ontology
 
 def extract_text(doc):
     content_ls = []
@@ -30,7 +30,7 @@ def extract_text(doc):
     
     extractor = Textractor(region_name='us-east-1')
     response = extractor.start_document_analysis(
-        file_source=doc,
+        file_source=f"s3://kg-input-doc/{doc}",
         features=[Textract_Features.LAYOUT, Textract_Features.TABLES],
         save_image=False
     )
@@ -60,8 +60,8 @@ def extract_text(doc):
     return content_ls
 
 def get_rdf_graph(content, ontology):
-    #prompt_dir = os.path.abspath(os.path.join(os.getcwd(),"../","prompts"))
-    prompt_template = open("rdf-extraction-prompt.txt", "r").read()
+    prompt_dir = os.path.abspath(os.path.join(os.getcwd(),"../","prompts"))
+    prompt_template = open(os.path.join(prompt_dir,"rdf-extraction-prompt.txt"), "r").read()
     prompt = PromptTemplate(input_variables=["context","ontology"],template=prompt_template)
     
     
@@ -85,15 +85,14 @@ def create_and_combine_graphs(content_list, ontology):
     return final_graph
 
 def extract(doc_link, ontology_link):
-    doc, ontology = loader(doc_link, ontology_link)
-    get_images(doc)
-    content_ls = extract_text(doc)
+    ontology = loader(ontology_link)
+    content_ls = extract_text(doc_link)
     rdf_graph = create_and_combine_graphs(content_list=content_ls, ontology=ontology)
     result = rdf_graph.serialize(format='ttl')
     return rdf_graph
 
 if __name__ == '__main__':
-    ontology_key = 'https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/master/Knowledge_Base/ontologies/uw-narrative-ontology.ttl'
-    doc_key = 'https://files.hudexchange.info/resources/documents/MFRUnderwritingTemplate-Example.pdf'
+    ontology_key = 'underwriting-narrative.ttl'
+    doc_key = 'MFRUnderwritingTemplate-Example.pdf'
     graph = extract(doc_link=doc_key, ontology_link=ontology_key)
     print(graph)

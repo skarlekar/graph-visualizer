@@ -33,4 +33,5 @@ gp:Property gp:hasLabel xsd:string ;
     gp:hasEnergyStarQualifiedRefridgerators xsd:string ;
     gp:hasGreenBuildingCertification xsd:string ;
     gp:hasGreenBuildingCertificationAgency xsd:string ;
-    gp:hasGreenBuildingUpgrades xsd:string .
+    gp:hasGreenBuildingUpgrades xsd:string ;
+    gp:verificationProgramOf xsd:string .

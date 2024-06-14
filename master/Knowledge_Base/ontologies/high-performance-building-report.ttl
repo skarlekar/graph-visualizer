@@ -20,8 +20,6 @@
 <mf:UtilityProvider> rdfs:subClassOf <mf:NamedEntity> .
 <mf:UtilityType> rdfs:subClassOf <mf:NamedEntity> .
 <mf:UtilityPayer> rdfs:subClassOf <mf:NamedEntity> .
-<mf:AnnualUtilityCost> rdfs:subClassOf <mf:NamedEntity> .
-<mf:AnnualUtilityConsumption> rdfs:subClassOf <mf:NamedEntity> .
 <mf:UtilityConsumptionUnit> rdfs:subClassOf <mf:NamedEntity> .
 <mf:EndUseCategory> rdfs:subClassOf <mf:NamedEntity> .
 <mf:EndUseBreakdown> rdfs:subClassOf <mf:NamedEntity> .
@@ -39,7 +37,6 @@
 <mf:GroundCoverageRatio> rdfs:subClassOf <mf:NamedEntity> .
 <mf:Albedo> rdfs:subClassOf <mf:NamedEntity> .
 <mf:Bifacial> rdfs:subClassOf <mf:NamedEntity> .
-<mf:SolarOutput> rdfs:subClassOf <mf:NamedEntity> .
 <mf:MonthlyIrradianceLoss> rdfs:subClassOf <mf:NamedEntity> .
 <mf:DCCapacityFactor> rdfs:subClassOf <mf:NamedEntity> .
 
@@ -60,8 +57,6 @@
     <mf:hasUtilityProvider> <mf:UtilityProvider> ;
     <mf:hasUtilityType> <mf:UtilityType> ;
     <mf:hasUtilityPayer> <mf:UtilityPayer> ;
-    <mf:hasAnnualUtilityCost> <mf:AnnualUtilityCost> ;
-    <mf:hasAnnualUtilityConsumption> <mf:AnnualUtilityConsumption> ;
     <mf:hasUtilityConsumptionUnit> <mf:UtilityConsumptionUnit> ;
     <mf:hasEndUseCategory> <mf:EndUseCategory> ;
     <mf:hasEndUseBreakdown> <mf:EndUseBreakdown> ;
@@ -87,6 +82,5 @@
     <mf:hasGroundCoverageRatio> <mf:GroundCoverageRatio> ;
     <mf:hasAlbedo> <mf:Albedo> ;
     <mf:hasBifacial> <mf:Bifacial> ;
-    <mf:hasSolarOutput> <mf:SolarOutput> ;
     <mf:hasMonthlyIrradianceLoss> <mf:MonthlyIrradianceLoss> ;
     <mf:hasDCCapacityFactor> <mf:DCCapacityFactor> .

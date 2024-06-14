@@ -117,8 +117,14 @@ def upload_to_s3(graph):
 if __name__ == '__main__':
     ontology_link = 'https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/master/Knowledge_Base/ontologies/uw-narrative-ontology.ttl'
     doc_link = 'https://files.hudexchange.info/resources/documents/MFRUnderwritingTemplate-Example.pdf'
-    graph = extract(doc_link=doc_link, ontology_link=ontology_link)
+    
+    onto_hpbr = 'https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/master/Knowledge_Base/ontologies/high-performance-building-report.ttl'
+    onto_ga = 'https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/master/Knowledge_Base/ontologies/green-assessment.ttl'
+    
+    doc_hpbr = 'https://raw.githubusercontent.com/skarlekar/graph-visualizer/ef4a685577ac65f620e0f61d24a6ba4bf605b0dd/master/Knowledge_Base/data/documents/High_Performance_Building_Report.pdf'
+    doc_ga = 'https://raw.githubusercontent.com/skarlekar/graph-visualizer/9801e2a218823c5af6c5894e8dcc6633ff695e27/master/Knowledge_Base/data/documents/GreenPoint_Green_Assessment.pdf'
+    #graph = extract(doc_link=doc_link, ontology_link=ontology_link)
     #print(graph)
-    clean_up()
+    #clean_up()
     #upload_to_s3(graph)
-    rdf_to_cypher_neptune.main(graph)
+    #rdf_to_cypher_neptune.main(graph)

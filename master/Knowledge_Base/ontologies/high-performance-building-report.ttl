@@ -71,7 +71,9 @@
     <mf:hasUtilityConsumptionUnit> <mf:UtilityConsumptionUnit> ;
     <mf:hasEndUseCategory> <mf:EndUseCategory> ;
     <mf:hasEndUseBreakdown> <mf:EndUseBreakdown> ;
-    <mf:hasSolarPVSystem> <mf:SolarPVSystem> .
+    <mf:hasSolarPVSystem> <mf:SolarPVSystem> ;
+    <mf:annualEnergyConsumptionReductionCommitment xsd:string ;
+    <mf:annualWaterConsumptionReductionCommitment xsd:string .
     
 <mf:PropertyAddress> <rdfs:label> "Property Address" ;
     <mf:hasStreetAddress> <xsd:string> ;

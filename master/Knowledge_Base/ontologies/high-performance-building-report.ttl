@@ -10,9 +10,6 @@
 <mf:YearBuilt> rdfs:subClassOf <mf:NamedEntity> .
 <mf:PropertyUse> rdfs:subClassOf <mf:NamedEntity> .
 <mf:OccupancyRate> rdfs:subClassOf <mf:NamedEntity> .
-<mf:GrossFloorArea> rdfs:subClassOf <mf:NamedEntity> .
-<mf:ResidentialArea> rdfs:subClassOf <mf:NamedEntity> .
-<mf:CommonArea> rdfs:subClassOf <mf:NamedEntity> .
 <mf:PropertyAddress> rdfs:subClassOf <mf:NamedEntity> .
 <mf:ManagementCompany> rdfs:subClassOf <mf:NamedEntity> .
 <mf:AuditDate> rdfs:subClassOf <mf:NamedEntity> .
@@ -53,9 +50,6 @@
     <mf:hasYearBuilt> <mf:YearBuilt> ;
     <mf:hasPropertyUse> <mf:PropertyUse> ;
     <mf:hasOccupancyRate> <mf:OccupancyRate> ;
-    <mf:hasGrossFloorArea> <xsd:string> ;
-    <mf:hasResidentialArea> <xsd:string> ;
-    <mf:hasCommonArea> <xsd:string> ;
     <mf:hasPropertyAddress> <mf:PropertyAddress> ;
     <mf:hasManagementCompany> <mf:ManagementCompany> ;
     <mf:hasAuditDate> <mf:AuditDate> ;

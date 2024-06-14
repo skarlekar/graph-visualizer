@@ -10,7 +10,7 @@ from rdflib import Graph, Namespace
 import os
 import importlib
 
-rdf_to_cypher_neptune = importlib.import_module('rdf-to-cypher-neptune')
+#rdf_to_cypher_neptune = importlib.import_module('rdf-to-cypher-neptune')
 
 
 def loader(doc_link, ontology_link):

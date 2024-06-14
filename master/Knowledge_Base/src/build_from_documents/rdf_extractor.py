@@ -52,7 +52,7 @@ def extract_text(doc):
         docs = loader.load()
         documents.append(docs[0].page_content)
 
-        if len(documents) == 20:
+        if len(documents) == 60:
             content = "\\n".join(documents)
             content_ls.append(content)
             documents = [] # reset the documents list

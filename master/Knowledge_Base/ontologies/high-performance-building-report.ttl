@@ -14,8 +14,6 @@
 <mf:ResidentialArea> rdfs:subClassOf <mf:NamedEntity> .
 <mf:CommonArea> rdfs:subClassOf <mf:NamedEntity> .
 <mf:PropertyAddress> rdfs:subClassOf <mf:NamedEntity> .
-<mf:OwnerEntity> rdfs:subClassOf <mf:NamedEntity> .
-<mf:OwnerContact> rdfs:subClassOf <mf:NamedEntity> .
 <mf:ManagementCompany> rdfs:subClassOf <mf:NamedEntity> .
 <mf:AuditDate> rdfs:subClassOf <mf:NamedEntity> .
 <mf:AuditCompany> rdfs:subClassOf <mf:NamedEntity> .
@@ -30,26 +28,6 @@
 <mf:UtilityConsumptionUnit> rdfs:subClassOf <mf:NamedEntity> .
 <mf:EndUseCategory> rdfs:subClassOf <mf:NamedEntity> .
 <mf:EndUseBreakdown> rdfs:subClassOf <mf:NamedEntity> .
-<mf:MonthlyUtilityData> rdfs:subClassOf <mf:NamedEntity> .
-<mf:EquipmentType> rdfs:subClassOf <mf:NamedEntity> .
-<mf:EquipmentMake> rdfs:subClassOf <mf:NamedEntity> .
-<mf:EquipmentModel> rdfs:subClassOf <mf:NamedEntity> .
-<mf:EquipmentQuantity> rdfs:subClassOf <mf:NamedEntity> .
-<mf:EquipmentAge> rdfs:subClassOf <mf:NamedEntity> .
-<mf:EquipmentFuel> rdfs:subClassOf <mf:NamedEntity> .
-<mf:EquipmentCapacity> rdfs:subClassOf <mf:NamedEntity> .
-<mf:EquipmentEfficiency> rdfs:subClassOf <mf:NamedEntity> .
-<mf:EnergyWaterEfficiencyMeasure> rdfs:subClassOf <mf:NamedEntity> .
-<mf:EWEMDescription> rdfs:subClassOf <mf:NamedEntity> .
-<mf:InstalledCost> rdfs:subClassOf <mf:NamedEntity> .
-<mf:OwnerCostSavings> rdfs:subClassOf <mf:NamedEntity> .
-<mf:TenantCostSavings> rdfs:subClassOf <mf:NamedEntity> .
-<mf:SiteEnergySavings> rdfs:subClassOf <mf:NamedEntity> .
-<mf:GHGSavings> rdfs:subClassOf <mf:NamedEntity> .  
-<mf:WaterSavings> rdfs:subClassOf <mf:NamedEntity> .
-<mf:ElectricitySavings> rdfs:subClassOf <mf:NamedEntity> .
-<mf:NaturalGasSavings> rdfs:subClassOf <mf:NamedEntity> .
-<mf:OperationsMaintenance> rdfs:subClassOf <mf:NamedEntity> .
 <mf:OMDescription> rdfs:subClassOf <mf:NamedEntity> .
 <mf:OMFrequency> rdfs:subClassOf <mf:NamedEntity> .
 <mf:SolarPVSystem> rdfs:subClassOf <mf:NamedEntity> .
@@ -79,8 +57,6 @@
     <mf:hasResidentialArea> <mf:ResidentialArea> ;
     <mf:hasCommonArea> <mf:CommonArea> ;
     <mf:hasPropertyAddress> <mf:PropertyAddress> ;
-    <mf:hasOwnerEntity> <mf:OwnerEntity> ;
-    <mf:hasOwnerContact> <mf:OwnerContact> ;
     <mf:hasManagementCompany> <mf:ManagementCompany> ;
     <mf:hasAuditDate> <mf:AuditDate> ;
     <mf:hasAuditCompany> <mf:AuditCompany> ;
@@ -95,10 +71,6 @@
     <mf:hasUtilityConsumptionUnit> <mf:UtilityConsumptionUnit> ;
     <mf:hasEndUseCategory> <mf:EndUseCategory> ;
     <mf:hasEndUseBreakdown> <mf:EndUseBreakdown> ;
-    <mf:hasMonthlyUtilityData> <mf:MonthlyUtilityData> ;
-    <mf:hasEquipment> <mf:Equipment> ;
-    <mf:hasEnergyWaterEfficiencyMeasure> <mf:EnergyWaterEfficiencyMeasure> ;
-    <mf:hasOperationsMaintenance> <mf:OperationsMaintenance> ;
     <mf:hasSolarPVSystem> <mf:SolarPVSystem> .
     
 <mf:PropertyAddress> <rdfs:label> "Property Address" ;
@@ -106,36 +78,6 @@
     <mf:hasCity> <xsd:string> ;
     <mf:hasState> <xsd:string> ;
     <mf:hasZipCode> <xsd:string> .
-
-<mf:OwnerContact> <rdfs:label> "Owner Contact" ;
-    <mf:hasName> <xsd:string> ;
-    <mf:hasPhone> <xsd:string> ;
-    <mf:hasEmail> <xsd:string> .
-
-<mf:Equipment> <rdfs:label> "Building Equipment" ;
-    <mf:hasEquipmentType> <mf:EquipmentType> ;
-    <mf:hasEquipmentMake> <mf:EquipmentMake> ;
-    <mf:hasEquipmentModel> <mf:EquipmentModel> ;
-    <mf:hasEquipmentQuantity> <mf:EquipmentQuantity> ;
-    <mf:hasEquipmentAge> <mf:EquipmentAge> ;
-    <mf:hasEquipmentFuel> <mf:EquipmentFuel> ;
-    <mf:hasEquipmentCapacity> <mf:EquipmentCapacity> ;
-    <mf:hasEquipmentEfficiency> <mf:EquipmentEfficiency> .
-
-<mf:EnergyWaterEfficiencyMeasure> <rdfs:label> "Energy/Water Efficiency Measure" ;
-    <mf:hasEWEMDescription> <mf:EWEMDescription> ;
-    <mf:hasInstalledCost> <mf:InstalledCost> ;
-    <mf:hasOwnerCostSavings> <mf:OwnerCostSavings> ;
-    <mf:hasTenantCostSavings> <mf:TenantCostSavings> ;
-    <mf:hasSiteEnergySavings> <mf:SiteEnergySavings> ;
-    <mf:hasGHGSavings> <mf:GHGSavings> ;
-    <mf:hasWaterSavings> <mf:WaterSavings> ;
-    <mf:hasElectricitySavings> <mf:ElectricitySavings> ;
-    <mf:hasNaturalGasSavings> <mf:NaturalGasSavings> .
-    
-<mf:OperationsMaintenance> <rdfs:label> "Operations & Maintenance" ;
-    <mf:hasOMDescription> <mf:OMDescription> ;
-    <mf:hasOMFrequency> <mf:OMFrequency> .
 
 <mf:SolarPVSystem> <rdfs:label> "Solar Photovoltaic System" ;
     <mf:hasSystemSize> <mf:SystemSize> ;

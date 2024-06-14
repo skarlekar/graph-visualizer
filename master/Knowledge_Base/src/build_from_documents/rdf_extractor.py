@@ -69,7 +69,7 @@ def get_rdf_graph(content, ontology):
     
     bedrock_runtime = boto3.client("bedrock-runtime", region_name='us-east-1')
     modelId = "anthropic.claude-3-sonnet-20240229-v1:0"
-    llm = BedrockChat(model_id=modelId, client=bedrock_runtime, model_kwargs={"temperature": 0})
+    llm = BedrockChat(model_id=modelId, client=bedrock_runtime, model_kwargs={"temperature": 0, "max_tokens": 3000})
 
     response = llm.invoke(input=prompt.format(content=content,ontology=ontology))
     return response.content

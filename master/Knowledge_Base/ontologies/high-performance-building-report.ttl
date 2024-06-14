@@ -53,9 +53,9 @@
     <mf:hasYearBuilt> <mf:YearBuilt> ;
     <mf:hasPropertyUse> <mf:PropertyUse> ;
     <mf:hasOccupancyRate> <mf:OccupancyRate> ;
-    <mf:hasGrossFloorArea> <mf:GrossFloorArea> ;
-    <mf:hasResidentialArea> <mf:ResidentialArea> ;
-    <mf:hasCommonArea> <mf:CommonArea> ;
+    <mf:hasGrossFloorArea> <xsd:string> ;
+    <mf:hasResidentialArea> <xsd:string> ;
+    <mf:hasCommonArea> <xsd:string> ;
     <mf:hasPropertyAddress> <mf:PropertyAddress> ;
     <mf:hasManagementCompany> <mf:ManagementCompany> ;
     <mf:hasAuditDate> <mf:AuditDate> ;
@@ -72,8 +72,8 @@
     <mf:hasEndUseCategory> <mf:EndUseCategory> ;
     <mf:hasEndUseBreakdown> <mf:EndUseBreakdown> ;
     <mf:hasSolarPVSystem> <mf:SolarPVSystem> ;
-    <mf:hasTotalWaterSavings> xsd:string ;
-    <mf:hasTotalSiteEnergySavings> xsd:string .
+    <mf:hasTotalWaterSavings> <xsd:string> ;
+    <mf:hasTotalSiteEnergySavings> <xsd:string> .
     
 <mf:PropertyAddress> <rdfs:label> "Property Address" ;
     <mf:hasStreetAddress> <xsd:string> ;

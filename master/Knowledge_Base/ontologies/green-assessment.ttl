@@ -21,32 +21,12 @@ gp:Flooring rdfs:subClassOf gp:GreenPointRatedChecklist .
 gp:AppliancesLighting rdfs:subClassOf gp:GreenPointRatedChecklist .
 gp:Other rdfs:subClassOf gp:GreenPointRatedChecklist .
 gp:Innovations rdfs:subClassOf gp:GreenPointRatedChecklist .
-
-gp:Measure rdfs:subClassOf rdfs:Resource .
-gp:CommunityDesignPlanning gp:hasMeasure gp:Measure .
-gp:Site gp:hasMeasure gp:Measure .
-gp:Landscape gp:hasMeasure gp:Measure .
-gp:DesignConsiderations gp:hasMeasure gp:Measure .
-gp:FoundationStructureEnvelope gp:hasMeasure gp:Measure .
-gp:Exterior gp:hasMeasure gp:Measure .
-gp:Insulation gp:hasMeasure gp:Measure .
-gp:Plumbing gp:hasMeasure gp:Measure .
-gp:HVAC gp:hasMeasure gp:Measure .
-gp:RenewableEnergy gp:hasMeasure gp:Measure .
-gp:BuildingPerformance gp:hasMeasure gp:Measure .
-gp:Finishes gp:hasMeasure gp:Measure .
-gp:Flooring gp:hasMeasure gp:Measure .
-gp:AppliancesLighting gp:hasMeasure gp:Measure .
-gp:Other gp:hasMeasure gp:Measure .
-gp:Innovations gp:hasMeasure gp:Measure .
-
-gp:Measure rdfs:label xsd:string ;
-    gp:hasPossiblePoints xsd:integer ;
-    gp:hasPointsAchieved xsd:integer ;
-    gp:isRequired xsd:boolean .
            
 gp:GreenPointRatedChecklist gp:hasLabel xsd:string ;
     gp:hasTargetedPoints xsd:integer ;
     gp:hasTotalAvailablePoints xsd:integer ;
     gp:hasMinimumPointsRequired xsd:integer ;
-    gp:hasTotalPointsAchieved xsd:integer .
+    gp:hasTotalPointsAchieved xsd:integer ;
+    gp:hasEnergyStarAppliances xsd:string ;
+    gp:meetsEnergyStarCEETier2Requirements xsd:string ;
+    gp:hasEnergyStarQualifiedRefridgerators xsd:string .

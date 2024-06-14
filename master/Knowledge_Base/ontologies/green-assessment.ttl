@@ -22,11 +22,15 @@ gp:AppliancesLighting rdfs:subClassOf gp:GreenPointRatedChecklist .
 gp:Other rdfs:subClassOf gp:GreenPointRatedChecklist .
 gp:Innovations rdfs:subClassOf gp:GreenPointRatedChecklist .
            
-gp:GreenPointRatedChecklist gp:hasLabel xsd:string ;
+gp:Property gp:hasLabel xsd:string ;
+    gp:hasPropertyName xsd:string ;
     gp:hasTargetedPoints xsd:integer ;
     gp:hasTotalAvailablePoints xsd:integer ;
     gp:hasMinimumPointsRequired xsd:integer ;
     gp:hasTotalPointsAchieved xsd:integer ;
     gp:hasEnergyStarAppliances xsd:string ;
     gp:meetsEnergyStarCEETier2Requirements xsd:string ;
-    gp:hasEnergyStarQualifiedRefridgerators xsd:string .
+    gp:hasEnergyStarQualifiedRefridgerators xsd:string ;
+    gp:hasGreenBuildingCertification xsd:string ;
+    gp:hasGreenBuildingCertificationAgency xsd:string ;
+    gp:hasGreenBuildingUpgrades xsd:string .

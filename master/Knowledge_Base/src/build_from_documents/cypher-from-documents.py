@@ -5,10 +5,13 @@ from langchain_community.graphs import NeptuneGraph
 import os
 import boto3
 
-file_path="../../data/documents/MFRUnderwritingTemplate-Example.pdf"
-template_path = "../../prompts/cypher-from-document-template.txt"
+file_path="../../data/documents/High_Performance_Building_Report.pdf"
+template_path = "../../prompts/cypher-from-document-template-2.txt"
 template_text=open(template_path,"r").read()
 template = PromptTemplate.from_template(template_text)
+
+examples_path = "../../prompts/cypher-from-document-template-examples.txt"
+examples = open(examples_page,"r").read()
 
 host = os.getenv("NEPTUNE_HOST")
 port = 8182
@@ -30,9 +33,11 @@ llm = connect_to_bedrock()
 
 loader=PyPDFLoader(file_path)
 pages = loader.load_and_split()
-content = pages[5].page_content
+content = ""
+for page in pages:
+  content += page.page_content
 
-prompt =template.invoke({"neptune_schema":graph.get_schema,"content":content})
+prompt =template.invoke({"neptune_schema":graph.get_schema,"content":content,"examples":examples})
 print(prompt)
 print("\n\n\n")
 response = llm.invoke(input=prompt)

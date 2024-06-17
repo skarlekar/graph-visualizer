@@ -2,6 +2,7 @@ from langchain_community.document_loaders import PyPDFLoader
 from langchain_core.prompts import PromptTemplate
 from langchain_community.chat_models import BedrockChat
 from langchain_community.graphs import NeptuneGraph
+from rdflib import Graph
 import os
 import boto3
 
@@ -12,6 +13,10 @@ template = PromptTemplate.from_template(template_text)
 
 examples_path = "../../prompts/cypher-from-document-template-examples.txt"
 examples = open(examples_path,"r").read()
+
+g = Graph()
+g.parse("https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/master/Knowledge_Base/ontologies/high-performance-building-report.ttl", format='ttl')
+ontology = g.serialize(format='ttl')
 
 host = os.getenv("NEPTUNE_HOST")
 port = 8182
@@ -37,7 +42,8 @@ content = ""
 for page in pages:
   content += page.page_content
 
-prompt =template.invoke({"neptune_schema":graph.get_schema,"content":content,"examples":examples})
+#prompt = template.invoke({"neptune_schema":graph.get_schema,"content":content,"examples":examples})
+prompt = template.invoke({"neptune_schema":ontology,"content":content,"examples":examples})
 print(prompt)
 print("\n\n\n")
 response = llm.invoke(input=prompt)

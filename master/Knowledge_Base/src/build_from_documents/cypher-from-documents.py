@@ -11,7 +11,7 @@ template_text=open(template_path,"r").read()
 template = PromptTemplate.from_template(template_text)
 
 examples_path = "../../prompts/cypher-from-document-template-examples.txt"
-examples = open(examples_page,"r").read()
+examples = open(examples_path,"r").read()
 
 host = os.getenv("NEPTUNE_HOST")
 port = 8182

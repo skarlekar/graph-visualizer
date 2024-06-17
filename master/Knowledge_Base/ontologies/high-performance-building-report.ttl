@@ -12,17 +12,6 @@ mf:PropertyUse rdfs:subClassOf mf:NamedEntity .
 mf:OccupancyRate rdfs:subClassOf mf:NamedEntity .
 mf:PropertyAddress rdfs:subClassOf mf:NamedEntity .
 mf:ManagementCompany rdfs:subClassOf mf:NamedEntity .
-mf:AuditDate rdfs:subClassOf mf:NamedEntity .
-mf:AuditCompany rdfs:subClassOf mf:NamedEntity .
-mf:AuditTeamMember rdfs:subClassOf mf:NamedEntity .
-mf:AuditTeamMemberRole rdfs:subClassOf mf:NamedEntity .
-mf:AuditTeamMemberCertification rdfs:subClassOf mf:NamedEntity .
-mf:UtilityProvider rdfs:subClassOf mf:NamedEntity .
-mf:UtilityType rdfs:subClassOf mf:NamedEntity .
-mf:UtilityPayer rdfs:subClassOf mf:NamedEntity .
-mf:UtilityConsumptionUnit rdfs:subClassOf mf:NamedEntity .
-mf:EndUseCategory rdfs:subClassOf mf:NamedEntity .
-mf:EndUseBreakdown rdfs:subClassOf mf:NamedEntity .
 mf:OMDescription rdfs:subClassOf mf:NamedEntity .
 mf:OMFrequency rdfs:subClassOf mf:NamedEntity .
 mf:SolarPVSystem rdfs:subClassOf mf:NamedEntity .
@@ -49,17 +38,6 @@ mf:Property rdfs:label "Multifamily Property" ;
     mf:hasOccupancyRate mf:OccupancyRate ;
     mf:hasPropertyAddress mf:PropertyAddress ;
     mf:hasManagementCompany mf:ManagementCompany ;
-    mf:hasAuditDate mf:AuditDate ;
-    mf:hasAuditCompany mf:AuditCompany ;
-    mf:hasAuditTeamMember mf:AuditTeamMember ;
-    mf:hasAuditTeamMemberRole mf:AuditTeamMemberRole ;
-    mf:hasAuditTeamMemberCertification mf:AuditTeamMemberCertification ;
-    mf:hasUtilityProvider mf:UtilityProvider ;
-    mf:hasUtilityType mf:UtilityType ;
-    mf:hasUtilityPayer mf:UtilityPayer ;
-    mf:hasUtilityConsumptionUnit mf:UtilityConsumptionUnit ;
-    mf:hasEndUseCategory mf:EndUseCategory ;
-    mf:hasEndUseBreakdown mf:EndUseBreakdown ;
     mf:hasSolarPVSystem mf:SolarPVSystem ;
     mf:hasTotalWaterSavings xsd:string ;
     mf:hasTotalSiteEnergySavings xsd:string .

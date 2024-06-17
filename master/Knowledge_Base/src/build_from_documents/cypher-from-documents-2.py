@@ -36,7 +36,7 @@ llm = connect_to_bedrock()
 def get_text(doc):
     extractor = Textractor(region_name='us-east-1')
     response = extractor.start_document_analysis(
-        file_source=f"s3://kg-input-doc/{doc}",
+        file_source=f"s3://kg-input-data/{doc}",
         features=[Textract_Features.LAYOUT, Textract_Features.TABLES],
         save_image=False
     )

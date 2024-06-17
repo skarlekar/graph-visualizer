@@ -2,8 +2,8 @@ Here is an example output:
 
 <example>
 MERGE (p:Property {property_name: 'Happy Land'})
-ON CREATE SET p.parkingSpace = 'yes', p.rooms = 4, p.bathrooms = 2, p.yearBuilt = 1995
-ON MATCH SET p.parkingSpace = 'yes', p.rooms = 4, p.bathrooms = 2, p.yearBuilt = 1995
+ON CREATE SET p.parkingSpace = 'yes', p.rooms = 4, p.bathrooms = 2, p.yearBuilt = 1995, p.hasTotalSiteEnergySavings = "25%", p.hasTotalWaterSavings = "30%"
+ON MATCH SET p.parkingSpace = 'yes', p.rooms = 4, p.bathrooms = 2, p.yearBuilt = 1995, p.hasTotalSiteEnergySavings = "25%", p.hasTotalWaterSavings = "30%"
 
 MERGE (a:PropertyAddress {city: 'Mid City', state: 'OH', streetAddress: '123 Sample Street', zip: '23445'})
 ON CREATE SET a.city = 'Mid City', a.state = 'OH', a.streetAddress = '123 Sample Street', a.zip = '23445'

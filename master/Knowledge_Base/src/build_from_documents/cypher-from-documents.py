@@ -5,8 +5,8 @@ from langchain_community.graphs import NeptuneGraph
 import os
 import boto3
 
-file_path="../data/documents/MFRUnderwritingTemplate-Example.pdf"
-template_path = "../prompts/cypher-from-document-template.txt"
+file_path="../../data/documents/MFRUnderwritingTemplate-Example.pdf"
+template_path = "../../prompts/cypher-from-document-template.txt"
 template_text=open(template_path,"r").read()
 template = PromptTemplate.from_template(template_text)
 

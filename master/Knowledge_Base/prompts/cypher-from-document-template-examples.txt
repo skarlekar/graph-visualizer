@@ -1,13 +1,13 @@
 Here is an example output:
 
 <example>
-MERGE (p:Property {property_name: 'Sample Gardens'})
-ON CREATE SET p.managementCompany = 'Generic Managers Company', p.occupancyRate = 0.97, p.propertyUse = 'The property has a club room.', p.yearBuilt = 1995
-ON MATCH SET p.managementCompany = 'Generic Managers Company', p.occupancyRate = 0.97, p.propertyUse = 'The property has a club room.', p.yearBuilt = 1995;
+MERGE (p:Property {property_name: 'Happy Land'})
+ON CREATE SET p.parkingSpace = 'yes', p.rooms = 4, p.bathrooms = 2, p.yearBuilt = 1995
+ON MATCH SET p.parkingSpace = 'yes', p.rooms = 4, p.bathrooms = 2, p.yearBuilt = 1995
 
 MERGE (a:PropertyAddress {city: 'Mid City', state: 'OH', streetAddress: '123 Sample Street', zip: '23445'})
 ON CREATE SET a.city = 'Mid City', a.state = 'OH', a.streetAddress = '123 Sample Street', a.zip = '23445'
-ON MATCH SET a.city = 'Mid City', a.state = 'OH', a.streetAddress = '123 Sample Street', a.zip = '23445';
+ON MATCH SET a.city = 'Mid City', a.state = 'OH', a.streetAddress = '123 Sample Street', a.zip = '23445'
 
-MERGE (p)-[:hasPropertyAddress]->(a);
+MERGE (p)-[:hasPropertyAddress]->(a)
 </example>

@@ -10,8 +10,6 @@ mf:PropertyUse rdfs:subClassOf mf:NamedEntity .
 mf:OccupancyRate rdfs:subClassOf mf:NamedEntity .
 mf:PropertyAddress rdfs:subClassOf mf:NamedEntity .
 mf:ManagementCompany rdfs:subClassOf mf:NamedEntity .
-mf:OMDescription rdfs:subClassOf mf:NamedEntity .
-mf:OMFrequency rdfs:subClassOf mf:NamedEntity .
 mf:SolarPVSystem rdfs:subClassOf mf:NamedEntity .
 mf:SystemSize rdfs:subClassOf mf:NamedEntity .
 mf:ModuleType rdfs:subClassOf mf:NamedEntity .

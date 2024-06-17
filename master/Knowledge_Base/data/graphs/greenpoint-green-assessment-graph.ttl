@@ -1,0 +1,17 @@
+@prefix mf: <http://example.org/multifamily#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<mf:SampleGardens> a mf:Property ;
+    mf:hasEnergyStarAppliances "Yes" ;
+    mf:hasEnergyStarQualifiedRefridgerators ">90%" ;
+    mf:hasGreenBuildingCertification "No" ;
+    mf:hasGreenBuildingCertificationAgency "" ;
+    mf:hasGreenBuildingUpgrades "" ;
+    mf:hasLabel "Whole Building" ;
+    mf:hasMinimumPointsRequired 50 ;
+    mf:hasPropertyName "Sample Gardens" ;
+    mf:hasTargetedPoints 68 ;
+    mf:hasTotalAvailablePoints 287 ;
+    mf:hasTotalPointsAchieved 68 ;
+    mf:meetsEnergyStarCEETier2Requirements ">90%" ;
+    mf:verificationProgramOf "GreenPoint Rated" .

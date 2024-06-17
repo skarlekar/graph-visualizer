@@ -2,165 +2,35 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <mf:SampleGardens> a mf:Property ;
-    mf:hasAuditCompany <mf:GenericEnergyConsulting> ;
-    mf:hasAuditDate "2023-11-01"^^xsd:date ;
-    mf:hasAuditTeamMember <mf:CarrieZhang>,
-        <mf:KaylaWright>,
-        <mf:ReyViewer>,
-        <mf:SolRConsultant> ;
-    mf:hasAuditTeamMemberCertification <mf:CEM>,
-        <mf:LEEPAP>,
-        <mf:NABCEP>,
-        <mf:PE> ;
-    mf:hasAuditTeamMemberRole <mf:ProjectManager>,
-        <mf:SolarDesigner>,
-        <mf:TechnicalReviewer>,
-        <mf:TechnicalTeamLeader> ;
-    mf:hasBuildingCount 11,
-        "13"^^xsd:int ;
-    mf:hasEndUseBreakdown <mf:EndUseBreakdown1>,
-        <mf:EndUseBreakdown2> ;
-    mf:hasEndUseCategory <mf:Electricity>,
-        <mf:NaturalGas> ;
-    mf:hasFloorCount 2,
-        "2"^^xsd:int ;
-    mf:hasManagementCompany <mf:GenericManagersCompany>,
-        "Sample Management Company" ;
-    mf:hasOccupancyRate 0.97,
-        "95%"^^xsd:float ;
+    mf:hasBuildingCount "11"^^xsd:int ;
+    mf:hasFloorCount "2"^^xsd:int ;
+    mf:hasManagementCompany "Generic Managers Company" ;
+    mf:hasOccupancyRate "0.97"^^xsd:float ;
     mf:hasPropertyAddress <mf:SampleGardensAddress> ;
-    mf:hasPropertyName "Sample Gardens",
-        "Sample Gardens Apartments" ;
-    mf:hasPropertyUse <mf:MultifamilyHousing>,
-        "Rental apartments managed by Generic Managers Company. The property has a club room, management offices, and pool in the leasing office building. Apartments in these buildings are located from basement through 2nd floors." ;
-    mf:hasSolarPVSystem <mf:SolarPVSystem1> ;
-    mf:hasTotalSiteEnergySavings "25%",
-        "82.3%" ;
-    mf:hasTotalWaterSavings "30%",
-        "37.7%" ;
-    mf:hasUtilityConsumptionUnit <mf:Therms>,
-        <mf:kWh> ;
-    mf:hasUtilityPayer <mf:Owner>,
-        <mf:Tenant> ;
-    mf:hasUtilityProvider "Local Utility Company" ;
-    mf:hasUtilityType <mf:Electricity>,
-        <mf:NaturalGas> ;
-    mf:hasYearBuilt "1995"^^xsd:gYear,
-        1995 .
-
-<mf:SolarPVSystem> a mf:SolarPVSystem ;
-    mf:hasArrayType <mf:CanopyMounted>,
-        <mf:RoofMounted> ;
-    mf:hasSystemSize "850.8 kW"^^xsd:string .
-
-<mf:WaterAndSewer> a mf:UtilityType ;
-    mf:hasUtilityConsumptionUnit <mf:Gallons> ;
-    mf:hasUtilityPayer <mf:Tenant> ;
-    mf:hasUtilityProvider <mf:UtilityProvider1> .
-
-<mf:CanopyMounted> a mf:ArrayType ;
-    mf:hasSystemSize "330 kW"^^xsd:string .
-
-<mf:CarrieZhang> a mf:AuditTeamMember ;
-    mf:hasAuditTeamMemberCertification <mf:CEM>,
-        <mf:LEEPAP>,
-        <mf:NABCEP> ;
-    mf:hasAuditTeamMemberRole <mf:ProjectManager> .
-
-<mf:EndUseBreakdown1> a mf:EndUseBreakdown ;
-    mf:hasEndUseCategory <mf:Electricity> .
-
-<mf:EndUseBreakdown2> a mf:EndUseBreakdown ;
-    mf:hasEndUseCategory <mf:NaturalGas> .
-
-<mf:FixedOpenRack> a mf:ArrayType .
-
-<mf:Gallons> a mf:UtilityConsumptionUnit .
-
-<mf:GenericEnergyConsulting> a mf:AuditCompany .
-
-<mf:GenericManagersCompany> a mf:ManagementCompany .
-
-<mf:KaylaWright> a mf:AuditTeamMember ;
-    mf:hasAuditTeamMemberCertification <mf:CEM>,
-        <mf:LEEPAP>,
-        <mf:PE> ;
-    mf:hasAuditTeamMemberRole <mf:TechnicalTeamLeader> .
-
-<mf:MultifamilyHousing> a mf:PropertyUse .
-
-<mf:ReyViewer> a mf:AuditTeamMember ;
-    mf:hasAuditTeamMemberCertification <mf:CEM> ;
-    mf:hasAuditTeamMemberRole <mf:TechnicalReviewer> .
-
-<mf:RoofMounted> a mf:ArrayType ;
-    mf:hasSystemSize "520.8 kW"^^xsd:string .
+    mf:hasPropertyName "Sample Gardens Apartments" ;
+    mf:hasPropertyUse "Rental apartments managed by Generic Managers Company. The property has a club room, management offices, and pool in the leasing office building. Apartments in these buildings are located from basement through 2nd floors." ;
+    mf:hasSolarPVSystem <mf:SampleGardensSolarPV> ;
+    mf:hasTotalSiteEnergySavings "82.3%" ;
+    mf:hasTotalWaterSavings "37.7%" ;
+    mf:hasYearBuilt "1995"^^xsd:int .
 
 <mf:SampleGardensAddress> a mf:PropertyAddress ;
-    mf:hasCity "Mid City",
-        "Payson" ;
-    mf:hasState "AZ",
-        "OH" ;
-    mf:hasStreetAddress "123 Sample Street",
-        "1258 Blake Ave" ;
-    mf:hasZipCode "23445",
-        "85541" .
+    mf:hasCity "Mid City" ;
+    mf:hasState "OH" ;
+    mf:hasStreetAddress "123 Sample Street" ;
+    mf:hasZipCode "23445" .
 
-<mf:SolRConsultant> a mf:AuditTeamMember ;
-    mf:hasAuditTeamMemberCertification <mf:NABCEP> ;
-    mf:hasAuditTeamMemberRole <mf:SolarDesigner> .
-
-<mf:SolarPVSystem1> a mf:SolarPVSystem ;
-    mf:hasAlbedo "0.4"^^xsd:float ;
-    mf:hasArrayAzimuth "180"^^xsd:int ;
-    mf:hasArrayTilt "25"^^xsd:int ;
-    mf:hasArrayType <mf:FixedOpenRack> ;
-    mf:hasBifacial "0"^^xsd:int ;
-    mf:hasDCCapacityFactor "20.0%"^^xsd:float ;
-    mf:hasDCtoACRatio "1.2"^^xsd:float ;
-    mf:hasGroundCoverageRatio "0.4"^^xsd:float ;
-    mf:hasInverterEfficiency "96%"^^xsd:float ;
-    mf:hasModuleType <mf:Standard> ;
-    mf:hasMonthlyIrradianceLoss "0%"^^xsd:float ;
-    mf:hasSystemLosses "11.13%"^^xsd:float ;
-    mf:hasSystemSize "850.9"^^xsd:float .
-
-<mf:Standard> a mf:ModuleType .
-
-<mf:PE> a mf:AuditTeamMemberCertification .
-
-<mf:ProjectManager> a mf:AuditTeamMemberRole .
-
-<mf:SolarDesigner> a mf:AuditTeamMemberRole .
-
-<mf:TechnicalReviewer> a mf:AuditTeamMemberRole .
-
-<mf:TechnicalTeamLeader> a mf:AuditTeamMemberRole .
-
-<mf:Tenant> a mf:UtilityPayer .
-
-<mf:Therms> a mf:UtilityConsumptionUnit .
-
-<mf:kWh> a mf:UtilityConsumptionUnit .
-
-<mf:Electricity> a mf:EndUseCategory,
-        mf:UtilityType ;
-    mf:hasUtilityConsumptionUnit <mf:kWh> ;
-    mf:hasUtilityPayer <mf:Owner> ;
-    mf:hasUtilityProvider <mf:UtilityProvider1> .
-
-<mf:LEEPAP> a mf:AuditTeamMemberCertification .
-
-<mf:NABCEP> a mf:AuditTeamMemberCertification .
-
-<mf:NaturalGas> a mf:EndUseCategory,
-        mf:UtilityType ;
-    mf:hasUtilityConsumptionUnit <mf:Therms> ;
-    mf:hasUtilityPayer <mf:Owner> ;
-    mf:hasUtilityProvider <mf:UtilityProvider1> .
-
-<mf:Owner> a mf:UtilityPayer .
-
-<mf:UtilityProvider1> a mf:UtilityProvider .
-
-<mf:CEM> a mf:AuditTeamMemberCertification .
+<mf:SampleGardensSolarPV> a mf:SolarPVSystem ;
+    mf:hasAlbedo "From weather file" ;
+    mf:hasArrayAzimuth "180" ;
+    mf:hasArrayTilt "25" ;
+    mf:hasArrayType "Fixed (open rack)" ;
+    mf:hasBifacial "No (0)" ;
+    mf:hasDCCapacityFactor "20.0%" ;
+    mf:hasDCtoACRatio "1.2" ;
+    mf:hasGroundCoverageRatio "0.4" ;
+    mf:hasInverterEfficiency "96%" ;
+    mf:hasModuleType "Standard" ;
+    mf:hasMonthlyIrradianceLoss "0%" ;
+    mf:hasSystemLosses "11.13%" ;
+    mf:hasSystemSize "850.9" .

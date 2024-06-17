@@ -5,7 +5,6 @@
 
 mf:Property rdfs:subClassOf mf:NamedEntity .
 mf:PropertyName rdfs:subClassOf mf:NamedEntity .
-mf:BuildingCount rdfs:subClassOf mf:NamedEntity .
 mf:FloorCount rdfs:subClassOf mf:NamedEntity .
 mf:YearBuilt rdfs:subClassOf mf:NamedEntity .
 mf:PropertyUse rdfs:subClassOf mf:NamedEntity .
@@ -31,7 +30,6 @@ mf:DCCapacityFactor rdfs:subClassOf mf:NamedEntity .
 
 mf:Property rdfs:label "Multifamily Property" ;
     mf:hasPropertyName mf:PropertyName ;
-    mf:hasBuildingCount mf:BuildingCount ;
     mf:hasFloorCount mf:FloorCount ;
     mf:hasYearBuilt mf:YearBuilt ;
     mf:hasPropertyUse mf:PropertyUse ;

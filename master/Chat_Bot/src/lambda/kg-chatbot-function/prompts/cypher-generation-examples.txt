@@ -5,7 +5,7 @@ Does Sample Gardens qualify for a green loan?
 </question>
 
 MATCH (p:Property {property_name: 'Sample Gardens'})
-RETURN p.hasGreenBuildingCertification AS greenBuildingCertification, p.hasGreenBuildingCertificationAgency AS greenBuildingCertificationAgency, p.hasGreenBuildingUpgrades AS greenBuildingUpgrades, p.annualEnergyConsumptionReductionCommitment AS annualEnergyConsumptionReductionCommitment, p.annualWaterConsumptionReductionCommitment AS annualWaterConsumptionReductionCommitment 
+RETURN p.hasGreenBuildingCertification AS greenBuildingCertification, p.hasGreenBuildingCertificationAgency AS greenBuildingCertificationAgency, p.hasGreenBuildingUpgrades AS greenBuildingUpgrades, p.hasTotalSiteEnergySavings AS annualEnergyConsumptionReductionCommitment, p.hasTotalWaterSavings AS annualWaterConsumptionReductionCommitment 
 
 <question>
 Who is the property inspector for Sample Gardens?
@@ -47,7 +47,7 @@ Does Happy Apartments qualify for a green loan?
 </question>
 
 MATCH (p:Property {property_name: 'Happy Apartments'})
-RETURN p.hasGreenBuildingCertification AS greenBuildingCertification, p.hasGreenBuildingCertificationAgency AS greenBuildingCertificationAgency, p.hasGreenBuildingUpgrades AS greenBuildingUpgrades, p.annualEnergyConsumptionReductionCommitment AS annualEnergyConsumptionReductionCommitment, p.annualWaterConsumptionReductionCommitment AS annualWaterConsumptionReductionCommitment 
+RETURN p.hasGreenBuildingCertification AS greenBuildingCertification, p.hasGreenBuildingCertificationAgency AS greenBuildingCertificationAgency, p.hasGreenBuildingUpgrades AS greenBuildingUpgrades, p.hasTotalSiteEnergySavings AS annualEnergyConsumptionReductionCommitment, p.hasTotalWaterSavings AS annualWaterConsumptionReductionCommitment 
 
 <question>
 Have we seen Happy Apartments property before? If yes, what was the approval decision?

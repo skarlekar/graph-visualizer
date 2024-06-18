@@ -9,7 +9,8 @@ from textractor.data.text_linearization_config import TextLinearizationConfig
 from textractcaller.t_call import Textract_Features
 
 #file_path="../../data/documents/High_Performance_Building_Report.pdf"
-doc1 = "High_Performance_Building_Report.pdf"
+doc_hpbr = "High_Performance_Building_Report.pdf"
+doc_ga = "GreenPoint_Green_Assessment.pdf"
 template_path = "../../prompts/cypher-from-document-template-2.txt"
 template_text=open(template_path,"r").read()
 template = PromptTemplate.from_template(template_text)
@@ -17,9 +18,14 @@ template = PromptTemplate.from_template(template_text)
 examples_path = "../../prompts/cypher-from-document-template-examples.txt"
 examples = open(examples_path,"r").read()
 
-g = Graph()
-g.parse("https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/master/Knowledge_Base/ontologies/high-performance-building-report.ttl", format='ttl')
-ontology = g.serialize(format='ttl')
+onto_hpbr = "https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/master/Knowledge_Base/ontologies/high-performance-building-report.ttl"
+onto_ga = "https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/master/Knowledge_Base/ontologies/green-assessment.ttl"
+
+def get_ontology(ontology_link):
+    g = Graph()
+    g.parse(ontology_link, format='ttl')
+    ontology = g.serialize(format='ttl')
+    return ontology
 
 def connect_to_bedrock():
     boto_session = boto3.Session()
@@ -52,10 +58,11 @@ def get_text(doc):
     text = response.get_text()
     return text
 
-content = get_text(doc1)
-
-prompt = template.invoke({"neptune_schema":ontology,"content":content,"examples":examples})
-print(prompt)
-print("\n\n\n")
-response = llm.invoke(input=prompt)
-print(response.content)
+def main(doc, onto_link):
+    ontology = get_ontology(onto_link)
+    content = get_text(doc1)
+    
+    prompt = template.invoke({"neptune_schema":ontology,"content":content,"examples":examples})
+    response = llm.invoke(input=prompt)
+    
+    print(response.content)

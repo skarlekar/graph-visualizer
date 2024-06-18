@@ -9,5 +9,23 @@ MERGE (a:PropertyAddress {city: 'Mid City', state: 'OH', streetAddress: '123 Sam
 ON CREATE SET a.city = 'Mid City', a.state = 'OH', a.streetAddress = '123 Sample Street', a.zip = '23445'
 ON MATCH SET a.city = 'Mid City', a.state = 'OH', a.streetAddress = '123 Sample Street', a.zip = '23445'
 
-MERGE (p)-[:hasPropertyAddress]->(a)
+MERGE (p)-[:HAS_PROPERTY_ADDRESS]->(a)
+</example>
+
+<example>
+MERGE (p:Property {property_name: 'Paradise Village'})
+ON CREATE SET p.hasManagementCompany = 'Generic Managers Company', p.hasOccupancyRate = 0.97, p.hasPropertyUse = 'The property has a club room, management offices, and pool in the leasing office building. Apartments in these buildings are located from basement through 2nd floors.', p.hasYearBuilt = 1995, p.hasTotalSiteEnergySavings = "82.3%", p.hasTotalWaterSavings = "37.7%"
+ON MATCH SET p.hasManagementCompany = 'Generic Managers Company', p.hasOccupancyRate = 0.97, p.hasPropertyUse = 'The property has a club room, management offices, and pool in the leasing office building. Apartments in these buildings are located from basement through 2nd floors.', p.hasYearBuilt = 1995, p.hasTotalSiteEnergySavings = "82.3%", p.hasTotalWaterSavings = "37.7%"
+
+MERGE (a:PropertyAddress {city: 'Mid City', state: 'OH', streetAddress: '123 Sample Street', zipCode: '23445'})
+ON CREATE SET a.city = 'Mid City', a.state = 'OH', a.streetAddress = '123 Sample Street', a.zipCode = '23445'
+ON MATCH SET a.city = 'Mid City', a.state = 'OH', a.streetAddress = '123 Sample Street', a.zipCode = '23445'
+
+MERGE (p)-[:HAS_PROPERTY_ADDRESS]->(a)
+
+MERGE (s:SolarPVSystem {systemSize: '850.8 kW'})
+ON CREATE SET s.hasAlbedo = 'From weather file', s.hasArrayAzimuth = 180, s.hasArrayTilt = 25, s.hasArrayType = 'Fixed (open rack)', s.hasBifacial = 0, s.hasDCCapacityFactor = 20.0, s.hasDCtoACRatio = 1.2, s.hasGroundCoverageRatio = 0.4, s.hasInverterEfficiency = 96, s.hasModuleType = 'Standard', s.hasMonthlyIrradianceLoss = '0%', s.hasSystemLosses = 11.13
+ON MATCH SET s.hasAlbedo = 'From weather file', s.hasArrayAzimuth = 180, s.hasArrayTilt = 25, s.hasArrayType = 'Fixed (open rack)', s.hasBifacial = 0, s.hasDCCapacityFactor = 20.0, s.hasDCtoACRatio = 1.2, s.hasGroundCoverageRatio = 0.4, s.hasInverterEfficiency = 96, s.hasModuleType = 'Standard', s.hasMonthlyIrradianceLoss = '0%', s.hasSystemLosses = 11.13
+
+MERGE (p)-[:hasSolarPVSystem]->(s)
 </example>

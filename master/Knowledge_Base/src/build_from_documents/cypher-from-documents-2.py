@@ -1,5 +1,6 @@
 from langchain_core.prompts import PromptTemplate
 from langchain_community.chat_models import BedrockChat
+from langchain_community.graphs import NeptuneGraph
 from rdflib import Graph
 import os
 import boto3
@@ -23,6 +24,12 @@ examples = open(examples_path,"r").read()
 onto_hpbr = "https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/master/Knowledge_Base/ontologies/high-performance-building-report.ttl"
 onto_ga = "https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/master/Knowledge_Base/ontologies/green-assessment.ttl"
 onto_uw = "https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/master/Knowledge_Base/ontologies/uw-narrative-ontology.ttl"
+
+host = os.getenv("NEPTUNE_HOST")
+port = 8182
+use_https = True
+region = 'us-east-1'
+graph = NeptuneGraph(host=host, port=port, use_https=use_https, region_name=region)
 
 def get_ontology(ontology_link):
     g = Graph()
@@ -61,6 +68,9 @@ def get_text(doc):
     text = response.get_text()
     return text
 
+def upload_to_neptune(cypher_query):
+    graph.query(cypher_query)
+
 def main(doc, onto_link):
     ontology = get_ontology(onto_link)
     content = get_text(doc)
@@ -69,3 +79,4 @@ def main(doc, onto_link):
     response = llm.invoke(input=prompt)
     
     print(response.content)
+    return response.content

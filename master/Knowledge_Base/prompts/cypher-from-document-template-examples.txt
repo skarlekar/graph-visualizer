@@ -29,3 +29,9 @@ ON MATCH SET s.hasAlbedo = 'From weather file', s.hasArrayAzimuth = 180, s.hasAr
 
 MERGE (p)-[:hasSolarPVSystem]->(s)
 </example>
+
+<example>
+MERGE (p:Property {property_name: 'Fantastic Homes'})
+ON CREATE SET p.hasLabel = 'Whole Building', p.hasTargetedPoints = 68, p.hasTotalAvailablePoints = 287, p.hasTotalPointsAchieved = 68, p.hasMinimumPointsRequired = 50, p.hasGreenBuildingCertificationAgency = 'Build It Green', p.hasGreenBuildingUpgrades = 'Yes', p.hasEnergyStarQualifiedRefridgerators = '>90%', p.meetsEnergyStarCEETier2Requirements = '>90%', p.hasEnergyStarAppliances = 'yes', p.hasGreenBuildingCertification = 'yes'
+ON MATCH SET p.hasLabel = 'Whole Building', p.hasTargetedPoints = 68, p.hasTotalAvailablePoints = 287, p.hasTotalPointsAchieved = 68, p.hasMinimumPointsRequired = 50, p.hasGreenBuildingCertificationAgency = 'Build It Green', p.hasGreenBuildingUpgrades = 'Yes', p.hasEnergyStarQualifiedRefridgerators = '>90%', p.meetsEnergyStarCEETier2Requirements = '>90%', p.hasEnergyStarAppliances = 'yes', p.hasGreenBuildingCertification = 'yes'
+</example>

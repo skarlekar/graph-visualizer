@@ -35,3 +35,63 @@ MERGE (p:Property {property_name: 'Fantastic Homes'})
 ON CREATE SET p.hasLabel = 'Whole Building', p.hasTargetedPoints = 68, p.hasTotalAvailablePoints = 287, p.hasTotalPointsAchieved = 68, p.hasMinimumPointsRequired = 50, p.hasGreenBuildingCertificationAgency = 'Build It Green', p.hasGreenBuildingUpgrades = 'Yes', p.hasEnergyStarQualifiedRefridgerators = '>90%', p.meetsEnergyStarCEETier2Requirements = '>90%', p.hasEnergyStarAppliances = 'yes', p.hasGreenBuildingCertification = 'yes'
 ON MATCH SET p.hasLabel = 'Whole Building', p.hasTargetedPoints = 68, p.hasTotalAvailablePoints = 287, p.hasTotalPointsAchieved = 68, p.hasMinimumPointsRequired = 50, p.hasGreenBuildingCertificationAgency = 'Build It Green', p.hasGreenBuildingUpgrades = 'Yes', p.hasEnergyStarQualifiedRefridgerators = '>90%', p.meetsEnergyStarCEETier2Requirements = '>90%', p.hasEnergyStarAppliances = 'yes', p.hasGreenBuildingCertification = 'yes'
 </example>
+
+<example>
+MERGE (p:Property {property_name: 'Sunshine Real Estate'})
+ON CREATE SET p.totalRentalUnits = 100, p.totalUnits = 101, p.nonRevenueUnits = 1
+ON MATCH SET p.totalRentalUnits = 100, p.totalUnits = 101, p.nonRevenueUnits = 1
+
+MERGE (pa:PropertyAddress {city: 'Mid City', state: 'Ohio', streetAddress: '123 Sample Street', zipCode: '23445'})
+ON CREATE SET pa.city = 'Mid City', pa.state = 'Ohio', pa.streetAddress = '123 Sample Street', pa.zipCode = '23445'
+ON MATCH SET pa.city = 'Mid City', pa.state = 'Ohio', pa.streetAddress = '123 Sample Street', pa.zipCode = '23445'
+
+MERGE (p)-[:HAS_PROPERTY_ADDRESS]->(pa)
+
+MERGE (oe:OwnerEntity {name: 'NSP Development Partners, Inc.'})
+ON CREATE SET oe:OwnerEntity
+ON MATCH SET oe:OwnerEntity
+
+MERGE (oc:OwnerContact {name: 'Susan Developer', email: 'susan@NSPDP.com', phone: '(215) 555-1212'})
+ON CREATE SET oc.name = 'Susan Developer', oc.email = 'susan@NSPDP.com', oc.phone = '(215) 555-1212'
+ON MATCH SET oc.name = 'Susan Developer', oc.email = 'susan@NSPDP.com', oc.phone = '(215) 555-1212'
+
+MERGE (oa:OwnerAddress {city: 'Mid City', state: 'Ohio', streetAddress: '600 Main Street', zipCode: '23445', suite: 'Suite 450'})
+ON CREATE SET oa.city = 'Mid City', oa.state = 'Ohio', oa.streetAddress = '600 Main Street', oa.zipCode = '23445', oa.suite = 'Suite 450'
+ON MATCH SET oa.city = 'Mid City', oa.state = 'Ohio', oa.streetAddress = '600 Main Street', oa.zipCode = '23445', oa.suite = 'Suite 450'
+
+MERGE (oe)-[:hasOwnerContact]->(oc)
+MERGE (oe)-[:hasOwnerAddress]->(oa)
+MERGE (p)-[:hasOwnerEntity]->(oe)
+
+MERGE (ma:ManagementAgent {name: 'NSP Management Partners, Inc.'})
+ON CREATE SET ma:ManagementAgent
+ON MATCH SET ma:ManagementAgent
+
+MERGE (mc:ManagementContact {name: 'Susan Developer', email: 'susan@NSPDP.com', phone: '(215) 555-1212'})
+ON CREATE SET mc.name = 'Susan Developer', mc.email = 'susan@NSPDP.com', mc.phone = '(215) 555-1212'
+ON MATCH SET mc.name = 'Susan Developer', mc.email = 'susan@NSPDP.com', mc.phone = '(215) 555-1212'
+
+MERGE (mad:ManagementAddress {city: 'Mid City', state: 'Ohio', streetAddress: '600 Main Street', zipCode: '23445', suite: 'Suite 450'})
+ON CREATE SET mad.city = 'Mid City', mad.state = 'Ohio', mad.streetAddress = '600 Main Street', mad.zipCode = '23445', mad.suite = 'Suite 450'
+ON MATCH SET mad.city = 'Mid City', mad.state = 'Ohio', mad.streetAddress = '600 Main Street', mad.zipCode = '23445', mad.suite = 'Suite 450'
+
+MERGE (ma)-[:hasManagementContact]->(mc)
+MERGE (ma)-[:hasManagementAddress]->(mad)
+MERGE (p)-[:hasManagementAgent]->(ma)
+
+MERGE (l:Lender {name: 'Mid City Bank'})
+ON CREATE SET l:Lender
+ON MATCH SET l:Lender
+
+MERGE (lc:LenderContact {name: 'Wally Lendor', email: 'wlendor@MCB.com', phone: '(215) 555-1214'})
+ON CREATE SET lc.name = 'Wally Lendor', lc.email = 'wlendor@MCB.com', lc.phone = '(215) 555-1214'
+ON MATCH SET lc.name = 'Wally Lendor', lc.email = 'wlendor@MCB.com', lc.phone = '(215) 555-1214'
+
+MERGE (lt:LoanType {name: 'Conventional'})
+ON CREATE SET lt:LoanType
+ON MATCH SET lt:LoanType
+
+MERGE (l)-[:hasLenderContact]->(lc)
+MERGE (p)-[:hasLender]->(l)
+MERGE (p)-[:hasLoanType]->(lt)
+</example>

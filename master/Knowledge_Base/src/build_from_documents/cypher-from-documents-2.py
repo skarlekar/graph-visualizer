@@ -60,7 +60,7 @@ def get_text(doc):
 
 def main(doc, onto_link):
     ontology = get_ontology(onto_link)
-    content = get_text(doc1)
+    content = get_text(doc)
     
     prompt = template.invoke({"neptune_schema":ontology,"content":content,"examples":examples})
     response = llm.invoke(input=prompt)

@@ -11,6 +11,8 @@ from textractcaller.t_call import Textract_Features
 #file_path="../../data/documents/High_Performance_Building_Report.pdf"
 doc_hpbr = "High_Performance_Building_Report.pdf"
 doc_ga = "GreenPoint_Green_Assessment.pdf"
+doc_uw = "MFRUnderwritingTemplate-Example.pdf"
+
 template_path = "../../prompts/cypher-from-document-template-2.txt"
 template_text=open(template_path,"r").read()
 template = PromptTemplate.from_template(template_text)
@@ -20,6 +22,7 @@ examples = open(examples_path,"r").read()
 
 onto_hpbr = "https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/master/Knowledge_Base/ontologies/high-performance-building-report.ttl"
 onto_ga = "https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/master/Knowledge_Base/ontologies/green-assessment.ttl"
+onto_uw = "https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/master/Knowledge_Base/ontologies/uw-narrative-ontology.ttl"
 
 def get_ontology(ontology_link):
     g = Graph()

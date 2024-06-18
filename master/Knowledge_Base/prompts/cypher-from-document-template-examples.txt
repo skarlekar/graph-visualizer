@@ -34,6 +34,36 @@ MERGE (p)-[:hasSolarPVSystem]->(s)
 MERGE (p:Property {property_name: 'Fantastic Homes'})
 ON CREATE SET p.hasLabel = 'Whole Building', p.hasTargetedPoints = 68, p.hasTotalAvailablePoints = 287, p.hasTotalPointsAchieved = 68, p.hasMinimumPointsRequired = 50, p.hasGreenBuildingCertificationAgency = 'Build It Green', p.hasGreenBuildingUpgrades = 'Yes', p.hasEnergyStarQualifiedRefridgerators = '>90%', p.meetsEnergyStarCEETier2Requirements = '>90%', p.hasEnergyStarAppliances = 'yes', p.hasGreenBuildingCertification = 'yes'
 ON MATCH SET p.hasLabel = 'Whole Building', p.hasTargetedPoints = 68, p.hasTotalAvailablePoints = 287, p.hasTotalPointsAchieved = 68, p.hasMinimumPointsRequired = 50, p.hasGreenBuildingCertificationAgency = 'Build It Green', p.hasGreenBuildingUpgrades = 'Yes', p.hasEnergyStarQualifiedRefridgerators = '>90%', p.meetsEnergyStarCEETier2Requirements = '>90%', p.hasEnergyStarAppliances = 'yes', p.hasGreenBuildingCertification = 'yes'
+
+MERGE (cdp:CommunityDesignPlanning)
+ON CREATE SET cdp:CommunityDesignPlanning
+ON MATCH SET cdp:CommunityDesignPlanning
+MERGE (p)-[:HAS_COMMUNITY_DESIGN_PLANNING]->(cdp)
+
+MERGE (s:Site)
+ON CREATE SET s:Site
+ON MATCH SET s:Site
+MERGE (p)-[:HAS_SITE]->(s)
+
+MERGE (l:Landscape)
+ON CREATE SET l:Landscape
+ON MATCH SET l:Landscape
+MERGE (p)-[:HAS_LANDSCAPE]->(l)
+
+MERGE (dc:DesignConsiderations)
+ON CREATE SET dc:DesignConsiderations
+ON MATCH SET dc:DesignConsiderations
+MERGE (p)-[:HAS_DESIGN_CONSIDERATIONS]->(dc)
+
+MERGE (fse:FoundationStructureEnvelope)
+ON CREATE SET fse:FoundationStructureEnvelope
+ON MATCH SET fse:FoundationStructureEnvelope
+MERGE (p)-[:HAS_FOUNDATION_STRUCTURE_ENVELOPE]->(fse)
+
+MERGE (e:Exterior)
+ON CREATE SET e:Exterior
+ON MATCH SET e:Exterior
+MERGE (p)-[:HAS_EXTERIOR]->(e)
 </example>
 
 <example>

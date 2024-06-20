@@ -13,6 +13,7 @@ from textractcaller.t_call import Textract_Features
 doc_hpbr = "High_Performance_Building_Report.pdf"
 doc_ga = "GreenPoint_Green_Assessment.pdf"
 doc_uw = "MFRUnderwritingTemplate-Example.pdf"
+doc_mae = "multifamily-affordability-estimator-sample.csv"
 
 template_path = "../../prompts/cypher-from-document-template-2.txt"
 template_text=open(template_path,"r").read()
@@ -24,6 +25,8 @@ examples = open(examples_path,"r").read()
 onto_hpbr = "https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/master/Knowledge_Base/ontologies/high-performance-building-report.ttl"
 onto_ga = "https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/master/Knowledge_Base/ontologies/green-assessment.ttl"
 onto_uw = "https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/master/Knowledge_Base/ontologies/uw-narrative-ontology.ttl"
+onto_mae = "https://raw.githubusercontent.com/skarlekar/graph-visualizer/main/master/Knowledge_Base/ontologies/multifamily-affordability-estimator.ttl"
+
 
 host = os.getenv("NEPTUNE_HOST")
 port = 8182

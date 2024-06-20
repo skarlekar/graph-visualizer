@@ -1,0 +1,27 @@
+@prefix mf: <http://example.org/multifamily#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+mf:Property a rdfs:Class ;
+	mf:hasDUSGatewayDealID xsd:string ;
+	mf:hasDate xsd:string ;
+	mf:hasProposedDealAmount xsd:string ;
+	mf:hasPropertyName xsd:string ;
+	mf:hasPropertyAddress mf:PropertyAddress ;
+	mf:hasTotalPropertyUnits xsd:string ;
+	mf:hasAllUtilitiesIncludedInContractRent xsd:string ;
+	mf:hasExpectedLoanLienPosition xsd:string ;
+	mf:hasExpectedAffordableHousingType xsd:string ;
+	mf:hasExpectedRentalAssistanceDemonstrationProgram xsd:string ;
+	mf:hasPropertyType xsd:string ;
+	mf:hasRestrictionSupportedAgreement xsd:string ;
+	mf:hasPropertyCensusTract xsd:string ;
+	mf:hasTotalMonthlyPropertyRent xsd:string ;
+	mf:hasAverageMonthlyRentPerUnit xsd:string ;
+	mf:hasEstimatedQualifyingUnitsGreaterThan120PercentAMI xsd:string;
+	mf:hasEstimatedQualifyingUnitsLessThan120PercentAMI xsd:string;
+	mf:hasEstimatedQualifyingUnitsLessThan100PercentAMI xsd:string;
+	mf:hasEstimatedQualifyingUnitsLessThan80PercentAMI xsd:string;
+	mf:hasEstimatedQualifyingUnitsLessThan60PercentAMI xsd:string;
+	mf:hasEstimatedQualifyingUnitsLessThan50PercentAMI xsd:string;
+	mf:hasEstimatedPercentMissionDriven xsd:string .

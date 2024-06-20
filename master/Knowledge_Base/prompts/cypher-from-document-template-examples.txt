@@ -125,3 +125,26 @@ MERGE (l)-[:hasLenderContact]->(lc)
 MERGE (p)-[:hasLender]->(l)
 MERGE (p)-[:hasLoanType]->(lt)
 </example>
+
+<example>
+MERGE (p:Property {property_name: 'River Rapids'})
+ON CREATE SET p.hasDUSGatewayDealID = '12345', p.hasDate = '1/31/2020', p.hasProposedDealAmount = '$5,000,000', p.hasTotalPropertyUnits = 100, p.hasAllUtilitiesIncludedInContractRent = 'Yes', p.hasExpectedFannieMaeGreenRewardsGreenBuildingCertificate = 'Green Building Certificate', p.hasExpectedLoanLienPosition = 'First', p.hasExpectedAffordableHousingType = 'LIHTC', p.hasExpectedRentalAssistanceDemonstrationProgram = 'Yes', p.hasPropertyType = 'Conventional Multifamily', p.hasRestrictionSupportedAgreement = 'No', p.hasPropertyCensusTract = '39049007303', p.hasEstimatedQualifyingUnitsGreaterThan120PercentAMI = '0.0%, p.hasEstimatedQualifyingUnitsLessThan120PercentAMI = '100.0%', p.hasEstimatedQualifyingUnitsLessThan100PercentAMI = '20.0%', p.hasEstimatedQualifyingUnitsLessThan80PercentAMI = '20.0%', p.hasEstimatedQualifyingUnitsLessThan60PercentAMI = '10.0%', p.hasEstimatedQualifyingUnitsLessThan50PercentAMI = '10.0%', p.hasEstimatedPercentMissionDriven = '50.0%'
+
+ON MATCH SET p.hasDUSGatewayDealID = '12345', p.hasDate = '1/31/2020', p.hasProposedDealAmount = '$5,000,000', p.hasTotalPropertyUnits = 100, p.hasAllUtilitiesIncludedInContractRent = 'Yes', p.hasExpectedFannieMaeGreenRewardsGreenBuildingCertificate = 'Green Building Certificate', p.hasExpectedLoanLienPosition = 'First', p.hasExpectedAffordableHousingType = 'LIHTC', p.hasExpectedRentalAssistanceDemonstrationProgram = 'Yes', p.hasPropertyType = 'Conventional Multifamily', p.hasRestrictionSupportedAgreement = 'No', p.hasPropertyCensusTract = '39049007303'
+
+MERGE (pa:PropertyAddress {city: 'Mid City', state: 'OH', street: '123 Sample Street', zip: '23445'})
+ON CREATE SET pa.city = 'Mid City', pa.state = 'OH', pa.street = '123 Sample Street', pa.zip = '23445'
+ON MATCH SET pa.city = 'Mid City', pa.state = 'OH', pa.street = '123 Sample Street', pa.zip = '23445'
+
+MERGE (p)-[:HAS_PROPERTY_ADDRESS]->(pa)
+
+MERGE (r1:Rent {bedroomType: '0 Bedroom Unit', monthlyRent: '$650.45', numUnits: 12})
+MERGE (r2:Rent {bedroomType: '1 Bedroom Unit', monthlyRent: '$500.00', numUnits: 10})
+MERGE (r3:Rent {bedroomType: '2 Bedroom Unit', monthlyRent: '$1,500.00', numUnits: 10})
+MERGE (r4:Rent {bedroomType: '3 Bedroom Unit', monthlyRent: '$3,000.00', numUnits: 80})
+
+MERGE (p)-[:hasRent]->(r1)
+MERGE (p)-[:hasRent]->(r2)
+MERGE (p)-[:hasRent]->(r3)
+MERGE (p)-[:hasRent]->(r4)
+</example>

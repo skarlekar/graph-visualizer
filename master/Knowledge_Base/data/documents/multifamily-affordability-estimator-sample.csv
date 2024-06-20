@@ -24,31 +24,31 @@ Start Estimating a Property - Gray areas are for data entry,,,,,,,,,,
 
 ,,,,,,,,,,
 
-Step 1,Enter Property/Deal Information,,Example,,,,,,,
+Step 1,Enter Property/Deal Information,,,,,,,,,
 
-,DUS Gateway Deal ID,12345,12345,,,,,,,
+,DUS Gateway Deal ID,12345,,,,,,,,
 
-,Date,1/31/2020,1/31/2020,,,,,,,
+,Date,1/31/2020,,,,,,,,
 
-,Lender Name,,"The Bank, Inc.",,,,,,,
+,Lender Name,,,,,,,,,
 
-,User Name,Joe Smith,Joe Smith,,,,,,,
+,User Name,Joe Smith,,,,,,,,
 
-,User Email Address,,joe.smith@thebankinc.net,,,,,,,
+,User Email Address,,,,,,,,,
 
-,Proposed Deal Amount," $5,000,000 ","$5,000,000",,,,,,,
+,Proposed Deal Amount," $5,000,000 ",,,,,,,,
 
-,Property Name,Sample Gardens,Anywhere Apartments,,,,,,,
+,Property Name,Sample Gardens,,,,,,,,
 
-,Address,123 Sample Street,123 Main Street,,,,,,,
+,Address,123 Sample Street,,,,,,,,
 
-,City,Mid City,Anywhere,,,,,,,
+,City,Mid City,,,,,,,,
 
-,State,OH,CA,,,,,,,
+,State,OH,,,,,,,,
 
-,Zip Code,23445,90001,,,,,,,
+,Zip Code,23445,,,,,,,,
 
-,Total Property Units,100,200,,,,,,,
+,Total Property Units,100,,,,,,,,
 
 ,Are All Utilities Included in Contract Rent? (drop-down),Yes,,,,,,,,
 
@@ -74,7 +74,7 @@ Step 1,Enter Property/Deal Information,,Example,,,,,,,
 
 ,,,,,,,,,,
 
-,Property Census Tract - 11 digits required ('Paste Special' as text),39049007303,01234567891,,,,,,,
+,Property Census Tract - 11 digits required ('Paste Special' as text),39049007303,,,,,,,,
 
 ,==> CLICK HERE TO FIND THE PROPERTY'S CENSUS TRACT,,,,,,,,,
 
@@ -106,7 +106,6 @@ Step 3,Enter Detailed Rent and Bedroom Type Data - required,,,,,,,,,
 
 ,"Select the number of bedrooms per unit from drop down menu.  You may enter up to 1,200 bedroom type/rent combinations. You must expand this section to enter more than 20 bedroom type/rent combinations.","Enter the monthly rent dollar amount for unit type entered in Step 3.A.  Ex. If you have 3 different floor plans/rents for 2-bedroom units, enter each of those 3 bedroom/rent combinations on separate lines.",Enter the number of units that are associated with the Bedroom/Rent combination entered in previous columns. Ex. The example property has 12 studios at $650.45 per month.,,,,,,,
 
-Example:,0 Bedroom Unit (Efficiency/Studio),$650.45,12,,,,,,,
 
 1,1 Bedroom Unit,$500.00,10,,,,,,,
 

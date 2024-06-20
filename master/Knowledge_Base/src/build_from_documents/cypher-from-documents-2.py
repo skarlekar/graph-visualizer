@@ -9,7 +9,7 @@ from textractor import Textractor
 from textractor.data.text_linearization_config import TextLinearizationConfig
 from textractcaller.t_call import Textract_Features
 
-#file_path="../../data/documents/High_Performance_Building_Report.pdf"
+
 doc_hpbr = "High_Performance_Building_Report.pdf"
 doc_ga = "GreenPoint_Green_Assessment.pdf"
 doc_uw = "MFRUnderwritingTemplate-Example.pdf"
@@ -71,12 +71,20 @@ def get_text(doc):
     text = response.get_text()
     return text
 
+def get_text_from_csv(csv_filename):
+    file_path=f"../../data/documents/{csv_filename}"
+    text = open(file_path, 'r').read()
+    return text
+
 def upload_to_neptune(cypher_query):
     graph.query(cypher_query)
 
-def main(doc, onto_link):
+def main(doc, onto_link, pdf):
     ontology = get_ontology(onto_link)
-    content = get_text(doc)
+    if pdf:
+        content = get_text(doc)
+    else:
+        content = get_text_from_csv(doc)
     
     prompt = template.invoke({"neptune_schema":ontology,"content":content,"examples":examples})
     response = llm.invoke(input=prompt)

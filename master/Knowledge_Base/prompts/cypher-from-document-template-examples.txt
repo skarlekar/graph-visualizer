@@ -127,7 +127,7 @@ MERGE (p)-[:hasLoanType]->(lt)
 </example>
 
 <example>
-MERGE (p:Property {property_name: 'River Rapids'})
+MERGE (p:Property {property_name: 'Sample Gardens'})
 ON CREATE SET p.hasDUSGatewayDealID = '12345', p.hasDate = '1/31/2020', p.hasProposedDealAmount = '$5,000,000', p.hasTotalPropertyUnits = 100, p.hasAllUtilitiesIncludedInContractRent = 'Yes', p.hasExpectedFannieMaeGreenRewardsGreenBuildingCertificate = 'Green Building Certificate', p.hasExpectedLoanLienPosition = 'First', p.hasExpectedAffordableHousingType = 'LIHTC', p.hasExpectedRentalAssistanceDemonstrationProgram = 'Yes', p.hasPropertyType = 'Conventional Multifamily', p.hasRestrictionSupportedAgreement = 'No', p.hasPropertyCensusTract = '39049007303', p.hasEstimatedQualifyingUnitsGreaterThan120PercentAMI = '0.0%, p.hasEstimatedQualifyingUnitsLessThan120PercentAMI = '100.0%', p.hasEstimatedQualifyingUnitsLessThan100PercentAMI = '20.0%', p.hasEstimatedQualifyingUnitsLessThan80PercentAMI = '20.0%', p.hasEstimatedQualifyingUnitsLessThan60PercentAMI = '10.0%', p.hasEstimatedQualifyingUnitsLessThan50PercentAMI = '10.0%', p.hasEstimatedPercentMissionDriven = '50.0%'
 
 ON MATCH SET p.hasDUSGatewayDealID = '12345', p.hasDate = '1/31/2020', p.hasProposedDealAmount = '$5,000,000', p.hasTotalPropertyUnits = 100, p.hasAllUtilitiesIncludedInContractRent = 'Yes', p.hasExpectedFannieMaeGreenRewardsGreenBuildingCertificate = 'Green Building Certificate', p.hasExpectedLoanLienPosition = 'First', p.hasExpectedAffordableHousingType = 'LIHTC', p.hasExpectedRentalAssistanceDemonstrationProgram = 'Yes', p.hasPropertyType = 'Conventional Multifamily', p.hasRestrictionSupportedAgreement = 'No', p.hasPropertyCensusTract = '39049007303'

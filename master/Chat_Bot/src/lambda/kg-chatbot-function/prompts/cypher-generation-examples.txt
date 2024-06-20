@@ -39,8 +39,8 @@ RETURN d AS lender
 Does Happy Apartments advance housing goals?
 </question>
 
-MATCH (p:Property {property_name: 'Happy Apartments'})-[:HAS_PROPERTY_ADDRESS]-> (a)
-RETURN p.total_rental_units AS totalUnits, a.low_income_units AS lowIncomeUnits, a.very_low_income_units AS veryLowIncomeUnits
+MATCH (p:Property {property_name: 'Happy Apartments'})
+RETURN p.hasTotalPropertyUnits AS totalUnits, p.hasEstimatedQualifyingUnitsLessThan80PercentAMI AS lowIncomeUnits, p.hasEstimatedQualifyingUnitsLessThan50PercentAMI AS veryLowIncomeUnits, p.hasEstimatedPercentMissionDriven AS advanceHousingGoalsPercent
 
 <question>
 Does Happy Apartments qualify for a green loan?

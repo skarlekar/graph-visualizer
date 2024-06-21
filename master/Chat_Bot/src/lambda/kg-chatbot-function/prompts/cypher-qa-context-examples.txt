@@ -1,8 +1,3 @@
-The following are qualities of a property that, if met, will allow the property to advance housing goals:- 20% of all units in a property rented to families earning at or below 50% of the Area Median Income (AMI)
-- 40% of all units in a property rented to families earning at or below 60% of the Area Median Income (AMI)
-
-To understand if a property advances housing goals, the percentage of units in a property rented to families earning at or below 60% of the Area Median Income (AMI) should be found. This is done by finding the number of low income units, and dividing by the total number of units. Then, this percentage should be compared against the threshold of 40%. The percentage of all units in a property rented to families earning at or below 50% of the Area Median Income (AMI) also should be found, which is found by dividing the total number of very low income units by the total number of units. Then, the percentage of all units in a property rented to families earning at or below 50% of the Area Median Income (AMI) should be compared against the theshold of 20%. A unit can only be classified as either, low income, or very low income, so the total number of low income units excludes any very low income units. If a property has a percentage of all units in a property rented to families earning at or below 50% of the Area Median Income (AMI) of above 20% and/or has a percentage of all units in a property rented to families earning at or below 60% of the Area Median Income (AMI) of above 40%, the property advances housing goals.
-
 When asked if we have seen the property before, the matching properties approval decision, approval date, and approval notes should be returned.
 
 When asked if a property qualifies for a Green Loan, the following steps should be taken
@@ -45,23 +40,49 @@ Helpful Answer: CTL LLC, JANE STREET GROUP LLC owns Neo4j stocks.
 Here is another example:
 
 Question: Does the Happy Apartments Property advance housing goals?
-Context: [lowIncomeUnits: 25, veryLowIncomeUnits: 10, totalUnits: 70]
-Helpful Answer: There are 70 units in the property. The property has 25 low income units. As a result,(35/70)= 0.50, 50% of all units in the property rented to families earning at or below 60% of the Area Median Income (AMI). Since the threshold to help housing goals is to have above 40% of units as these units, this property advances housing goals.
+Context: [lowIncomeUnits: 25%, veryLowIncomeUnits: 10%, totalUnits: 70, advanceHousingGoalsPercent: 30%]
+Based on the provided information, the Fairfax Units property does advance housing goals by 30%.
+This is the percentage of the loan that is considered Mission-Driven business.
+
+The MAE’s estimations are based on a prescribed FHFA formula for determining the affordability of units based
+on the geographic location of the property as well as the rent and unit mix within the property. The MAE then
+converts the affordability information into the percentage of the loan that is considered Mission-Driven
+business.
+
+Here is an example of how percentage of affordability is calculated per FHFA’s formula:
+[Annualized Rent + Utilities] / [AMI * Bedroom Factor] = Unit Percent Affordability
+
+The key details are:
+
+1. There are 70 total units in the property.
+
+2. The percentage of low income units rented to families earning at or below 80% of AMI is 25%.
+
+3. Additionally, the percentage of very low income units rented to families earning at or below 50% of AMI is 10%.
 
 Here is another example:
 
 Question: Does the Fairfax Units property advance housing goals?
-Context: [lowIncomeUnits: 20, veryLowIncomeUnits: 10, totalUnits: 100]
+Context: [lowIncomeUnits: 20%, veryLowIncomeUnits: 10%, totalUnits: 100, advanceHousingGoalsPercent: 50%]
 Helpful Answer:
-Based on the provided information, the Fairfax Units property does not advance housing goals.
+Based on the provided information, the Fairfax Units property does advance housing goals by 50%.
+This is the percentage of the loan that is considered Mission-Driven business.
 
-There are 100 total units in the property. Out of these, 20 units are classified as low income units (rented to families earning at or below 60% of the Area Median Income) and 10 units are classified as very low income units (rented to families earning at or below 50% of the Area Median Income).
+The MAE’s estimations are based on a prescribed FHFA formula for determining the affordability of units based
+on the geographic location of the property as well as the rent and unit mix within the property. The MAE then
+converts the affordability information into the percentage of the loan that is considered Mission-Driven
+business.
 
-The percentage of units rented to families earning at or below 60% of AMI is (20 + 10) / 100 = 30%, which is below the 40% threshold required to advance housing goals.
+Here is an example of how percentage of affordability is calculated per FHFA’s formula:
+[Annualized Rent + Utilities] / [AMI * Bedroom Factor] = Unit Percent Affordability
 
-Additionally, the percentage of units rented to families earning at or below 50% of AMI is 10 / 100 = 10%, which is below the 20% threshold required to advance housing goals.
+The key details are:
 
-Therefore, since the property is below both the 40% threshold for units at or below 60% AMI and the 20% threshold for units at or below 50% AMI, it does not advance housing goals.
+1. There are 100 total units in the property.
+
+2. The percentage of low income units rented to families earning at or below 80% of AMI is 20%.
+
+3. Additionally, the percentage of very low income units rented to families earning at or below 50% of AMI is 10%.
 
 Here is another example:
 
